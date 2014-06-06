@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using System.Diagnostics;
 using System.Linq;
-using System.ServiceModel.Syndication;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 
@@ -29,7 +24,7 @@ namespace PluralsightWinFormsDemoApp
                 "http://hwpod.libsyn.com/rss",
                 "http://feeds.feedburner.com/herdingcode",
                 "http://www.pwop.com/feed.aspx?show=dotnetrocks&amp;filetype=master",
-                "http://feeds.feedburner.com/JesseLiberty-SilverlightGeek",
+                "http://feeds.feedburner.com/JesseLibertyYapcast",
                 "http://feeds.feedburner.com/HanselminutesCompleteMP3"
                 //"http://www.dotnetrocks.com/feed.aspx",
             };
@@ -57,9 +52,12 @@ namespace PluralsightWinFormsDemoApp
 
                 var episode = new Episode();
                 episode.Title = item["title"].InnerText;
+                episode.PubDate = item["pubDate"].InnerText;
                 var xmlElement = item["description"];
                 if (xmlElement != null) episode.Description = xmlElement.InnerText;
                 episode.Link = item["link"].InnerText;
+                var enclosureElement = item["enclosure"];
+                if (enclosureElement != null) episode.AudioFile = enclosureElement.Attributes["url"].InnerText;
                 podcast.Episodes.Add(episode);
                 //this.items.Add(rssItem);
             }
@@ -70,10 +68,31 @@ namespace PluralsightWinFormsDemoApp
         {
             listBox2.Items.Clear();
             var pod = (Podcast)listBox1.SelectedItem;
+            if (pod == null) return;
             foreach (var episode in pod.Episodes)
             {
                 listBox2.Items.Add(episode);
             }
+        }
+
+        private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var episode = (Episode) listBox2.SelectedItem;
+            textBox1.Text = episode.Title;
+            textBox2.Text = episode.PubDate;
+            textBox3.Text = episode.Description;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var episode = (Episode)listBox2.SelectedItem;
+            Process.Start(episode.AudioFile ?? episode.Link);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            listBox1.Items.Remove(listBox1.SelectedItem);
+            listBox1.SelectedIndex = 0;
         }
     }
 
@@ -90,5 +109,7 @@ namespace PluralsightWinFormsDemoApp
         public string Title { get; set; }
         public string Description { get; set; }
         public string Link { get; set; }
+        public string PubDate { get; set; }
+        public string AudioFile { get; set; }
     }
 }
