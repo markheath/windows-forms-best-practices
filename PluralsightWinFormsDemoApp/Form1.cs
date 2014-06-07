@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
@@ -12,12 +11,14 @@ namespace PluralsightWinFormsDemoApp
 {
     public partial class Form1 : Form
     {
+        private Episode currentEpisode;
+        private List<Podcast> podcasts;
+
         public Form1()
         {
             InitializeComponent();
         }
 
-        private List<Podcast> podcasts;
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -90,8 +91,6 @@ namespace PluralsightWinFormsDemoApp
                 listBox2.Items.Add(episode.Title);
             }
         }
-
-        private Episode currentEpisode;
 
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
