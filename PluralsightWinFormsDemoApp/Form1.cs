@@ -14,11 +14,10 @@ namespace PluralsightWinFormsDemoApp
             InitializeComponent();
         }
 
+        private List<Podcast> podcasts = new List<Podcast>();
+
         private void Form1_Load(object sender, EventArgs e)
         {
-            listBox1.DisplayMember = "Title";
-            listBox2.DisplayMember = "Title";
-
             var feeds = new[]
             {
                 "http://hwpod.libsyn.com/rss",
@@ -30,7 +29,8 @@ namespace PluralsightWinFormsDemoApp
             };
             foreach (var pod in feeds.Select(f => LoadPodcast(f)))
             {
-                listBox1.Items.Add(pod);
+                podcasts.Add(pod);
+                listBox1.Items.Add(pod.Title);
             }
             // Rss20FeedFormatter didn't work
         }
@@ -67,17 +67,17 @@ namespace PluralsightWinFormsDemoApp
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             listBox2.Items.Clear();
-            var pod = (Podcast)listBox1.SelectedItem;
-            if (pod == null) return;
+            if (listBox1.SelectedIndex == -1) return;
+            var pod = podcasts[listBox1.SelectedIndex];
             foreach (var episode in pod.Episodes)
             {
-                listBox2.Items.Add(episode);
+                listBox2.Items.Add(episode.Title);
             }
         }
 
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var episode = (Episode) listBox2.SelectedItem;
+            var episode = podcasts[listBox1.SelectedIndex].Episodes[listBox2.SelectedIndex];
             textBox1.Text = episode.Title;
             textBox2.Text = episode.PubDate;
             textBox3.Text = episode.Description;
@@ -85,7 +85,7 @@ namespace PluralsightWinFormsDemoApp
 
         private void button3_Click(object sender, EventArgs e)
         {
-            var episode = (Episode)listBox2.SelectedItem;
+            var episode = podcasts[listBox1.SelectedIndex].Episodes[listBox2.SelectedIndex];
             Process.Start(episode.AudioFile ?? episode.Link);
         }
 
