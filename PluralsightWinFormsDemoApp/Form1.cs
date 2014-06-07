@@ -49,17 +49,16 @@ namespace PluralsightWinFormsDemoApp
             podcast.Episodes = new List<Episode>();
             foreach (XmlNode item in items)
             {
-
                 var episode = new Episode();
                 episode.Title = item["title"].InnerText;
                 episode.PubDate = item["pubDate"].InnerText;
                 var xmlElement = item["description"];
                 if (xmlElement != null) episode.Description = xmlElement.InnerText;
-                episode.Link = item["link"].InnerText;
+                var element = item["link"];
+                if (element != null) episode.Link = element.InnerText;
                 var enclosureElement = item["enclosure"];
                 if (enclosureElement != null) episode.AudioFile = enclosureElement.Attributes["url"].InnerText;
                 podcast.Episodes.Add(episode);
-                //this.items.Add(rssItem);
             }
             return podcast;
         }
@@ -93,6 +92,18 @@ namespace PluralsightWinFormsDemoApp
         {
             listBox1.Items.Remove(listBox1.SelectedItem);
             listBox1.SelectedIndex = 0;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var form = new NewPodcastForm();
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                var pod = LoadPodcast(form.PodcastUrl);
+                podcasts.Add(pod);
+                var index = listBox1.Items.Add(pod.Title);
+                listBox1.SelectedIndex = index;
+            }
         }
     }
 
