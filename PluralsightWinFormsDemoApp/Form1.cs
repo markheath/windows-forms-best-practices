@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
+using System.Xml.Serialization;
 
 namespace PluralsightWinFormsDemoApp
 {
@@ -14,53 +16,71 @@ namespace PluralsightWinFormsDemoApp
             InitializeComponent();
         }
 
-        private List<Podcast> podcasts = new List<Podcast>();
+        private List<Podcast> podcasts;
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            var feeds = new[]
+            if (File.Exists("subscriptions.xml"))
             {
-                "http://hwpod.libsyn.com/rss",
-                "http://feeds.feedburner.com/herdingcode",
-                "http://www.pwop.com/feed.aspx?show=dotnetrocks&amp;filetype=master",
-                "http://feeds.feedburner.com/JesseLibertyYapcast",
-                "http://feeds.feedburner.com/HanselminutesCompleteMP3"
-                //"http://www.dotnetrocks.com/feed.aspx",
-            };
-            foreach (var pod in feeds.Select(f => LoadPodcast(f)))
+                var serializer = new XmlSerializer(typeof(List<Podcast>));
+                using (var s = File.OpenRead("subscriptions.xml"))
+                {
+                    podcasts = (List<Podcast>) serializer.Deserialize(s);
+                }
+            }
+            else
             {
-                podcasts.Add(pod);
+                var feeds = new[]
+                {
+                    "http://hwpod.libsyn.com/rss",
+                    "http://feeds.feedburner.com/herdingcode",
+                    "http://www.pwop.com/feed.aspx?show=dotnetrocks&amp;filetype=master",
+                    "http://feeds.feedburner.com/JesseLibertyYapcast",
+                    "http://feeds.feedburner.com/HanselminutesCompleteMP3"
+                };
+                podcasts = feeds.Select(f => new Podcast() {SubscriptionUrl = f}).ToList();
+            }
+
+            foreach (var pod in podcasts)
+            {
+                UpdatePodcast(pod);
                 listBox1.Items.Add(pod.Title);
             }
             // Rss20FeedFormatter didn't work
+
+
+
         }
 
-        Podcast LoadPodcast(string url)
+        void UpdatePodcast(Podcast podcast)
         {
             var doc = new XmlDocument();
-            doc.Load(url);
+            doc.Load(podcast.SubscriptionUrl);
 
             XmlElement channel = doc["rss"]["channel"];
             XmlNodeList items = channel.GetElementsByTagName("item");
-            var podcast = new Podcast();
             podcast.Title = channel["title"].InnerText;
             podcast.Link = channel["link"].InnerText;
             podcast.Description = channel["description"].InnerText;
             podcast.Episodes = new List<Episode>();
             foreach (XmlNode item in items)
             {
-                var episode = new Episode();
-                episode.Title = item["title"].InnerText;
-                episode.PubDate = item["pubDate"].InnerText;
-                var xmlElement = item["description"];
-                if (xmlElement != null) episode.Description = xmlElement.InnerText;
-                var element = item["link"];
-                if (element != null) episode.Link = element.InnerText;
-                var enclosureElement = item["enclosure"];
-                if (enclosureElement != null) episode.AudioFile = enclosureElement.Attributes["url"].InnerText;
-                podcast.Episodes.Add(episode);
+                var guid = item["guid"].InnerText;
+                var episode = podcast.Episodes.FirstOrDefault(e => e.Guid == guid);
+                if (episode == null)
+                {
+                    episode = new Episode() { Guid = guid };
+                    episode.Title = item["title"].InnerText;
+                    episode.PubDate = item["pubDate"].InnerText;
+                    var xmlElement = item["description"];
+                    if (xmlElement != null) episode.Description = xmlElement.InnerText;
+                    var element = item["link"];
+                    if (element != null) episode.Link = element.InnerText;
+                    var enclosureElement = item["enclosure"];
+                    if (enclosureElement != null) episode.AudioFile = enclosureElement.Attributes["url"].InnerText;
+                    podcast.Episodes.Add(episode);
+                }
             }
-            return podcast;
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -99,28 +119,40 @@ namespace PluralsightWinFormsDemoApp
             var form = new NewPodcastForm();
             if (form.ShowDialog() == DialogResult.OK)
             {
-                var pod = LoadPodcast(form.PodcastUrl);
+                var pod = new Podcast() {SubscriptionUrl = form.PodcastUrl };
+                UpdatePodcast(pod);
                 podcasts.Add(pod);
                 var index = listBox1.Items.Add(pod.Title);
                 listBox1.SelectedIndex = index;
             }
         }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            var serializer = new XmlSerializer(podcasts.GetType());
+            using (var s = File.OpenWrite("subscriptions.xml"))
+            {
+                serializer.Serialize(s, podcasts);
+            }
+        }
     }
 
-    class Podcast
+    public class Podcast
     {
+        public string SubscriptionUrl { get; set;  }
         public string Title { get; set; }
         public string Description { get; set; }
         public string Link { get; set; }
         public List<Episode> Episodes { get; set; }
     }
 
-    class Episode
+    public class Episode
     {
         public string Title { get; set; }
         public string Description { get; set; }
         public string Link { get; set; }
         public string PubDate { get; set; }
         public string AudioFile { get; set; }
+        public string Guid { get; set; }
     }
 }
