@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
@@ -30,7 +31,7 @@ namespace PluralsightWinFormsDemoApp
             }
             else
             {
-                var feeds = new[]
+                var defaultFeeds = new[]
                 {
                     "http://hwpod.libsyn.com/rss",
                     "http://feeds.feedburner.com/herdingcode",
@@ -38,7 +39,7 @@ namespace PluralsightWinFormsDemoApp
                     "http://feeds.feedburner.com/JesseLibertyYapcast",
                     "http://feeds.feedburner.com/HanselminutesCompleteMP3"
                 };
-                podcasts = feeds.Select(f => new Podcast() {SubscriptionUrl = f}).ToList();
+                podcasts = defaultFeeds.Select(f => new Podcast() { SubscriptionUrl = f }).ToList();
             }
 
             foreach (var pod in podcasts)
@@ -46,10 +47,6 @@ namespace PluralsightWinFormsDemoApp
                 UpdatePodcast(pod);
                 listBox1.Items.Add(pod.Title);
             }
-            // Rss20FeedFormatter didn't work
-
-
-
         }
 
         void UpdatePodcast(Podcast podcast)
@@ -62,14 +59,14 @@ namespace PluralsightWinFormsDemoApp
             podcast.Title = channel["title"].InnerText;
             podcast.Link = channel["link"].InnerText;
             podcast.Description = channel["description"].InnerText;
-            podcast.Episodes = new List<Episode>();
+            if (podcast.Episodes == null) podcast.Episodes = new List<Episode>();
             foreach (XmlNode item in items)
             {
                 var guid = item["guid"].InnerText;
                 var episode = podcast.Episodes.FirstOrDefault(e => e.Guid == guid);
                 if (episode == null)
                 {
-                    episode = new Episode() { Guid = guid };
+                    episode = new Episode() { Guid = guid, IsNew = true};
                     episode.Title = item["title"].InnerText;
                     episode.PubDate = item["pubDate"].InnerText;
                     var xmlElement = item["description"];
@@ -94,18 +91,35 @@ namespace PluralsightWinFormsDemoApp
             }
         }
 
+        private Episode currentEpisode;
+
         private void listBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var episode = podcasts[listBox1.SelectedIndex].Episodes[listBox2.SelectedIndex];
-            textBox1.Text = episode.Title;
-            textBox2.Text = episode.PubDate;
-            textBox3.Text = episode.Description;
+            SaveEpisode();
+            currentEpisode = podcasts[listBox1.SelectedIndex].Episodes[listBox2.SelectedIndex];
+            textBox1.Text = currentEpisode.Title;
+            textBox2.Text = currentEpisode.PubDate;
+            textBox3.Text = currentEpisode.Description;
+            checkBox1.Checked = currentEpisode.IsFavourite;
+            currentEpisode.IsNew = false;
+            numericUpDown1.Value = currentEpisode.Rating;
+            textBox4.Text = String.Join(",", currentEpisode.Tags ?? new string[0]);
+            textBox6.Text = currentEpisode.Notes ?? "";
+        }
+
+        private void SaveEpisode()
+        {
+            if (currentEpisode == null) return;
+
+            currentEpisode.Tags = textBox4.Text.Split(new[] { ',' }).Select(s => s.Trim()).ToArray();
+            currentEpisode.Rating = (int)numericUpDown1.Value;
+            currentEpisode.IsFavourite = checkBox1.Checked;
+            currentEpisode.Notes = textBox6.Text;
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            var episode = podcasts[listBox1.SelectedIndex].Episodes[listBox2.SelectedIndex];
-            Process.Start(episode.AudioFile ?? episode.Link);
+            Process.Start(currentEpisode.AudioFile ?? currentEpisode.Link);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -129,8 +143,9 @@ namespace PluralsightWinFormsDemoApp
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
+            SaveEpisode();
             var serializer = new XmlSerializer(podcasts.GetType());
-            using (var s = File.OpenWrite("subscriptions.xml"))
+            using (var s = File.Create("subscriptions.xml"))
             {
                 serializer.Serialize(s, podcasts);
             }
@@ -154,5 +169,11 @@ namespace PluralsightWinFormsDemoApp
         public string PubDate { get; set; }
         public string AudioFile { get; set; }
         public string Guid { get; set; }
+        public bool IsNew { get; set; }
+        public bool IsFavourite { get; set; }
+        public string[] Tags { get; set; }
+        public string Notes { get; set; }
+        public int Rating { get; set; }
     }
+
 }
