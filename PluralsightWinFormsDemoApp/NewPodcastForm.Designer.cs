@@ -68,7 +68,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
             this.Name = "NewPodcastForm";
-            this.Text = "NewPodcastForm";
+            this.Text = "Add a New Podcast";
             this.ResumeLayout(false);
             this.PerformLayout();
 
