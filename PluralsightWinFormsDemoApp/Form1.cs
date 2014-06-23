@@ -82,21 +82,17 @@ namespace PluralsightWinFormsDemoApp
             }
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void OnSelectedPodcastChanged(object sender, EventArgs e)
         {
-            listBoxEpisodes.Items.Clear();
             if (listBoxPodcasts.SelectedIndex == -1) return;
-            var pod = podcasts[listBoxPodcasts.SelectedIndex];
-            foreach (var episode in pod.Episodes)
-            {
-                listBoxEpisodes.Items.Add(episode.Title);
-            }
+            var pod = (Podcast)listBoxPodcasts.SelectedItem;
+            listBoxEpisodes.DataSource = pod.Episodes;
         }
 
         private void OnSelectedEpisodeChanged(object sender, EventArgs e)
         {
             SaveEpisode();
-            currentEpisode = podcasts[listBoxPodcasts.SelectedIndex].Episodes[listBoxEpisodes.SelectedIndex];
+            currentEpisode = (Episode)listBoxEpisodes.SelectedItem;
             textBoxEpisodeTitle.Text = currentEpisode.Title;
             textBoxPublicationDate.Text = currentEpisode.PubDate;
             textBoxDescription.Text = currentEpisode.Description;

@@ -53,7 +53,7 @@
             this.listBoxPodcasts.Name = "listBoxPodcasts";
             this.listBoxPodcasts.Size = new System.Drawing.Size(191, 316);
             this.listBoxPodcasts.TabIndex = 0;
-            this.listBoxPodcasts.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.listBoxPodcasts.SelectedIndexChanged += new System.EventHandler(this.OnSelectedPodcastChanged);
             // 
             // listBox2
             // 
