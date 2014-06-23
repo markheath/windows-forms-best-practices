@@ -53,7 +53,7 @@
             this.listBoxPodcasts.Name = "listBoxPodcasts";
             this.listBoxPodcasts.Size = new System.Drawing.Size(191, 316);
             this.listBoxPodcasts.TabIndex = 0;
-            this.listBoxPodcasts.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            this.listBoxPodcasts.SelectedIndexChanged += new System.EventHandler(this.OnSelectedPodcastChanged);
             // 
             // listBox2
             // 
@@ -201,8 +201,8 @@
             this.Controls.Add(this.listBoxPodcasts);
             this.Name = "Form1";
             this.Text = "My Podcasts";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OnFormClosed);
+            this.Load += new System.EventHandler(this.OnFormLoad);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRating)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

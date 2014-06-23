@@ -12,15 +12,16 @@ namespace PluralsightWinFormsDemoApp
     public partial class Form1 : Form
     {
         private Episode currentEpisode;
-        private List<Podcast> podcasts;
-
+        
         public Form1()
         {
             InitializeComponent();
+            listBoxEpisodes.DisplayMember = "Title";
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void OnFormLoad(object sender, EventArgs e)
         {
+            List<Podcast> podcasts;
             if (File.Exists("subscriptions.xml"))
             {
                 var serializer = new XmlSerializer(typeof(List<Podcast>));
@@ -82,21 +83,17 @@ namespace PluralsightWinFormsDemoApp
             }
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        private void OnSelectedPodcastChanged(object sender, EventArgs e)
         {
-            listBoxEpisodes.Items.Clear();
             if (listBoxPodcasts.SelectedIndex == -1) return;
-            var pod = podcasts[listBoxPodcasts.SelectedIndex];
-            foreach (var episode in pod.Episodes)
-            {
-                listBoxEpisodes.Items.Add(episode.Title);
-            }
+            var pod = (Podcast)listBoxPodcasts.SelectedItem;
+            listBoxEpisodes.DataSource = pod.Episodes;
         }
 
         private void OnSelectedEpisodeChanged(object sender, EventArgs e)
         {
             SaveEpisode();
-            currentEpisode = podcasts[listBoxPodcasts.SelectedIndex].Episodes[listBoxEpisodes.SelectedIndex];
+            currentEpisode = (Episode)listBoxEpisodes.SelectedItem;
             textBoxEpisodeTitle.Text = currentEpisode.Title;
             textBoxPublicationDate.Text = currentEpisode.PubDate;
             textBoxDescription.Text = currentEpisode.Description;
@@ -135,19 +132,18 @@ namespace PluralsightWinFormsDemoApp
             {
                 var pod = new Podcast() {SubscriptionUrl = form.PodcastUrl };
                 UpdatePodcast(pod);
-                podcasts.Add(pod);
-                var index = listBoxPodcasts.Items.Add(pod.Title);
+                var index = listBoxPodcasts.Items.Add(pod);
                 listBoxPodcasts.SelectedIndex = index;
             }
         }
 
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        private void OnFormClosed(object sender, FormClosedEventArgs e)
         {
             SaveEpisode();
-            var serializer = new XmlSerializer(podcasts.GetType());
+            var serializer = new XmlSerializer(typeof(List<Podcast>));
             using (var s = File.Create("subscriptions.xml"))
             {
-                serializer.Serialize(s, podcasts);
+                serializer.Serialize(s, listBoxPodcasts.Items.Cast<Podcast>().ToList());
             }
         }
     }
