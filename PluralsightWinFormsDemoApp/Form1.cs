@@ -16,6 +16,9 @@ namespace PluralsightWinFormsDemoApp
         public Form1()
         {
             InitializeComponent();
+            labelDescription.Text = "";
+            labelEpisodeTitle.Text = "";
+            labelPublicationDate.Text = "";
             listBoxEpisodes.DisplayMember = "Title";
         }
 
@@ -94,9 +97,9 @@ namespace PluralsightWinFormsDemoApp
         {
             SaveEpisode();
             currentEpisode = (Episode)listBoxEpisodes.SelectedItem;
-            textBoxEpisodeTitle.Text = currentEpisode.Title;
-            textBoxPublicationDate.Text = currentEpisode.PubDate;
-            textBoxDescription.Text = currentEpisode.Description;
+            labelEpisodeTitle.Text = currentEpisode.Title;
+            labelPublicationDate.Text = currentEpisode.PubDate;
+            labelDescription.Text = currentEpisode.Description;
             checkBoxIsFavourite.Checked = currentEpisode.IsFavourite;
             currentEpisode.IsNew = false;
             numericUpDownRating.Value = currentEpisode.Rating;

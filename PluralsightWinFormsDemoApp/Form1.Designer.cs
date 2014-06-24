@@ -33,9 +33,6 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.textBoxEpisodeTitle = new System.Windows.Forms.TextBox();
-            this.textBoxPublicationDate = new System.Windows.Forms.TextBox();
-            this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.textBoxTags = new System.Windows.Forms.TextBox();
             this.textBoxNotes = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -43,10 +40,13 @@
             this.numericUpDownRating = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
             this.checkBoxIsFavourite = new System.Windows.Forms.CheckBox();
+            this.labelEpisodeTitle = new System.Windows.Forms.Label();
+            this.labelPublicationDate = new System.Windows.Forms.Label();
+            this.labelDescription = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRating)).BeginInit();
             this.SuspendLayout();
             // 
-            // listBox1
+            // listBoxPodcasts
             // 
             this.listBoxPodcasts.FormattingEnabled = true;
             this.listBoxPodcasts.Location = new System.Drawing.Point(13, 13);
@@ -55,7 +55,7 @@
             this.listBoxPodcasts.TabIndex = 0;
             this.listBoxPodcasts.SelectedIndexChanged += new System.EventHandler(this.OnSelectedPodcastChanged);
             // 
-            // listBox2
+            // listBoxEpisodes
             // 
             this.listBoxEpisodes.FormattingEnabled = true;
             this.listBoxEpisodes.Location = new System.Drawing.Point(211, 13);
@@ -86,7 +86,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(462, 306);
+            this.button3.Location = new System.Drawing.Point(445, 310);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 3;
@@ -94,46 +94,25 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.OnButtonPlayClick);
             // 
-            // textBox1
+            // textBoxTags
             // 
-            this.textBoxEpisodeTitle.Location = new System.Drawing.Point(459, 13);
-            this.textBoxEpisodeTitle.Name = "textBoxEpisodeTitle";
-            this.textBoxEpisodeTitle.Size = new System.Drawing.Size(314, 20);
-            this.textBoxEpisodeTitle.TabIndex = 4;
-            // 
-            // textBox2
-            // 
-            this.textBoxPublicationDate.Location = new System.Drawing.Point(459, 40);
-            this.textBoxPublicationDate.Name = "textBoxPublicationDate";
-            this.textBoxPublicationDate.Size = new System.Drawing.Size(314, 20);
-            this.textBoxPublicationDate.TabIndex = 5;
-            // 
-            // textBox3
-            // 
-            this.textBoxDescription.Location = new System.Drawing.Point(459, 66);
-            this.textBoxDescription.Name = "textBoxDescription";
-            this.textBoxDescription.Size = new System.Drawing.Size(314, 20);
-            this.textBoxDescription.TabIndex = 6;
-            // 
-            // textBox4
-            // 
-            this.textBoxTags.Location = new System.Drawing.Point(577, 94);
+            this.textBoxTags.Location = new System.Drawing.Point(549, 98);
             this.textBoxTags.Name = "textBoxTags";
             this.textBoxTags.Size = new System.Drawing.Size(196, 20);
             this.textBoxTags.TabIndex = 4;
             // 
-            // textBox6
+            // textBoxNotes
             // 
-            this.textBoxNotes.Location = new System.Drawing.Point(462, 182);
+            this.textBoxNotes.Location = new System.Drawing.Point(445, 186);
             this.textBoxNotes.Multiline = true;
             this.textBoxNotes.Name = "textBoxNotes";
-            this.textBoxNotes.Size = new System.Drawing.Size(311, 118);
+            this.textBoxNotes.Size = new System.Drawing.Size(300, 118);
             this.textBoxNotes.TabIndex = 6;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(459, 94);
+            this.label1.Location = new System.Drawing.Point(442, 98);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(51, 13);
             this.label1.TabIndex = 7;
@@ -142,15 +121,15 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(462, 166);
+            this.label2.Location = new System.Drawing.Point(442, 170);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(55, 13);
             this.label2.TabIndex = 7;
             this.label2.Text = "My Notes:";
             // 
-            // numericUpDown1
+            // numericUpDownRating
             // 
-            this.numericUpDownRating.Location = new System.Drawing.Point(577, 121);
+            this.numericUpDownRating.Location = new System.Drawing.Point(549, 125);
             this.numericUpDownRating.Maximum = new decimal(new int[] {
             5,
             0,
@@ -163,37 +142,68 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(459, 123);
+            this.label3.Location = new System.Drawing.Point(442, 127);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(58, 13);
             this.label3.TabIndex = 7;
             this.label3.Text = "My Rating:";
             // 
-            // checkBox1
+            // checkBoxIsFavourite
             // 
             this.checkBoxIsFavourite.AutoSize = true;
-            this.checkBoxIsFavourite.Location = new System.Drawing.Point(577, 148);
+            this.checkBoxIsFavourite.Location = new System.Drawing.Point(549, 152);
             this.checkBoxIsFavourite.Name = "checkBoxIsFavourite";
             this.checkBoxIsFavourite.Size = new System.Drawing.Size(64, 17);
             this.checkBoxIsFavourite.TabIndex = 9;
             this.checkBoxIsFavourite.Text = "Favorite";
             this.checkBoxIsFavourite.UseVisualStyleBackColor = true;
             // 
+            // labelEpisodeTitle
+            // 
+            this.labelEpisodeTitle.AutoSize = true;
+            this.labelEpisodeTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelEpisodeTitle.ForeColor = System.Drawing.Color.DarkGray;
+            this.labelEpisodeTitle.Location = new System.Drawing.Point(442, 13);
+            this.labelEpisodeTitle.Name = "labelEpisodeTitle";
+            this.labelEpisodeTitle.Size = new System.Drawing.Size(126, 25);
+            this.labelEpisodeTitle.TabIndex = 10;
+            this.labelEpisodeTitle.Text = "{{IN CODE}}";
+            // 
+            // labelPublicationDate
+            // 
+            this.labelPublicationDate.AutoSize = true;
+            this.labelPublicationDate.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPublicationDate.Location = new System.Drawing.Point(442, 44);
+            this.labelPublicationDate.Name = "labelPublicationDate";
+            this.labelPublicationDate.Size = new System.Drawing.Size(67, 13);
+            this.labelPublicationDate.TabIndex = 11;
+            this.labelPublicationDate.Text = "{{IN CODE}}";
+            // 
+            // labelDescription
+            // 
+            this.labelDescription.AutoSize = true;
+            this.labelDescription.Location = new System.Drawing.Point(442, 61);
+            this.labelDescription.Name = "labelDescription";
+            this.labelDescription.Size = new System.Drawing.Size(67, 13);
+            this.labelDescription.TabIndex = 12;
+            this.labelDescription.Text = "{{IN CODE}}";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(785, 381);
+            this.BackColor = System.Drawing.Color.White;
+            this.ClientSize = new System.Drawing.Size(764, 381);
+            this.Controls.Add(this.labelDescription);
+            this.Controls.Add(this.labelPublicationDate);
+            this.Controls.Add(this.labelEpisodeTitle);
             this.Controls.Add(this.checkBoxIsFavourite);
             this.Controls.Add(this.numericUpDownRating);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxNotes);
-            this.Controls.Add(this.textBoxDescription);
             this.Controls.Add(this.textBoxTags);
-            this.Controls.Add(this.textBoxPublicationDate);
-            this.Controls.Add(this.textBoxEpisodeTitle);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -216,9 +226,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.TextBox textBoxEpisodeTitle;
-        private System.Windows.Forms.TextBox textBoxPublicationDate;
-        private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.TextBox textBoxTags;
         private System.Windows.Forms.TextBox textBoxNotes;
         private System.Windows.Forms.Label label1;
@@ -226,6 +233,9 @@
         private System.Windows.Forms.NumericUpDown numericUpDownRating;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.CheckBox checkBoxIsFavourite;
+        private System.Windows.Forms.Label labelEpisodeTitle;
+        private System.Windows.Forms.Label labelPublicationDate;
+        private System.Windows.Forms.Label labelDescription;
     }
 }
 
