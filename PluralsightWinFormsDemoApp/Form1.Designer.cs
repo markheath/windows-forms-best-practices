@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.listBoxPodcasts = new System.Windows.Forms.ListBox();
             this.listBoxEpisodes = new System.Windows.Forms.ListBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -209,6 +210,7 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.listBoxEpisodes);
             this.Controls.Add(this.listBoxPodcasts);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "My Podcasts";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OnFormClosed);

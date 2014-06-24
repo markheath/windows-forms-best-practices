@@ -71,6 +71,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "NewPodcastForm";
+            this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add a New Podcast";
