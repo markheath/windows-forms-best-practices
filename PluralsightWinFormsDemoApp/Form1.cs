@@ -12,14 +12,19 @@ namespace PluralsightWinFormsDemoApp
     public partial class MainForm : Form
     {
         private Episode currentEpisode;
-        
+
         public MainForm()
-        {
+        {            
             InitializeComponent();
-            labelDescription.Text = "";
-            labelEpisodeTitle.Text = "";
-            labelPublicationDate.Text = "";
-            listBoxEpisodes.DisplayMember = "Title";
+            episodeView.labelDescription.Text = "";
+            episodeView.labelEpisodeTitle.Text = "";
+            episodeView.labelPublicationDate.Text = "";
+            subscriptionView.listBoxEpisodes.DisplayMember = "Title";
+            subscriptionView.listBoxEpisodes.SelectedIndexChanged += OnSelectedEpisodeChanged;
+            subscriptionView.listBoxPodcasts.SelectedIndexChanged += OnSelectedPodcastChanged;
+            subscriptionView.buttonAddSubscription.Click += OnButtonAddSubscriptionClick;
+            subscriptionView.buttonRemoveSubscription.Click += OnButtonRemovePodcastClick;
+            episodeView.buttonPlay.Click += OnButtonPlayClick;
         }
 
         private void OnFormLoad(object sender, EventArgs e)
@@ -46,16 +51,16 @@ namespace PluralsightWinFormsDemoApp
                 podcasts = defaultFeeds.Select(f => new Podcast() { SubscriptionUrl = f }).ToList();
             }
 
-            listBoxPodcasts.DisplayMember = "Title";
+            subscriptionView.listBoxPodcasts.DisplayMember = "Title";
 
             foreach (var pod in podcasts)
             {
                 UpdatePodcast(pod);
-                listBoxPodcasts.Items.Add(pod);
+                subscriptionView.listBoxPodcasts.Items.Add(pod);
             }
 
-            listBoxPodcasts.SelectedIndex = 0;
-            listBoxEpisodes.SelectedIndex = 0;
+            subscriptionView.listBoxPodcasts.SelectedIndex = 0;
+            subscriptionView.listBoxEpisodes.SelectedIndex = 0;
         }
 
         void UpdatePodcast(Podcast podcast)
@@ -91,33 +96,33 @@ namespace PluralsightWinFormsDemoApp
 
         private void OnSelectedPodcastChanged(object sender, EventArgs e)
         {
-            if (listBoxPodcasts.SelectedIndex == -1) return;
-            var pod = (Podcast)listBoxPodcasts.SelectedItem;
-            listBoxEpisodes.DataSource = pod.Episodes;
+            if (subscriptionView.listBoxPodcasts.SelectedIndex == -1) return;
+            var pod = (Podcast)subscriptionView.listBoxPodcasts.SelectedItem;
+            subscriptionView.listBoxEpisodes.DataSource = pod.Episodes;
         }
 
         private void OnSelectedEpisodeChanged(object sender, EventArgs e)
         {
             SaveEpisode();
-            currentEpisode = (Episode)listBoxEpisodes.SelectedItem;
-            labelEpisodeTitle.Text = currentEpisode.Title;
-            labelPublicationDate.Text = currentEpisode.PubDate;
-            labelDescription.Text = currentEpisode.Description;
-            checkBoxIsFavourite.Checked = currentEpisode.IsFavourite;
+            currentEpisode = (Episode)subscriptionView.listBoxEpisodes.SelectedItem;
+            episodeView.labelEpisodeTitle.Text = currentEpisode.Title;
+            episodeView.labelPublicationDate.Text = currentEpisode.PubDate;
+            episodeView.labelDescription.Text = currentEpisode.Description;
+            episodeView.checkBoxIsFavourite.Checked = currentEpisode.IsFavourite;
             currentEpisode.IsNew = false;
-            numericUpDownRating.Value = currentEpisode.Rating;
-            textBoxTags.Text = String.Join(",", currentEpisode.Tags ?? new string[0]);
-            textBoxNotes.Text = currentEpisode.Notes ?? "";
+            episodeView.numericUpDownRating.Value = currentEpisode.Rating;
+            episodeView.textBoxTags.Text = String.Join(",", currentEpisode.Tags ?? new string[0]);
+            episodeView.textBoxNotes.Text = currentEpisode.Notes ?? "";
         }
 
         private void SaveEpisode()
         {
             if (currentEpisode == null) return;
 
-            currentEpisode.Tags = textBoxTags.Text.Split(new[] { ',' }).Select(s => s.Trim()).ToArray();
-            currentEpisode.Rating = (int)numericUpDownRating.Value;
-            currentEpisode.IsFavourite = checkBoxIsFavourite.Checked;
-            currentEpisode.Notes = textBoxNotes.Text;
+            currentEpisode.Tags = episodeView.textBoxTags.Text.Split(new[] { ',' }).Select(s => s.Trim()).ToArray();
+            currentEpisode.Rating = (int)episodeView.numericUpDownRating.Value;
+            currentEpisode.IsFavourite = episodeView.checkBoxIsFavourite.Checked;
+            currentEpisode.Notes = episodeView.textBoxNotes.Text;
         }
 
         private void OnButtonPlayClick(object sender, EventArgs e)
@@ -127,8 +132,8 @@ namespace PluralsightWinFormsDemoApp
 
         private void OnButtonRemovePodcastClick(object sender, EventArgs e)
         {
-            listBoxPodcasts.Items.Remove(listBoxPodcasts.SelectedItem);
-            listBoxPodcasts.SelectedIndex = 0;
+            subscriptionView.listBoxPodcasts.Items.Remove(subscriptionView.listBoxPodcasts.SelectedItem);
+            subscriptionView.listBoxPodcasts.SelectedIndex = 0;
         }
 
         private void OnButtonAddSubscriptionClick(object sender, EventArgs e)
@@ -138,8 +143,8 @@ namespace PluralsightWinFormsDemoApp
             {
                 var pod = new Podcast() {SubscriptionUrl = form.PodcastUrl };
                 UpdatePodcast(pod);
-                var index = listBoxPodcasts.Items.Add(pod);
-                listBoxPodcasts.SelectedIndex = index;
+                var index = subscriptionView.listBoxPodcasts.Items.Add(pod);
+                subscriptionView.listBoxPodcasts.SelectedIndex = index;
             }
         }
 
@@ -149,7 +154,7 @@ namespace PluralsightWinFormsDemoApp
             var serializer = new XmlSerializer(typeof(List<Podcast>));
             using (var s = File.Create("subscriptions.xml"))
             {
-                serializer.Serialize(s, listBoxPodcasts.Items.Cast<Podcast>().ToList());
+                serializer.Serialize(s, subscriptionView.listBoxPodcasts.Items.Cast<Podcast>().ToList());
             }
         }
     }
