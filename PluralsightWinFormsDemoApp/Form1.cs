@@ -9,11 +9,11 @@ using System.Xml.Serialization;
 
 namespace PluralsightWinFormsDemoApp
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         private Episode currentEpisode;
         
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             labelDescription.Text = "";
@@ -53,6 +53,9 @@ namespace PluralsightWinFormsDemoApp
                 UpdatePodcast(pod);
                 listBoxPodcasts.Items.Add(pod);
             }
+
+            listBoxPodcasts.SelectedIndex = 0;
+            listBoxEpisodes.SelectedIndex = 0;
         }
 
         void UpdatePodcast(Podcast podcast)
