@@ -47,6 +47,7 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.subscriptionView);
+            this.splitContainer1.Panel1MinSize = 180;
             // 
             // splitContainer1.Panel2
             // 
@@ -59,6 +60,7 @@
             // 
             this.subscriptionView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.subscriptionView.Location = new System.Drawing.Point(0, 0);
+            this.subscriptionView.MinimumSize = new System.Drawing.Size(200, 200);
             this.subscriptionView.Name = "subscriptionView";
             this.subscriptionView.Size = new System.Drawing.Size(254, 381);
             this.subscriptionView.TabIndex = 0;
@@ -79,6 +81,7 @@
             this.ClientSize = new System.Drawing.Size(764, 381);
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new System.Drawing.Size(400, 300);
             this.Name = "MainForm";
             this.Text = "My Podcasts";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OnFormClosed);

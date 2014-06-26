@@ -94,7 +94,7 @@
             0,
             0});
             this.numericUpDownRating.Name = "numericUpDownRating";
-            this.numericUpDownRating.Size = new System.Drawing.Size(120, 20);
+            this.numericUpDownRating.Size = new System.Drawing.Size(79, 20);
             this.numericUpDownRating.TabIndex = 19;
             // 
             // label2
