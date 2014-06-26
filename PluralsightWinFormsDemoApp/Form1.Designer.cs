@@ -49,6 +49,8 @@
             // 
             // listBoxPodcasts
             // 
+            this.listBoxPodcasts.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.listBoxPodcasts.FormattingEnabled = true;
             this.listBoxPodcasts.Location = new System.Drawing.Point(13, 13);
             this.listBoxPodcasts.Name = "listBoxPodcasts";
@@ -58,6 +60,8 @@
             // 
             // listBoxEpisodes
             // 
+            this.listBoxEpisodes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.listBoxEpisodes.FormattingEnabled = true;
             this.listBoxEpisodes.Location = new System.Drawing.Point(211, 13);
             this.listBoxEpisodes.Name = "listBoxEpisodes";
@@ -67,6 +71,7 @@
             // 
             // buttonAddSubscription
             // 
+            this.buttonAddSubscription.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonAddSubscription.Location = new System.Drawing.Point(13, 336);
             this.buttonAddSubscription.Name = "buttonAddSubscription";
             this.buttonAddSubscription.Size = new System.Drawing.Size(75, 23);
@@ -77,6 +82,7 @@
             // 
             // buttonRemoveSubscription
             // 
+            this.buttonRemoveSubscription.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonRemoveSubscription.Location = new System.Drawing.Point(94, 336);
             this.buttonRemoveSubscription.Name = "buttonRemoveSubscription";
             this.buttonRemoveSubscription.Size = new System.Drawing.Size(75, 23);
@@ -87,7 +93,8 @@
             // 
             // buttonPlay
             // 
-            this.buttonPlay.Location = new System.Drawing.Point(445, 310);
+            this.buttonPlay.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonPlay.Location = new System.Drawing.Point(447, 336);
             this.buttonPlay.Name = "buttonPlay";
             this.buttonPlay.Size = new System.Drawing.Size(75, 23);
             this.buttonPlay.TabIndex = 3;
@@ -97,6 +104,8 @@
             // 
             // textBoxTags
             // 
+            this.textBoxTags.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxTags.Location = new System.Drawing.Point(549, 98);
             this.textBoxTags.Name = "textBoxTags";
             this.textBoxTags.Size = new System.Drawing.Size(196, 20);
@@ -104,10 +113,13 @@
             // 
             // textBoxNotes
             // 
+            this.textBoxNotes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.textBoxNotes.Location = new System.Drawing.Point(445, 186);
             this.textBoxNotes.Multiline = true;
             this.textBoxNotes.Name = "textBoxNotes";
-            this.textBoxNotes.Size = new System.Drawing.Size(300, 118);
+            this.textBoxNotes.Size = new System.Drawing.Size(300, 143);
             this.textBoxNotes.TabIndex = 6;
             // 
             // label1
