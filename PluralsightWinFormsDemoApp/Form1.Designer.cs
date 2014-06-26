@@ -106,7 +106,7 @@
             // 
             this.textBoxTags.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxTags.Location = new System.Drawing.Point(549, 98);
+            this.textBoxTags.Location = new System.Drawing.Point(549, 120);
             this.textBoxTags.Name = "textBoxTags";
             this.textBoxTags.Size = new System.Drawing.Size(196, 20);
             this.textBoxTags.TabIndex = 4;
@@ -116,16 +116,16 @@
             this.textBoxNotes.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxNotes.Location = new System.Drawing.Point(445, 186);
+            this.textBoxNotes.Location = new System.Drawing.Point(445, 209);
             this.textBoxNotes.Multiline = true;
             this.textBoxNotes.Name = "textBoxNotes";
-            this.textBoxNotes.Size = new System.Drawing.Size(300, 143);
+            this.textBoxNotes.Size = new System.Drawing.Size(300, 120);
             this.textBoxNotes.TabIndex = 6;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(442, 98);
+            this.label1.Location = new System.Drawing.Point(442, 120);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(51, 13);
             this.label1.TabIndex = 7;
@@ -134,7 +134,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(442, 170);
+            this.label2.Location = new System.Drawing.Point(442, 192);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(55, 13);
             this.label2.TabIndex = 7;
@@ -142,7 +142,7 @@
             // 
             // numericUpDownRating
             // 
-            this.numericUpDownRating.Location = new System.Drawing.Point(549, 125);
+            this.numericUpDownRating.Location = new System.Drawing.Point(549, 147);
             this.numericUpDownRating.Maximum = new decimal(new int[] {
             5,
             0,
@@ -155,7 +155,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(442, 127);
+            this.label3.Location = new System.Drawing.Point(442, 149);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(58, 13);
             this.label3.TabIndex = 7;
@@ -164,7 +164,7 @@
             // checkBoxIsFavourite
             // 
             this.checkBoxIsFavourite.AutoSize = true;
-            this.checkBoxIsFavourite.Location = new System.Drawing.Point(549, 152);
+            this.checkBoxIsFavourite.Location = new System.Drawing.Point(549, 174);
             this.checkBoxIsFavourite.Name = "checkBoxIsFavourite";
             this.checkBoxIsFavourite.Size = new System.Drawing.Size(64, 17);
             this.checkBoxIsFavourite.TabIndex = 9;
@@ -173,12 +173,14 @@
             // 
             // labelEpisodeTitle
             // 
-            this.labelEpisodeTitle.AutoSize = true;
+            this.labelEpisodeTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelEpisodeTitle.AutoEllipsis = true;
             this.labelEpisodeTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelEpisodeTitle.ForeColor = System.Drawing.Color.DarkGray;
             this.labelEpisodeTitle.Location = new System.Drawing.Point(442, 13);
             this.labelEpisodeTitle.Name = "labelEpisodeTitle";
-            this.labelEpisodeTitle.Size = new System.Drawing.Size(126, 25);
+            this.labelEpisodeTitle.Size = new System.Drawing.Size(303, 25);
             this.labelEpisodeTitle.TabIndex = 10;
             this.labelEpisodeTitle.Text = "{{IN CODE}}";
             // 
@@ -194,10 +196,11 @@
             // 
             // labelDescription
             // 
-            this.labelDescription.AutoSize = true;
+            this.labelDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.labelDescription.Location = new System.Drawing.Point(442, 61);
             this.labelDescription.Name = "labelDescription";
-            this.labelDescription.Size = new System.Drawing.Size(67, 13);
+            this.labelDescription.Size = new System.Drawing.Size(303, 56);
             this.labelDescription.TabIndex = 12;
             this.labelDescription.Text = "{{IN CODE}}";
             // 
