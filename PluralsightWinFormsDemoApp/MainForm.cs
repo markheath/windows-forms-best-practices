@@ -140,8 +140,11 @@ namespace PluralsightWinFormsDemoApp
 
         private void OnButtonRemovePodcastClick(object sender, EventArgs e)
         {
-            subscriptionView.listBoxPodcasts.Items.Remove(subscriptionView.listBoxPodcasts.SelectedItem);
-            subscriptionView.listBoxPodcasts.SelectedIndex = 0;
+            var nodeToRemove = subscriptionView.treeViewPodcasts.SelectedNode;
+            if (nodeToRemove.Parent != null)
+                nodeToRemove = nodeToRemove.Parent;
+            subscriptionView.treeViewPodcasts.Nodes.Remove(nodeToRemove);
+            SelectFirstEpisode();
         }
 
         private void OnButtonAddSubscriptionClick(object sender, EventArgs e)
@@ -151,8 +154,7 @@ namespace PluralsightWinFormsDemoApp
             {
                 var pod = new Podcast() {SubscriptionUrl = form.PodcastUrl };
                 UpdatePodcast(pod);
-                var index = subscriptionView.listBoxPodcasts.Items.Add(pod);
-                subscriptionView.listBoxPodcasts.SelectedIndex = index;
+                AddPodcastToTreeView(pod);
             }
         }
 
@@ -162,7 +164,12 @@ namespace PluralsightWinFormsDemoApp
             var serializer = new XmlSerializer(typeof(List<Podcast>));
             using (var s = File.Create("subscriptions.xml"))
             {
-                serializer.Serialize(s, subscriptionView.listBoxPodcasts.Items.Cast<Podcast>().ToList());
+                var podcasts = subscriptionView.treeViewPodcasts.Nodes
+                    .Cast<TreeNode>()
+                    .Select(tn => tn.Tag)
+                    .OfType<Podcast>()
+                    .ToList();
+                serializer.Serialize(s, podcasts);
             }
         }
     }
