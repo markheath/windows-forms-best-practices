@@ -19,9 +19,7 @@ namespace PluralsightWinFormsDemoApp
             episodeView.labelDescription.Text = "";
             episodeView.labelEpisodeTitle.Text = "";
             episodeView.labelPublicationDate.Text = "";
-            subscriptionView.listBoxEpisodes.DisplayMember = "Title";
-            subscriptionView.listBoxEpisodes.SelectedIndexChanged += OnSelectedEpisodeChanged;
-            subscriptionView.listBoxPodcasts.SelectedIndexChanged += OnSelectedPodcastChanged;
+            subscriptionView.treeViewPodcasts.AfterSelect += OnSelectedEpisodeChanged;
             subscriptionView.buttonAddSubscription.Click += OnButtonAddSubscriptionClick;
             subscriptionView.buttonRemoveSubscription.Click += OnButtonRemovePodcastClick;
             episodeView.buttonPlay.Click += OnButtonPlayClick;
@@ -51,16 +49,29 @@ namespace PluralsightWinFormsDemoApp
                 podcasts = defaultFeeds.Select(f => new Podcast() { SubscriptionUrl = f }).ToList();
             }
 
-            subscriptionView.listBoxPodcasts.DisplayMember = "Title";
-
             foreach (var pod in podcasts)
             {
                 UpdatePodcast(pod);
-                subscriptionView.listBoxPodcasts.Items.Add(pod);
+                AddPodcastToTreeView(pod);
             }
 
-            subscriptionView.listBoxPodcasts.SelectedIndex = 0;
-            subscriptionView.listBoxEpisodes.SelectedIndex = 0;
+            SelectFirstEpisode();
+        }
+
+        private void SelectFirstEpisode()
+        {
+            subscriptionView.treeViewPodcasts.SelectedNode =
+                subscriptionView.treeViewPodcasts.Nodes[0].FirstNode;
+        }
+
+        private void AddPodcastToTreeView(Podcast pod)
+        {
+            var podNode = new TreeNode(pod.Title) { Tag = pod };
+            subscriptionView.treeViewPodcasts.Nodes.Add(podNode);
+            foreach (var episode in pod.Episodes)
+            {
+                podNode.Nodes.Add(new TreeNode(episode.Title) {Tag = episode});
+            }
         }
 
         void UpdatePodcast(Podcast podcast)
@@ -94,25 +105,22 @@ namespace PluralsightWinFormsDemoApp
             }
         }
 
-        private void OnSelectedPodcastChanged(object sender, EventArgs e)
+        private void OnSelectedEpisodeChanged(object sender, TreeViewEventArgs e)
         {
-            if (subscriptionView.listBoxPodcasts.SelectedIndex == -1) return;
-            var pod = (Podcast)subscriptionView.listBoxPodcasts.SelectedItem;
-            subscriptionView.listBoxEpisodes.DataSource = pod.Episodes;
-        }
-
-        private void OnSelectedEpisodeChanged(object sender, EventArgs e)
-        {
-            SaveEpisode();
-            currentEpisode = (Episode)subscriptionView.listBoxEpisodes.SelectedItem;
-            episodeView.labelEpisodeTitle.Text = currentEpisode.Title;
-            episodeView.labelPublicationDate.Text = currentEpisode.PubDate;
-            episodeView.labelDescription.Text = currentEpisode.Description;
-            episodeView.checkBoxIsFavourite.Checked = currentEpisode.IsFavourite;
-            currentEpisode.IsNew = false;
-            episodeView.numericUpDownRating.Value = currentEpisode.Rating;
-            episodeView.textBoxTags.Text = String.Join(",", currentEpisode.Tags ?? new string[0]);
-            episodeView.textBoxNotes.Text = currentEpisode.Notes ?? "";
+            var selectedEpisode = subscriptionView.treeViewPodcasts.SelectedNode.Tag as Episode;
+            if (selectedEpisode != null)
+            {
+                SaveEpisode();
+                currentEpisode = selectedEpisode;
+                episodeView.labelEpisodeTitle.Text = currentEpisode.Title;
+                episodeView.labelPublicationDate.Text = currentEpisode.PubDate;
+                episodeView.labelDescription.Text = currentEpisode.Description;
+                episodeView.checkBoxIsFavourite.Checked = currentEpisode.IsFavourite;
+                currentEpisode.IsNew = false;
+                episodeView.numericUpDownRating.Value = currentEpisode.Rating;
+                episodeView.textBoxTags.Text = String.Join(",", currentEpisode.Tags ?? new string[0]);
+                episodeView.textBoxNotes.Text = currentEpisode.Notes ?? "";
+            }
         }
 
         private void SaveEpisode()
