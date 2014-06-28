@@ -12,10 +12,14 @@ namespace PluralsightWinFormsDemoApp
     public partial class MainForm : Form
     {
         private Episode currentEpisode;
+        private EpisodeView episodeView;
+        private PodcastView podcastView;
 
         public MainForm()
         {            
             InitializeComponent();
+            episodeView = new EpisodeView() {Dock = DockStyle.Fill};
+            podcastView = new PodcastView() {Dock = DockStyle.Fill};
             episodeView.labelDescription.Text = "";
             episodeView.labelEpisodeTitle.Text = "";
             episodeView.labelPublicationDate.Text = "";
@@ -110,6 +114,8 @@ namespace PluralsightWinFormsDemoApp
             var selectedEpisode = subscriptionView.treeViewPodcasts.SelectedNode.Tag as Episode;
             if (selectedEpisode != null)
             {
+                splitContainer1.Panel2.Controls.Clear();
+                splitContainer1.Panel2.Controls.Add(episodeView);
                 SaveEpisode();
                 currentEpisode = selectedEpisode;
                 episodeView.labelEpisodeTitle.Text = currentEpisode.Title;
@@ -120,6 +126,13 @@ namespace PluralsightWinFormsDemoApp
                 episodeView.numericUpDownRating.Value = currentEpisode.Rating;
                 episodeView.textBoxTags.Text = String.Join(",", currentEpisode.Tags ?? new string[0]);
                 episodeView.textBoxNotes.Text = currentEpisode.Notes ?? "";
+            }
+            var selectedPodcast = subscriptionView.treeViewPodcasts.SelectedNode.Tag as Podcast;
+            if (selectedPodcast != null)
+            {
+                splitContainer1.Panel2.Controls.Clear();
+                splitContainer1.Panel2.Controls.Add(podcastView);
+                podcastView.SetPodcast(selectedPodcast);
             }
         }
 
