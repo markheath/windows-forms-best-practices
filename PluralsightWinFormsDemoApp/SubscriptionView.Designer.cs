@@ -50,7 +50,7 @@
             this.buttonAddSubscription.Name = "buttonAddSubscription";
             this.buttonAddSubscription.Size = new System.Drawing.Size(75, 23);
             this.buttonAddSubscription.TabIndex = 6;
-            this.buttonAddSubscription.Text = "Add";
+            this.buttonAddSubscription.Text = "&Add";
             this.buttonAddSubscription.UseVisualStyleBackColor = true;
             // 
             // treeViewPodcasts

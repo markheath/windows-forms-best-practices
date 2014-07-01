@@ -109,7 +109,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(51, 13);
             this.label1.TabIndex = 34;
-            this.label1.Text = "My Tags:";
+            this.label1.Text = "My &Tags:";
             // 
             // textBoxNotes
             // 

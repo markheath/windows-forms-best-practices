@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -14,12 +15,16 @@ namespace PluralsightWinFormsDemoApp
         private Episode currentEpisode;
         private EpisodeView episodeView;
         private PodcastView podcastView;
+        private SubscriptionView subscriptionView;
 
         public MainForm()
         {            
             InitializeComponent();
             episodeView = new EpisodeView() {Dock = DockStyle.Fill};
             podcastView = new PodcastView() {Dock = DockStyle.Fill};
+            subscriptionView = new SubscriptionView() {Dock = DockStyle.Fill};
+
+            splitContainer1.Panel1.Controls.Add(subscriptionView);
             episodeView.labelDescription.Text = "";
             episodeView.labelEpisodeTitle.Text = "";
             episodeView.labelPublicationDate.Text = "";
@@ -27,10 +32,46 @@ namespace PluralsightWinFormsDemoApp
             subscriptionView.buttonAddSubscription.Click += OnButtonAddSubscriptionClick;
             subscriptionView.buttonRemoveSubscription.Click += OnButtonRemovePodcastClick;
             episodeView.buttonPlay.Click += OnButtonPlayClick;
+            toolStrip1.Renderer = new MyRenderer();
+            this.KeyPreview = true;
+            this.PreviewKeyDown += MainForm_PreviewKeyDown;
+            HelpRequested += OnHelpRequested;
         }
+
+        private void OnHelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show("Help about " + sender.ToString());
+        }
+
+        void MainForm_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            Debug.WriteLine(e.KeyCode);
+        }
+
+        
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if( keyData == (Keys.Control | Keys.Add)) toolStripButton1.PerformClick();
+            if (keyData == (Keys.Control | Keys.Subtract)) toolStripButton2.PerformClick();
+            if (keyData == (Keys.Control | Keys.Space)) toolStripButton3.PerformClick();  
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private class MyRenderer : ToolStripProfessionalRenderer {
+        protected override void OnRenderButtonBackground(ToolStripItemRenderEventArgs e) {
+            var btn = e.Item as ToolStripButton;
+            if (btn != null && btn.CheckOnClick && btn.Checked) {
+                Rectangle bounds = new Rectangle(Point.Empty, e.Item.Size);
+                e.Graphics.FillRectangle(Brushes.CadetBlue, bounds);
+            }
+            else base.OnRenderButtonBackground(e);
+        }
+    }
 
         private void OnFormLoad(object sender, EventArgs e)
         {
+            
             List<Podcast> podcasts;
             if (File.Exists("subscriptions.xml"))
             {
@@ -184,6 +225,26 @@ namespace PluralsightWinFormsDemoApp
                     .ToList();
                 serializer.Serialize(s, podcasts);
             }
+        }
+
+        private void toolStripButton1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Add");
+        }
+
+        private void toolStripButton2_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Remove");
+        }
+
+        private void toolStripButton3_Click(object sender, EventArgs e)
+        {
+            toolStripButton2.Enabled = toolStripButton3.Checked;
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Exit");
         }
     }
 }

@@ -51,6 +51,11 @@
     <Compile Include="EpisodeView.Designer.cs">
       <DependentUpon>EpisodeView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Icons.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Icons.resx</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,6 +85,10 @@
     </Compile>
     <EmbeddedResource Include="EpisodeView.resx">
       <DependentUpon>EpisodeView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Icons.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Icons.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -114,6 +123,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add-icon-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\microphone-icon-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pause-icon-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\play-icon-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\remove-icon-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stop-icon-32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
