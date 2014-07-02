@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -14,12 +15,15 @@ namespace PluralsightWinFormsDemoApp
         private Episode currentEpisode;
         private EpisodeView episodeView;
         private PodcastView podcastView;
+        private SubscriptionView subscriptionView;
 
         public MainForm()
         {            
             InitializeComponent();
             episodeView = new EpisodeView() {Dock = DockStyle.Fill};
             podcastView = new PodcastView() {Dock = DockStyle.Fill};
+            subscriptionView = new SubscriptionView() {Dock = DockStyle.Fill};
+            splitContainer1.Panel1.Controls.Add(subscriptionView);
             episodeView.labelDescription.Text = "";
             episodeView.labelEpisodeTitle.Text = "";
             episodeView.labelPublicationDate.Text = "";
@@ -27,6 +31,10 @@ namespace PluralsightWinFormsDemoApp
             subscriptionView.buttonAddSubscription.Click += OnButtonAddSubscriptionClick;
             subscriptionView.buttonRemoveSubscription.Click += OnButtonRemovePodcastClick;
             episodeView.buttonPlay.Click += OnButtonPlayClick;
+            if (!SystemInformation.HighContrast)
+            {
+                BackColor = Color.White;
+            }
         }
 
         private void OnFormLoad(object sender, EventArgs e)
