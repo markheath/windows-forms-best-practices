@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,10 +17,10 @@ namespace PluralsightWinFormsDemoApp
         {
             InitializeComponent();
         }
-        public string PodcastUrl { get { return textBox1.Text; } }
+        public string PodcastUrl { get { return textBoxUrl.Text; } }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
+        private void OnButtonOkClick(object sender, EventArgs e)
+        {            
             this.DialogResult = DialogResult.OK;
         }
     }
