@@ -19,6 +19,12 @@ namespace PluralsightWinFormsDemoApp
                 "Enter tags for this podcast, comma separated");
             toolTip1.SetToolTip(buttonPlay, 
                 "Launch Windows Media Player to play this episode");
+            textBoxTags.HelpRequested += textBoxTags_HelpRequested;
+        }
+
+        void textBoxTags_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show("Help about tags");
         }
     }
 }

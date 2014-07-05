@@ -203,5 +203,10 @@ namespace PluralsightWinFormsDemoApp
                 serializer.Serialize(s, podcasts);
             }
         }
+
+        private void MainForm_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            MessageBox.Show("Help");
+        }
     }
 }
