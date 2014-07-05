@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
+using PluralsightWinFormsDemoApp.Properties;
 
 namespace PluralsightWinFormsDemoApp
 {
@@ -78,6 +79,13 @@ namespace PluralsightWinFormsDemoApp
             }
 
             SelectFirstEpisode();
+
+            if (Settings.Default.FirstRun)
+            {
+                MessageBox.Show("Welcome! Get started by clicking Add to subscribe to a podcast");
+                Settings.Default.FirstRun = false;
+                Settings.Default.Save();
+            }
         }
 
         private void SelectFirstEpisode()
