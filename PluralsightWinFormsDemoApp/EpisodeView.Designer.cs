@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.checkBoxIsFavourite = new System.Windows.Forms.CheckBox();
             this.numericUpDownRating = new System.Windows.Forms.NumericUpDown();
@@ -41,9 +42,12 @@
             this.labelEpisodeTitle = new System.Windows.Forms.Label();
             this.labelPublicationDate = new System.Windows.Forms.Label();
             this.labelDescription = new System.Windows.Forms.Label();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRating)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -126,6 +130,13 @@
             // 
             this.textBoxTags.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBoxTags.AutoCompleteCustomSource.AddRange(new string[] {
+            "development",
+            "database",
+            "HTML 5",
+            "web"});
+            this.textBoxTags.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.textBoxTags.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
             this.textBoxTags.Location = new System.Drawing.Point(112, 2);
             this.textBoxTags.Name = "textBoxTags";
             this.textBoxTags.Size = new System.Drawing.Size(304, 20);
@@ -186,6 +197,10 @@
             this.labelDescription.TabIndex = 24;
             this.labelDescription.Text = "{{IN CODE}}";
             // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
+            // 
             // EpisodeView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -199,6 +214,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRating)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -219,6 +235,8 @@
         public System.Windows.Forms.Label labelEpisodeTitle;
         public System.Windows.Forms.Label labelPublicationDate;
         public System.Windows.Forms.Label labelDescription;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
 
     }
 }

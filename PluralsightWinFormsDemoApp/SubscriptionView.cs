@@ -16,5 +16,20 @@ namespace PluralsightWinFormsDemoApp
         {
             InitializeComponent();
         }
+
+        private void treeViewPodcasts_NodeMouseClick(object sender, TreeNodeMouseClickEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                var cm = new ContextMenu();
+                cm.MenuItems.Add(new MenuItem("Unsubscribe"));
+                cm.Show(this, e.Location);
+            }
+        }
+
+        private void treeViewPodcasts_DragOver(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.Copy;
+        }
     }
 }

@@ -55,6 +55,7 @@
             // 
             // treeViewPodcasts
             // 
+            this.treeViewPodcasts.AllowDrop = true;
             this.treeViewPodcasts.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -62,6 +63,8 @@
             this.treeViewPodcasts.Name = "treeViewPodcasts";
             this.treeViewPodcasts.Size = new System.Drawing.Size(199, 360);
             this.treeViewPodcasts.TabIndex = 7;
+            this.treeViewPodcasts.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.treeViewPodcasts_NodeMouseClick);
+            this.treeViewPodcasts.DragOver += new System.Windows.Forms.DragEventHandler(this.treeViewPodcasts_DragOver);
             // 
             // SubscriptionView
             // 

@@ -15,6 +15,8 @@ namespace PluralsightWinFormsDemoApp
         public EpisodeView()
         {
             InitializeComponent();
+            toolTip1.SetToolTip(textBoxTags, "Enter tags for this podcast, separated with commas\r\ne.g. Sport, Football");
+            errorProvider1.SetError(numericUpDownRating, "must be greater than 0");
         }
     }
 }
