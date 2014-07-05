@@ -93,7 +93,15 @@
     <Compile Include="SubscriptionView.Designer.cs">
       <DependentUpon>SubscriptionView.cs</DependentUpon>
     </Compile>
+    <Compile Include="TextResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TextResources.resx</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="EpisodeView.en-GB.resx">
+      <DependentUpon>EpisodeView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EpisodeView.fr.resx">
       <DependentUpon>EpisodeView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EpisodeView.resx">
@@ -119,6 +127,11 @@
     </Compile>
     <EmbeddedResource Include="SubscriptionView.resx">
       <DependentUpon>SubscriptionView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TextResources.fr.resx" />
+    <EmbeddedResource Include="TextResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TextResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

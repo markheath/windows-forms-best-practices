@@ -16,7 +16,7 @@ namespace PluralsightWinFormsDemoApp
         [STAThread]
         static void Main()
         {
-            var culture = new CultureInfo("en-GB");
+            var culture = new CultureInfo("fr");
             Thread.CurrentThread.CurrentUICulture = culture;
             Thread.CurrentThread.CurrentCulture = culture;
             CultureInfo.DefaultThreadCurrentCulture = culture;

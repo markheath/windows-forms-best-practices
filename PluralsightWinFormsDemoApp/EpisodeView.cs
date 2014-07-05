@@ -24,7 +24,7 @@ namespace PluralsightWinFormsDemoApp
 
         void textBoxTags_HelpRequested(object sender, HelpEventArgs hlpevent)
         {
-            MessageBox.Show("Help about tags");
+            MessageBox.Show(TextResources.TagsHelp);
         }
     }
 }

@@ -124,11 +124,8 @@
   <data name="label1.Text" xml:space="preserve">
     <value>My &amp;Tags:</value>
   </data>
-  <data name="&gt;&gt;buttonPlay.ZOrder" xml:space="preserve">
-    <value>7</value>
-  </data>
-  <data name="&gt;&gt;buttonPlay.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="textBoxNotes.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
   </data>
   <data name="textBoxNotes.ToolTip" xml:space="preserve">
     <value />
@@ -176,6 +173,9 @@
   <data name="flowLayoutPanel1.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
+  <data name="&gt;&gt;labelDescription.Name" xml:space="preserve">
+    <value>labelDescription</value>
+  </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="textBoxNotes.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -195,11 +195,17 @@
   <data name="checkBoxIsFavourite.Text" xml:space="preserve">
     <value>&amp;Favorite</value>
   </data>
+  <data name="numericUpDownRating.Size" type="System.Drawing.Size, System.Drawing">
+    <value>79, 20</value>
+  </data>
   <data name="label2.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
     <value>58, 13</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="textBoxTags.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -243,8 +249,8 @@
   <data name="labelEpisodeTitle.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 0</value>
   </data>
-  <data name="labelDescription.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 38</value>
+  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
   </data>
   <data name="&gt;&gt;labelPublicationDate.Parent" xml:space="preserve">
     <value>flowLayoutPanel1</value>
@@ -267,8 +273,11 @@
   <data name="numericUpDownRating.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="labelPublicationDate.ToolTip" xml:space="preserve">
-    <value />
+  <data name="textBoxTags.Size" type="System.Drawing.Size, System.Drawing">
+    <value>304, 20</value>
+  </data>
+  <data name="numericUpDownRating.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
   </data>
   <data name="labelPublicationDate.Text" xml:space="preserve">
     <value>{{IN CODE}}</value>
@@ -291,9 +300,6 @@
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="labelDescription.ToolTip" xml:space="preserve">
-    <value />
-  </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
     <value>55, 13</value>
   </data>
@@ -303,26 +309,35 @@
   <data name="flowLayoutPanel1.FlowDirection" type="System.Windows.Forms.FlowDirection, System.Windows.Forms">
     <value>TopDown</value>
   </data>
-  <data name="labelDescription.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="&gt;&gt;buttonPlay.ZOrder" xml:space="preserve">
+    <value>7</value>
   </data>
   <data name="textBoxNotes.Multiline" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
-  <data name="labelEpisodeTitle.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="labelPublicationDate.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="&gt;&gt;checkBoxIsFavourite.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
+  <data name="textBoxNotes.Size" type="System.Drawing.Size, System.Drawing">
+    <value>408, 161</value>
+  </data>
   <data name="&gt;&gt;buttonPlay.Parent" xml:space="preserve">
     <value>panel1</value>
+  </data>
+  <data name="flowLayoutPanel1.ToolTip" xml:space="preserve">
+    <value />
   </data>
   <data name="$this.ToolTip" xml:space="preserve">
     <value />
   </data>
   <data name="&gt;&gt;flowLayoutPanel1.Parent" xml:space="preserve">
     <value>$this</value>
+  </data>
+  <data name="flowLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
+    <value>25</value>
   </data>
   <data name="&gt;&gt;labelDescription.ZOrder" xml:space="preserve">
     <value>2</value>
@@ -339,23 +354,14 @@
   <data name="label3.Text" xml:space="preserve">
     <value>My &amp;Rating:</value>
   </data>
-  <data name="labelPublicationDate.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 25</value>
-  </data>
-  <data name="labelEpisodeTitle.Size" type="System.Drawing.Size, System.Drawing">
-    <value>126, 25</value>
-  </data>
-  <data name="numericUpDownRating.Location" type="System.Drawing.Point, System.Drawing">
-    <value>112, 29</value>
-  </data>
-  <data name="textBoxNotes.TabIndex" type="System.Int32, mscorlib">
-    <value>6</value>
+  <data name="labelPublicationDate.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
   </data>
   <data name="buttonPlay.Text" xml:space="preserve">
     <value>&amp;Play</value>
   </data>
-  <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="labelDescription.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 38</value>
   </data>
   <data name="&gt;&gt;flowLayoutPanel1.Type" xml:space="preserve">
     <value>System.Windows.Forms.FlowLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -393,8 +399,8 @@
   <data name="checkBoxIsFavourite.Size" type="System.Drawing.Size, System.Drawing">
     <value>64, 17</value>
   </data>
-  <data name="textBoxNotes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>408, 161</value>
+  <data name="labelEpisodeTitle.Size" type="System.Drawing.Size, System.Drawing">
+    <value>126, 25</value>
   </data>
   <data name="checkBoxIsFavourite.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -402,8 +408,8 @@
   <data name="panel1.ToolTip" xml:space="preserve">
     <value />
   </data>
-  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="labelEpisodeTitle.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 15.75pt</value>
   </data>
   <data name="&gt;&gt;textBoxNotes.Parent" xml:space="preserve">
     <value>panel1</value>
@@ -420,20 +426,11 @@
   <data name="&gt;&gt;checkBoxIsFavourite.Parent" xml:space="preserve">
     <value>panel1</value>
   </data>
-  <data name="numericUpDownRating.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="labelEpisodeTitle.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Microsoft Sans Serif, 15.75pt</value>
-  </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
     <value>5, 2</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
     <value>421, 334</value>
-  </data>
-  <data name="buttonPlay.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 258</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
     <value>My &amp;Notes:</value>
@@ -441,8 +438,8 @@
   <data name="&gt;&gt;labelPublicationDate.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="flowLayoutPanel1.ToolTip" xml:space="preserve">
-    <value />
+  <data name="labelEpisodeTitle.TabIndex" type="System.Int32, mscorlib">
+    <value>0</value>
   </data>
   <data name="&gt;&gt;checkBoxIsFavourite.Name" xml:space="preserve">
     <value>checkBoxIsFavourite</value>
@@ -450,8 +447,8 @@
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
     <value>5, 74</value>
   </data>
-  <data name="numericUpDownRating.Size" type="System.Drawing.Size, System.Drawing">
-    <value>79, 20</value>
+  <data name="labelPublicationDate.Location" type="System.Drawing.Point, System.Drawing">
+    <value>3, 25</value>
   </data>
   <data name="&gt;&gt;panel1.Parent" xml:space="preserve">
     <value>$this</value>
@@ -462,8 +459,8 @@
   <data name="&gt;&gt;buttonPlay.Name" xml:space="preserve">
     <value>buttonPlay</value>
   </data>
-  <data name="labelPublicationDate.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="buttonPlay.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 258</value>
   </data>
   <data name="flowLayoutPanel1.Size" type="System.Drawing.Size, System.Drawing">
     <value>421, 51</value>
@@ -480,11 +477,14 @@
   <data name="&gt;&gt;toolTip1.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolTip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
+  <data name="&gt;&gt;label3.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="&gt;&gt;panel1.Type" xml:space="preserve">
     <value>System.Windows.Forms.Panel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;labelDescription.Name" xml:space="preserve">
-    <value>labelDescription</value>
+  <data name="numericUpDownRating.Location" type="System.Drawing.Point, System.Drawing">
+    <value>112, 29</value>
   </data>
   <data name="textBoxTags.ToolTip" xml:space="preserve">
     <value />
@@ -495,11 +495,11 @@
   <data name="textBoxNotes.Location" type="System.Drawing.Point, System.Drawing">
     <value>8, 91</value>
   </data>
-  <data name="flowLayoutPanel1.TabIndex" type="System.Int32, mscorlib">
-    <value>25</value>
+  <data name="labelDescription.ToolTip" xml:space="preserve">
+    <value />
   </data>
-  <data name="textBoxTags.Size" type="System.Drawing.Size, System.Drawing">
-    <value>304, 20</value>
+  <data name="&gt;&gt;buttonPlay.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="label3.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -528,8 +528,8 @@
   <data name="labelDescription.Text" xml:space="preserve">
     <value>{{IN CODE}}</value>
   </data>
-  <data name="&gt;&gt;label3.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="labelDescription.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
   </data>
   <data name="&gt;&gt;numericUpDownRating.ZOrder" xml:space="preserve">
     <value>1</value>
@@ -539,5 +539,8 @@
   </metadata>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
+  </metadata>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>fr</value>
   </metadata>
 </root>
