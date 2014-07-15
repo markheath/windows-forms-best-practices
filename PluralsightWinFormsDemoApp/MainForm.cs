@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Net;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
-using System.Xml.Serialization;
-using NAudio.Wave;
+using PluralsightWinFormsDemoApp.BusinessLogic;
 using PluralsightWinFormsDemoApp.Properties;
 
 namespace PluralsightWinFormsDemoApp
@@ -21,7 +15,9 @@ namespace PluralsightWinFormsDemoApp
         private EpisodeView episodeView;
         private PodcastView podcastView;
         private SubscriptionView subscriptionView;
-        private WaveOutEvent player;
+        private PodcastPlayer podcastPlayer; 
+        private SubscriptionManager subscriptionManager;
+        private PodcastLoader podcastLoader;
 
         public MainForm()
         {            
@@ -38,7 +34,9 @@ namespace PluralsightWinFormsDemoApp
             {
                 BackColor = Color.White;
             }
-            
+            subscriptionManager = new SubscriptionManager("subscriptions.xml");
+            podcastLoader = new PodcastLoader();
+            podcastPlayer = new PodcastPlayer();
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -53,33 +51,12 @@ namespace PluralsightWinFormsDemoApp
 
         private async void OnFormLoad(object sender, EventArgs e)
         {
-            List<Podcast> podcasts;
-            if (File.Exists("subscriptions.xml"))
-            {
-                var serializer = new XmlSerializer(typeof(List<Podcast>));
-                using (var s = File.OpenRead("subscriptions.xml"))
-                {
-                    podcasts = (List<Podcast>) serializer.Deserialize(s);
-                }
-            }
-            else
-            {
-                var defaultFeeds = new[]
-                {
-                    "http://hwpod.libsyn.com/rss",
-                    "http://feeds.feedburner.com/herdingcode",
-                    "http://www.pwop.com/feed.aspx?show=dotnetrocks&amp;filetype=master",
-                    "http://feeds.feedburner.com/JesseLibertyYapcast",
-                    "http://feeds.feedburner.com/HanselminutesCompleteMP3"
-                };
-                podcasts = defaultFeeds.Select(f => new Podcast() { SubscriptionUrl = f }).ToList();
-            }
 
-            
+            var podcasts = subscriptionManager.LoadPodcasts();
             foreach (var pod in podcasts)
             {
                 var podcast = pod;
-                await Task.Run(() => UpdatePodcast(podcast));
+                await podcastLoader.UpdatePodcast(podcast);
                 AddPodcastToTreeView(pod);
             }
 
@@ -109,41 +86,9 @@ namespace PluralsightWinFormsDemoApp
             }
         }
 
-        void UpdatePodcast(Podcast podcast)
-        {
-            var doc = new XmlDocument();
-            doc.Load(podcast.SubscriptionUrl);
-
-            XmlElement channel = doc["rss"]["channel"];
-            XmlNodeList items = channel.GetElementsByTagName("item");
-            podcast.Title = channel["title"].InnerText;
-            podcast.Link = channel["link"].InnerText;
-            podcast.Description = channel["description"].InnerText;
-            if (podcast.Episodes == null) podcast.Episodes = new List<Episode>();
-            foreach (XmlNode item in items)
-            {
-                var guid = item["guid"].InnerText;
-                var episode = podcast.Episodes.FirstOrDefault(e => e.Guid == guid);
-                if (episode == null)
-                {
-                    episode = new Episode() { Guid = guid, IsNew = true};
-                    episode.Title = item["title"].InnerText;
-                    episode.PubDate = item["pubDate"].InnerText;
-                    var xmlElement = item["description"];
-                    if (xmlElement != null) episode.Description = xmlElement.InnerText;
-                    var element = item["link"];
-                    if (element != null) episode.Link = element.InnerText;
-                    var enclosureElement = item["enclosure"];
-                    if (enclosureElement != null) episode.AudioFile = enclosureElement.Attributes["url"].InnerText;
-                    podcast.Episodes.Add(episode);
-                }
-            }
-        }
-
         private void OnSelectedEpisodeChanged(object sender, TreeViewEventArgs e)
         {
-            if (player != null) player.Dispose();
-            player = null;
+            podcastPlayer.UnloadEpisode();
 
             var selectedEpisode = subscriptionView.treeViewPodcasts.SelectedNode.Tag as Episode;
             if (selectedEpisode != null)
@@ -160,6 +105,7 @@ namespace PluralsightWinFormsDemoApp
                 episodeView.numericUpDownRating.Value = currentEpisode.Rating;
                 episodeView.textBoxTags.Text = String.Join(",", currentEpisode.Tags ?? new string[0]);
                 episodeView.textBoxNotes.Text = currentEpisode.Notes ?? "";
+                podcastPlayer.LoadEpisode(currentEpisode);
             }
             var selectedPodcast = subscriptionView.treeViewPodcasts.SelectedNode.Tag as Podcast;
             if (selectedPodcast != null)
@@ -182,32 +128,7 @@ namespace PluralsightWinFormsDemoApp
 
         private void OnButtonPlayClick(object sender, EventArgs e)
         {
-            if (player == null)
-            {
-                if (currentEpisode.AudioFile == null)
-                {
-                    MessageBox.Show("No audio file download provided");
-                    Process.Start(currentEpisode.AudioFile ?? currentEpisode.Link);
-                    return;
-                }
-                try
-                {
-                    player = new WaveOutEvent();
-                    player.Init(new MediaFoundationReader(currentEpisode.AudioFile));
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message, "Error retrieving podcast audio");
-                    player = null;
-                }
-                
-            }
-            if (player != null)
-            {
-                player.Play();
-            }
-
+            podcastPlayer.Play();
         }
 
         private void OnButtonRemovePodcastClick(object sender, EventArgs e)
@@ -219,7 +140,7 @@ namespace PluralsightWinFormsDemoApp
             SelectFirstEpisode();
         }
 
-        private void OnButtonAddSubscriptionClick(object sender, EventArgs e)
+        private async void OnButtonAddSubscriptionClick(object sender, EventArgs e)
         {
             var form = new NewPodcastForm();
             if (form.ShowDialog() == DialogResult.OK)
@@ -227,7 +148,7 @@ namespace PluralsightWinFormsDemoApp
                 var pod = new Podcast() {SubscriptionUrl = form.PodcastUrl };
                 try
                 {
-                    UpdatePodcast(pod);
+                    await podcastLoader.UpdatePodcast(pod);
                     AddPodcastToTreeView(pod);
                 }
                 catch (WebException)
@@ -244,20 +165,13 @@ namespace PluralsightWinFormsDemoApp
         private void OnFormClosed(object sender, FormClosedEventArgs e)
         {
             SaveEpisode();
-            var serializer = new XmlSerializer(typeof(List<Podcast>));
-            using (var s = File.Create("subscriptions.xml"))
-            {
-                var podcasts = subscriptionView.treeViewPodcasts.Nodes
+            var podcasts = subscriptionView.treeViewPodcasts.Nodes
                     .Cast<TreeNode>()
                     .Select(tn => tn.Tag)
                     .OfType<Podcast>()
                     .ToList();
-                serializer.Serialize(s, podcasts);
-            }
-            if (player != null)
-            {
-                player.Dispose();
-            }
+            subscriptionManager.Save(podcasts);
+            podcastPlayer.Dispose();
         }
 
         private void MainForm_HelpRequested(object sender, HelpEventArgs hlpevent)
@@ -267,7 +181,7 @@ namespace PluralsightWinFormsDemoApp
 
         private void OnButtonPauseClick(object sender, EventArgs e)
         {
-            if (player != null) player.Pause();
+            podcastPlayer.Pause();
         }
 
         private void buttonFavourite_CheckStateChanged(object sender, EventArgs e)
@@ -279,7 +193,7 @@ namespace PluralsightWinFormsDemoApp
 
         private void OnButtonStopClick(object sender, EventArgs e)
         {
-            if (player != null) player.Stop();
+            podcastPlayer.Stop();
         }
     }
 }
