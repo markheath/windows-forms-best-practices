@@ -138,9 +138,9 @@
 
         private System.Windows.Forms.Panel panel1;
         public System.Windows.Forms.NumericUpDown numericUpDownRating;
-        public System.Windows.Forms.Label label2;
-        public System.Windows.Forms.Label label3;
-        public System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label1;
         public System.Windows.Forms.TextBox textBoxNotes;
         public System.Windows.Forms.TextBox textBoxTags;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
