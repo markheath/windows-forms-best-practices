@@ -66,6 +66,11 @@
     <Compile Include="EpisodeView.Designer.cs">
       <DependentUpon>EpisodeView.cs</DependentUpon>
     </Compile>
+    <Compile Include="IconResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IconResources.resx</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -98,6 +103,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TextResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="TextResources.fr.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TextResources.fr.resx</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="EpisodeView.en-GB.resx">
       <DependentUpon>EpisodeView.cs</DependentUpon>
     </EmbeddedResource>
@@ -106,6 +116,10 @@
     </EmbeddedResource>
     <EmbeddedResource Include="EpisodeView.resx">
       <DependentUpon>EpisodeView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IconResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>IconResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -128,7 +142,10 @@
     <EmbeddedResource Include="SubscriptionView.resx">
       <DependentUpon>SubscriptionView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="TextResources.fr.resx" />
+    <EmbeddedResource Include="TextResources.fr.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>TextResources.fr.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="TextResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>TextResources.Designer.cs</LastGenOutput>
@@ -162,6 +179,33 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add-icon-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\microphone-icon-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\pause-icon-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\play-icon-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\remove-icon-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\settings-icon-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\star-icon-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\stop-icon-32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\star-icon-fill-32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

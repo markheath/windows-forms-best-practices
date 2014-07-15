@@ -32,9 +32,6 @@ namespace PluralsightWinFormsDemoApp
             episodeView.labelEpisodeTitle.Text = "";
             episodeView.labelPublicationDate.Text = "";
             subscriptionView.treeViewPodcasts.AfterSelect += OnSelectedEpisodeChanged;
-            subscriptionView.buttonAddSubscription.Click += OnButtonAddSubscriptionClick;
-            subscriptionView.buttonRemoveSubscription.Click += OnButtonRemovePodcastClick;
-            episodeView.buttonPlay.Click += OnButtonPlayClick;
             if (!SystemInformation.HighContrast)
             {
                 BackColor = Color.White;
@@ -45,7 +42,7 @@ namespace PluralsightWinFormsDemoApp
         {
             if (keyData == (Keys.Space | Keys.Control))
             {
-                episodeView.buttonPlay.PerformClick();
+                buttonPlay.PerformClick();
                 return true;
             }
             return base.ProcessCmdKey(ref msg, keyData);
@@ -78,12 +75,9 @@ namespace PluralsightWinFormsDemoApp
             
             foreach (var pod in podcasts)
             {
-                var updatePodcastTask = Task.Run(() => UpdatePodcast(pod));
-                var firstTask = await Task.WhenAny(updatePodcastTask, Task.Delay(2000));
-                if (firstTask == updatePodcastTask)
-                {
-                    AddPodcastToTreeView(pod);
-                }
+                var podcast = pod;
+                await Task.Run(() => UpdatePodcast(podcast));
+                AddPodcastToTreeView(pod);
             }
 
             SelectFirstEpisode();
@@ -116,8 +110,6 @@ namespace PluralsightWinFormsDemoApp
 
         void UpdatePodcast(Podcast podcast)
         {
-            var r = new Random();
-            Thread.Sleep(r.Next(3000));
             var doc = new XmlDocument();
             doc.Load(podcast.SubscriptionUrl);
 
@@ -159,7 +151,7 @@ namespace PluralsightWinFormsDemoApp
                 episodeView.labelEpisodeTitle.Text = currentEpisode.Title;
                 episodeView.labelPublicationDate.Text = currentEpisode.PubDate;
                 episodeView.labelDescription.Text = currentEpisode.Description;
-                episodeView.checkBoxIsFavourite.Checked = currentEpisode.IsFavourite;
+                buttonFavourite.Checked = currentEpisode.IsFavourite;
                 currentEpisode.IsNew = false;
                 episodeView.numericUpDownRating.Value = currentEpisode.Rating;
                 episodeView.textBoxTags.Text = String.Join(",", currentEpisode.Tags ?? new string[0]);
@@ -180,7 +172,7 @@ namespace PluralsightWinFormsDemoApp
 
             currentEpisode.Tags = episodeView.textBoxTags.Text.Split(new[] { ',' }).Select(s => s.Trim()).ToArray();
             currentEpisode.Rating = (int)episodeView.numericUpDownRating.Value;
-            currentEpisode.IsFavourite = episodeView.checkBoxIsFavourite.Checked;
+            currentEpisode.IsFavourite = buttonFavourite.Checked;
             currentEpisode.Notes = episodeView.textBoxNotes.Text;
         }
 
@@ -238,6 +230,18 @@ namespace PluralsightWinFormsDemoApp
         private void MainForm_HelpRequested(object sender, HelpEventArgs hlpevent)
         {
             MessageBox.Show("Help");
+        }
+
+        private void OnButtonPauseClick(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonFavourite_CheckStateChanged(object sender, EventArgs e)
+        {
+            buttonFavourite.Image = buttonFavourite.Checked
+                ? IconResources.star_icon_fill_32
+                : IconResources.star_icon_32;
         }
     }
 }
