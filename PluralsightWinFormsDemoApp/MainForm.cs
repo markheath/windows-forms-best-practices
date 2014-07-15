@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using System.Xml.Serialization;
+using NAudio.Wave;
 using PluralsightWinFormsDemoApp.Properties;
 
 namespace PluralsightWinFormsDemoApp
@@ -20,6 +21,7 @@ namespace PluralsightWinFormsDemoApp
         private EpisodeView episodeView;
         private PodcastView podcastView;
         private SubscriptionView subscriptionView;
+        private WaveOutEvent player;
 
         public MainForm()
         {            
@@ -36,6 +38,7 @@ namespace PluralsightWinFormsDemoApp
             {
                 BackColor = Color.White;
             }
+            
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -81,9 +84,7 @@ namespace PluralsightWinFormsDemoApp
             }
 
             SelectFirstEpisode();
-
-            
-            
+                       
             if (Settings.Default.FirstRun)
             {
                 MessageBox.Show("Welcome! Get started by clicking Add to subscribe to a podcast");
@@ -141,6 +142,9 @@ namespace PluralsightWinFormsDemoApp
 
         private void OnSelectedEpisodeChanged(object sender, TreeViewEventArgs e)
         {
+            if (player != null) player.Dispose();
+            player = null;
+
             var selectedEpisode = subscriptionView.treeViewPodcasts.SelectedNode.Tag as Episode;
             if (selectedEpisode != null)
             {
@@ -178,7 +182,32 @@ namespace PluralsightWinFormsDemoApp
 
         private void OnButtonPlayClick(object sender, EventArgs e)
         {
-            Process.Start(currentEpisode.AudioFile ?? currentEpisode.Link);
+            if (player == null)
+            {
+                if (currentEpisode.AudioFile == null)
+                {
+                    MessageBox.Show("No audio file download provided");
+                    Process.Start(currentEpisode.AudioFile ?? currentEpisode.Link);
+                    return;
+                }
+                try
+                {
+                    player = new WaveOutEvent();
+                    player.Init(new MediaFoundationReader(currentEpisode.AudioFile));
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error retrieving podcast audio");
+                    player = null;
+                }
+                
+            }
+            if (player != null)
+            {
+                player.Play();
+            }
+
         }
 
         private void OnButtonRemovePodcastClick(object sender, EventArgs e)
@@ -225,6 +254,10 @@ namespace PluralsightWinFormsDemoApp
                     .ToList();
                 serializer.Serialize(s, podcasts);
             }
+            if (player != null)
+            {
+                player.Dispose();
+            }
         }
 
         private void MainForm_HelpRequested(object sender, HelpEventArgs hlpevent)
@@ -234,7 +267,7 @@ namespace PluralsightWinFormsDemoApp
 
         private void OnButtonPauseClick(object sender, EventArgs e)
         {
-
+            if (player != null) player.Pause();
         }
 
         private void buttonFavourite_CheckStateChanged(object sender, EventArgs e)
@@ -242,6 +275,11 @@ namespace PluralsightWinFormsDemoApp
             buttonFavourite.Image = buttonFavourite.Checked
                 ? IconResources.star_icon_fill_32
                 : IconResources.star_icon_32;
+        }
+
+        private void OnButtonStopClick(object sender, EventArgs e)
+        {
+            if (player != null) player.Stop();
         }
     }
 }

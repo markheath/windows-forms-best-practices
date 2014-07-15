@@ -31,9 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonAddSubscription = new System.Windows.Forms.ToolStripButton();
             this.buttonRemoveSubscription = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonPlay = new System.Windows.Forms.ToolStripButton();
             this.buttonPause = new System.Windows.Forms.ToolStripButton();
             this.buttonStop = new System.Windows.Forms.ToolStripButton();
@@ -71,6 +71,11 @@
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 39);
+            // 
             // buttonAddSubscription
             // 
             this.buttonAddSubscription.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -92,11 +97,6 @@
             this.buttonRemoveSubscription.Size = new System.Drawing.Size(36, 36);
             this.buttonRemoveSubscription.Text = "Remove Subscription";
             this.buttonRemoveSubscription.Click += new System.EventHandler(this.OnButtonRemovePodcastClick);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 39);
             // 
             // buttonPlay
             // 
@@ -129,6 +129,7 @@
             this.buttonStop.Name = "buttonStop";
             this.buttonStop.Size = new System.Drawing.Size(36, 36);
             this.buttonStop.Text = "Stop";
+            this.buttonStop.Click += new System.EventHandler(this.OnButtonStopClick);
             // 
             // buttonFavourite
             // 
