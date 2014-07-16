@@ -39,19 +39,8 @@ namespace PluralsightWinFormsDemoApp
             podcastPlayer = new PodcastPlayer();
         }
 
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if (keyData == (Keys.Space | Keys.Control))
-            {
-                buttonPlay.PerformClick();
-                return true;
-            }
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
-
         private async void OnFormLoad(object sender, EventArgs e)
         {
-
             var podcasts = subscriptionManager.LoadPodcasts();
             foreach (var pod in podcasts)
             {
@@ -68,6 +57,16 @@ namespace PluralsightWinFormsDemoApp
                 Settings.Default.FirstRun = false;
                 Settings.Default.Save();
             }
+        }
+
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Space | Keys.Control))
+            {
+                buttonPlay.PerformClick();
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
 
         private void SelectFirstEpisode()

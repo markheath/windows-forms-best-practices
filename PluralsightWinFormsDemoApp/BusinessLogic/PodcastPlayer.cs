@@ -14,7 +14,6 @@ namespace PluralsightWinFormsDemoApp.BusinessLogic
         {
             if (player != null) player.Dispose();
             player = null;
-
         }
 
         public void Dispose()

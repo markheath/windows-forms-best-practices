@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace PluralsightWinFormsDemoApp
 {
-    public partial class PodcastView : UserControl
+    public partial class PodcastView : UserControl, IPodcastView
     {
         public PodcastView()
         {
@@ -22,5 +22,10 @@ namespace PluralsightWinFormsDemoApp
             labelTitle.Text = selectedPodcast.Title;
             labelEpisodeCount.Text = String.Format("{0} episodes", selectedPodcast.Episodes.Count);
         }
+    }
+
+    public interface IPodcastView
+    {
+        void SetPodcast(Podcast selectedPodcast);
     }
 }
