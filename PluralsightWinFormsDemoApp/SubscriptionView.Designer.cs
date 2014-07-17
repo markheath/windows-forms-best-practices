@@ -52,6 +52,6 @@
 
         #endregion
 
-        public System.Windows.Forms.TreeView treeViewPodcasts;
+        private System.Windows.Forms.TreeView treeViewPodcasts;
     }
 }
