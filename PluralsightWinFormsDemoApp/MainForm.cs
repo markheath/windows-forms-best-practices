@@ -10,7 +10,7 @@ using PluralsightWinFormsDemoApp.Properties;
 
 namespace PluralsightWinFormsDemoApp
 {
-    public partial class MainForm : Form
+    public partial class MainForm : Form, IMainFormView, IToolbarView
     {
         private Episode currentEpisode;
         private EpisodeView episodeView;
@@ -88,14 +88,13 @@ namespace PluralsightWinFormsDemoApp
             var selectedEpisode = subscriptionView.SelectedNodeTag as Episode;
             if (selectedEpisode != null)
             {
-                splitContainer1.Panel2.Controls.Clear();
-                splitContainer1.Panel2.Controls.Add(episodeView);
+                ShowEpisodeView();
                 SaveEpisode();
                 currentEpisode = selectedEpisode;
                 episodeView.Title = currentEpisode.Title;
                 episodeView.PublicationDate = currentEpisode.PubDate;
                 episodeView.Description = currentEpisode.Description;
-                buttonFavourite.Checked = currentEpisode.IsFavourite;
+                EpisodeIsFavourite = currentEpisode.IsFavourite;
                 currentEpisode.IsNew = false;
                 episodeView.Rating = currentEpisode.Rating;
                 episodeView.Tags = String.Join(",", currentEpisode.Tags ?? new string[0]);
@@ -105,8 +104,7 @@ namespace PluralsightWinFormsDemoApp
             var selectedPodcast = subscriptionView.SelectedNodeTag as Podcast;
             if (selectedPodcast != null)
             {
-                splitContainer1.Panel2.Controls.Clear();
-                splitContainer1.Panel2.Controls.Add(podcastView);
+                ShowPodcastView();
                 podcastView.SetPodcast(selectedPodcast);
             }
         }
@@ -117,7 +115,7 @@ namespace PluralsightWinFormsDemoApp
 
             currentEpisode.Tags = episodeView.Tags.Split(new[] { ',' }).Select(s => s.Trim()).ToArray();
             currentEpisode.Rating = episodeView.Rating;
-            currentEpisode.IsFavourite = buttonFavourite.Checked;
+            currentEpisode.IsFavourite = EpisodeIsFavourite;
             currentEpisode.Notes = episodeView.Notes;
         }
 
@@ -179,14 +177,86 @@ namespace PluralsightWinFormsDemoApp
 
         private void buttonFavourite_CheckStateChanged(object sender, EventArgs e)
         {
-            buttonFavourite.Image = buttonFavourite.Checked
-                ? IconResources.star_icon_fill_32
-                : IconResources.star_icon_32;
+            EpisodeIsFavourite = buttonFavourite.Checked;
         }
 
         private void OnButtonStopClick(object sender, EventArgs e)
         {
             podcastPlayer.Stop();
         }
+
+        public IEpisodeView EpisodeView { get; private set; }
+        public IPodcastView PodcastView { get; private set; }
+        public ISubscriptionView SubscriptionView { get; private set; }
+        public IToolbarView ToolbarView { get; private set; }
+        public void ShowEpisodeView()
+        {
+            splitContainer1.Panel2.Controls.Clear();
+            splitContainer1.Panel2.Controls.Add(episodeView);
+        }
+
+        public void ShowPodcastView()
+        {
+            splitContainer1.Panel2.Controls.Clear();
+            splitContainer1.Panel2.Controls.Add(podcastView);
+        }
+
+        public event EventHandler StopClicked
+        {
+            add { buttonStop.Click += value; }
+            remove { buttonStop.Click -= value; }
+        }
+
+        public event EventHandler PlayClicked
+        {
+            add { buttonPlay.Click += value; }
+            remove { buttonPlay.Click -= value; }
+        }
+        public event EventHandler PauseClicked
+        {
+            add { buttonPause.Click += value; }
+            remove { buttonPause.Click -= value; }
+        }
+
+        public event EventHandler AddPodcastClicked;
+        public event EventHandler RemovePodcastClicked;
+
+        public bool EpisodeIsFavourite
+        {
+            get { return buttonFavourite.Checked; }
+            set
+            {
+                buttonFavourite.Checked = value;
+                buttonFavourite.Image = value
+                    ? IconResources.star_icon_fill_32
+                    : IconResources.star_icon_32;
+            }
+        }
     }
+
+    public interface IToolbarView
+    {
+        event EventHandler StopClicked;
+        event EventHandler PlayClicked;
+        event EventHandler PauseClicked;
+        event EventHandler AddPodcastClicked;
+        event EventHandler RemovePodcastClicked;
+
+        bool EpisodeIsFavourite { get; set; }        
+    }
+
+    public interface IMainFormView
+    {
+        event EventHandler Load;
+        event FormClosedEventHandler FormClosed;
+
+        IEpisodeView EpisodeView { get; }
+        IPodcastView PodcastView { get; }
+        ISubscriptionView SubscriptionView { get; }
+        IToolbarView ToolbarView { get; }
+
+        void ShowEpisodeView();
+        void ShowPodcastView();
+    }
+
 }
