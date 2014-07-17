@@ -65,6 +65,7 @@ namespace PluralsightWinFormsDemoApp
     {
         string Description { get; set; }
         string Title { get; set; }
+        string PublicationDate { get; set; }
         int Rating { get; set; }
         string Notes { get; set; }
         string Tags { get; set; }

@@ -85,7 +85,6 @@
             this.buttonAddSubscription.Name = "buttonAddSubscription";
             this.buttonAddSubscription.Size = new System.Drawing.Size(36, 36);
             this.buttonAddSubscription.Text = "Add Subscription";
-            this.buttonAddSubscription.Click += new System.EventHandler(this.OnButtonAddSubscriptionClick);
             // 
             // buttonRemoveSubscription
             // 
@@ -96,7 +95,6 @@
             this.buttonRemoveSubscription.Name = "buttonRemoveSubscription";
             this.buttonRemoveSubscription.Size = new System.Drawing.Size(36, 36);
             this.buttonRemoveSubscription.Text = "Remove Subscription";
-            this.buttonRemoveSubscription.Click += new System.EventHandler(this.OnButtonRemovePodcastClick);
             // 
             // buttonPlay
             // 
@@ -107,7 +105,6 @@
             this.buttonPlay.Name = "buttonPlay";
             this.buttonPlay.Size = new System.Drawing.Size(36, 36);
             this.buttonPlay.Text = "Play";
-            this.buttonPlay.Click += new System.EventHandler(this.OnButtonPlayClick);
             // 
             // buttonPause
             // 
@@ -118,7 +115,6 @@
             this.buttonPause.Name = "buttonPause";
             this.buttonPause.Size = new System.Drawing.Size(36, 36);
             this.buttonPause.Text = "Pause";
-            this.buttonPause.Click += new System.EventHandler(this.OnButtonPauseClick);
             // 
             // buttonStop
             // 
@@ -129,7 +125,6 @@
             this.buttonStop.Name = "buttonStop";
             this.buttonStop.Size = new System.Drawing.Size(36, 36);
             this.buttonStop.Text = "Stop";
-            this.buttonStop.Click += new System.EventHandler(this.OnButtonStopClick);
             // 
             // buttonFavourite
             // 
@@ -141,7 +136,6 @@
             this.buttonFavourite.Name = "buttonFavourite";
             this.buttonFavourite.Size = new System.Drawing.Size(36, 36);
             this.buttonFavourite.Text = "Favourite";
-            this.buttonFavourite.CheckStateChanged += new System.EventHandler(this.buttonFavourite_CheckStateChanged);
             // 
             // buttonSettings
             // 
@@ -164,9 +158,6 @@
             this.MinimumSize = new System.Drawing.Size(400, 300);
             this.Name = "MainForm";
             this.Text = "My Podcasts";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.OnFormClosed);
-            this.Load += new System.EventHandler(this.OnFormLoad);
-            this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.MainForm_HelpRequested);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.toolStrip1.ResumeLayout(false);
