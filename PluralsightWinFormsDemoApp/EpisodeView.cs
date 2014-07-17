@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace PluralsightWinFormsDemoApp
 {
-    public partial class EpisodeView : UserControl
+    public partial class EpisodeView : UserControl, IEpisodeView
     {
         public EpisodeView()
         {
@@ -24,5 +24,49 @@ namespace PluralsightWinFormsDemoApp
         {
             MessageBox.Show(TextResources.TagsHelp);
         }
+
+        public string Description
+        {
+            get { return labelDescription.Text; }
+            set { labelDescription.Text = value; }
+        }
+
+        public string Title
+        {
+            get { return labelEpisodeTitle.Text; }
+            set { labelEpisodeTitle.Text = value; }
+        }
+
+        public string PublicationDate
+        {
+            get { return labelPublicationDate.Text; }
+            set { labelPublicationDate.Text = value; }
+        }
+
+        public int Rating
+        {
+            get { return (int)numericUpDownRating.Value; } 
+            set { numericUpDownRating.Value = value; }
+        }
+
+        public string Notes
+        {
+            get { return textBoxNotes.Text; }
+            set { textBoxNotes.Text = value; }
+        }
+
+        public string Tags { 
+            get { return textBoxTags.Text; }
+            set { textBoxTags.Text = value; } 
+        }
+    }
+
+    interface IEpisodeView
+    {
+        string Description { get; set; }
+        string Title { get; set; }
+        int Rating { get; set; }
+        string Notes { get; set; }
+        string Tags { get; set; }
     }
 }

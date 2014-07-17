@@ -28,9 +28,9 @@ namespace PluralsightWinFormsDemoApp
             podcastView = new PodcastView() {Dock = DockStyle.Fill};
             subscriptionView = new SubscriptionView() {Dock = DockStyle.Fill};
             splitContainer1.Panel1.Controls.Add(subscriptionView);
-            episodeView.labelDescription.Text = "";
-            episodeView.labelEpisodeTitle.Text = "";
-            episodeView.labelPublicationDate.Text = "";
+            episodeView.Description = "";
+            episodeView.Title = "";
+            episodeView.PublicationDate = "";
             subscriptionView.SelectionChanged += OnSelectedEpisodeChanged;
             if (!SystemInformation.HighContrast)
             {
@@ -92,14 +92,14 @@ namespace PluralsightWinFormsDemoApp
                 splitContainer1.Panel2.Controls.Add(episodeView);
                 SaveEpisode();
                 currentEpisode = selectedEpisode;
-                episodeView.labelEpisodeTitle.Text = currentEpisode.Title;
-                episodeView.labelPublicationDate.Text = currentEpisode.PubDate;
-                episodeView.labelDescription.Text = currentEpisode.Description;
+                episodeView.Title = currentEpisode.Title;
+                episodeView.PublicationDate = currentEpisode.PubDate;
+                episodeView.Description = currentEpisode.Description;
                 buttonFavourite.Checked = currentEpisode.IsFavourite;
                 currentEpisode.IsNew = false;
-                episodeView.numericUpDownRating.Value = currentEpisode.Rating;
-                episodeView.textBoxTags.Text = String.Join(",", currentEpisode.Tags ?? new string[0]);
-                episodeView.textBoxNotes.Text = currentEpisode.Notes ?? "";
+                episodeView.Rating = currentEpisode.Rating;
+                episodeView.Tags = String.Join(",", currentEpisode.Tags ?? new string[0]);
+                episodeView.Notes = currentEpisode.Notes ?? "";
                 podcastPlayer.LoadEpisode(currentEpisode);
             }
             var selectedPodcast = subscriptionView.SelectedNodeTag as Podcast;
@@ -115,10 +115,10 @@ namespace PluralsightWinFormsDemoApp
         {
             if (currentEpisode == null) return;
 
-            currentEpisode.Tags = episodeView.textBoxTags.Text.Split(new[] { ',' }).Select(s => s.Trim()).ToArray();
-            currentEpisode.Rating = (int)episodeView.numericUpDownRating.Value;
+            currentEpisode.Tags = episodeView.Tags.Split(new[] { ',' }).Select(s => s.Trim()).ToArray();
+            currentEpisode.Rating = episodeView.Rating;
             currentEpisode.IsFavourite = buttonFavourite.Checked;
-            currentEpisode.Notes = episodeView.textBoxNotes.Text;
+            currentEpisode.Notes = episodeView.Notes;
         }
 
         private void OnButtonPlayClick(object sender, EventArgs e)

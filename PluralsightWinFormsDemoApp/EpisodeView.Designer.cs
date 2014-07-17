@@ -137,16 +137,16 @@
         #endregion
 
         private System.Windows.Forms.Panel panel1;
-        public System.Windows.Forms.NumericUpDown numericUpDownRating;
+        private System.Windows.Forms.NumericUpDown numericUpDownRating;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
-        public System.Windows.Forms.TextBox textBoxNotes;
-        public System.Windows.Forms.TextBox textBoxTags;
+        private System.Windows.Forms.TextBox textBoxNotes;
+        private System.Windows.Forms.TextBox textBoxTags;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        public System.Windows.Forms.Label labelEpisodeTitle;
-        public System.Windows.Forms.Label labelPublicationDate;
-        public System.Windows.Forms.Label labelDescription;
+        private System.Windows.Forms.Label labelEpisodeTitle;
+        private System.Windows.Forms.Label labelPublicationDate;
+        private System.Windows.Forms.Label labelDescription;
         private System.Windows.Forms.ToolTip toolTip1;
 
     }
