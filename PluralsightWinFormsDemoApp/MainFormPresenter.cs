@@ -42,7 +42,7 @@ namespace PluralsightWinFormsDemoApp
             toolbarView.PauseClicked += OnButtonPauseClick;
             toolbarView.RemovePodcastClicked += OnButtonRemovePodcastClick;
             toolbarView.AddPodcastClicked += OnButtonAddSubscriptionClick;
-            toolbarView.FavouriteChanged += buttonFavourite_CheckStateChanged;
+            toolbarView.FavouriteChanged += OnButtonFavouriteCheckStateChanged;
 
             episodeView.Description = "";
             episodeView.Title = "";
@@ -92,9 +92,11 @@ namespace PluralsightWinFormsDemoApp
             MessageBox.Show("Help");
         }
 
-        private void buttonFavourite_CheckStateChanged(object sender, EventArgs e)
+        private void OnButtonFavouriteCheckStateChanged(object sender, EventArgs e)
         {
-            toolbarView.EpisodeIsFavourite = toolbarView.EpisodeIsFavourite;
+            toolbarView.FavouriteImage = toolbarView.EpisodeIsFavourite            
+                ? IconResources.star_icon_fill_32
+                : IconResources.star_icon_32;
         }
 
 

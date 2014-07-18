@@ -75,13 +75,12 @@ namespace PluralsightWinFormsDemoApp
         public bool EpisodeIsFavourite
         {
             get { return buttonFavourite.Checked; }
-            set
-            {
-                buttonFavourite.Checked = value;
-                buttonFavourite.Image = value
-                    ? IconResources.star_icon_fill_32
-                    : IconResources.star_icon_32;
-            }
+            set { buttonFavourite.Checked = value; }
+        }
+
+        public Image FavouriteImage
+        {
+            set { buttonFavourite.Image = value; }
         }
     }
 
@@ -93,6 +92,7 @@ namespace PluralsightWinFormsDemoApp
         event EventHandler AddPodcastClicked;
         event EventHandler RemovePodcastClicked;
         event EventHandler FavouriteChanged;
+        Image FavouriteImage { set; }
 
         bool EpisodeIsFavourite { get; set; }        
     }
