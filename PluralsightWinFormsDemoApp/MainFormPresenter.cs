@@ -122,7 +122,8 @@ namespace PluralsightWinFormsDemoApp
             if (selectedPodcast != null)
             {
                 mainFormView.ShowPodcastView();
-                podcastView.SetPodcast(selectedPodcast);
+                podcastView.SetPodcastTitle(selectedPodcast.Title);
+                podcastView.SetEpisodeCount(String.Format("{0} episodes", selectedPodcast.Episodes.Count));
             }
         }
 

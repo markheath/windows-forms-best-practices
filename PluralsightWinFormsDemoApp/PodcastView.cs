@@ -17,15 +17,20 @@ namespace PluralsightWinFormsDemoApp
             InitializeComponent();
         }
 
-        public void SetPodcast(Podcast selectedPodcast)
+        public void SetPodcastTitle(string podcastTitle)
         {
-            labelTitle.Text = selectedPodcast.Title;
-            labelEpisodeCount.Text = String.Format("{0} episodes", selectedPodcast.Episodes.Count);
+            labelTitle.Text = podcastTitle;
+        }
+
+        public void SetEpisodeCount(string episodeCount)
+        {
+            labelEpisodeCount.Text = episodeCount;
         }
     }
 
     public interface IPodcastView
     {
-        void SetPodcast(Podcast selectedPodcast);
+        void SetPodcastTitle(string podcastTitle);
+        void SetEpisodeCount(string episodeCount);
     }
 }
