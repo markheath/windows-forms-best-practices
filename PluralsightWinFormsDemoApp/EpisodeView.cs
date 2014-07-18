@@ -63,9 +63,9 @@ namespace PluralsightWinFormsDemoApp
 
     public interface IEpisodeView
     {
-        string Description { get; set; }
-        string Title { get; set; }
-        string PublicationDate { get; set; }
+        string Description { set; }
+        string Title { set; }
+        string PublicationDate { set; }
         int Rating { get; set; }
         string Notes { get; set; }
         string Tags { get; set; }
