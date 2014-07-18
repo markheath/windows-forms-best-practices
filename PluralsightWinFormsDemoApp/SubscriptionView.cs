@@ -12,39 +12,28 @@ namespace PluralsightWinFormsDemoApp
             treeViewPodcasts.AfterSelect += (s, a) => OnSelectionChanged();
         }
 
-        public object SelectedNodeTag
+        public TreeNode SelectedNode
         {
             get
             {
-                return treeViewPodcasts.SelectedNode == null ? 
-                    null : treeViewPodcasts.SelectedNode.Tag;
+                return treeViewPodcasts.SelectedNode;
             }
         }
 
-        public void AddPodcast(Podcast podcast)
+        public void AddNode(TreeNode treeNode)
         {
-            var podNode = new TreeNode(podcast.Title) { Tag = podcast };
-            treeViewPodcasts.Nodes.Add(podNode);
-            foreach (var episode in podcast.Episodes)
-            {
-                podNode.Nodes.Add(new TreeNode(episode.Title) { Tag = episode });
-            }
+            treeViewPodcasts.Nodes.Add(treeNode);
         }
 
-        public void RemovePodcast(Podcast podcast)
+        public void RemoveNode(string key)
         {
-            var node = treeViewPodcasts.Nodes.Cast<TreeNode>().FirstOrDefault(t => t.Tag == podcast);
-            if (node != null)
-                treeViewPodcasts.Nodes.Remove(node);
+            var node = treeViewPodcasts.Nodes[key];
+            treeViewPodcasts.Nodes.Remove(node);                
         }
 
-        public void SelectEpisode(Episode episode)
-        {
-            var node = treeViewPodcasts.Nodes.Cast<TreeNode>()
-                .SelectMany(tn => tn.Nodes.Cast<TreeNode>())
-                .FirstOrDefault(t => t.Tag == episode);
-            if (node != null)
-                treeViewPodcasts.SelectedNode = node;
+        public void SelectNode(string key)
+        {            
+            treeViewPodcasts.SelectedNode = treeViewPodcasts.Nodes[key];
         }
 
         public event EventHandler SelectionChanged;
@@ -58,13 +47,11 @@ namespace PluralsightWinFormsDemoApp
 
     public interface ISubscriptionView
     {
-        // either a Podcast or an Episode
-        object SelectedNodeTag { get; }
+        TreeNode SelectedNode { get; }
 
-        void AddPodcast(Podcast podcast);
-        void RemovePodcast(Podcast podcast);
-
-        void SelectEpisode(Episode episode);
+        void AddNode(TreeNode treeNode);
+        void RemoveNode(string key);
+        void SelectNode(string key);
 
         event EventHandler SelectionChanged;
     }

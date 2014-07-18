@@ -38,7 +38,7 @@ namespace PluralsightWinFormsDemoApp
                     "http://feeds.feedburner.com/JesseLibertyYapcast",
                     "http://feeds.feedburner.com/HanselminutesCompleteMP3"
                 };
-                podcasts = defaultFeeds.Select(f => new Podcast() { SubscriptionUrl = f }).ToList();
+                podcasts = defaultFeeds.Select(f => new Podcast() { SubscriptionUrl = f, Id = Guid.NewGuid() }).ToList();
             }
             return podcasts;
         }
