@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace PluralsightWinFormsDemoApp
 {
-    public partial class MainForm : Form, IMainFormView, IToolbarView
+    public partial class MainForm : Form, IMainFormView
     {
         private readonly EpisodeView episodeView;
         private readonly PodcastView podcastView;
@@ -22,7 +22,7 @@ namespace PluralsightWinFormsDemoApp
         public IEpisodeView EpisodeView { get { return episodeView; } }
         public IPodcastView PodcastView { get { return podcastView; } }
         public ISubscriptionView SubscriptionView { get { return subscriptionView; } }
-        public IToolbarView ToolbarView { get { return this; } }
+        public IToolbarView ToolbarView { get { return toolBarView; } }
 
         public void ShowEpisodeView()
         {
@@ -34,53 +34,6 @@ namespace PluralsightWinFormsDemoApp
         {
             splitContainer1.Panel2.Controls.Clear();
             splitContainer1.Panel2.Controls.Add(podcastView);
-        }
-
-        public event EventHandler AddPodcastClicked
-        {
-            add {  buttonAddSubscription.Click += value; }
-            remove {  buttonAddSubscription.Click -= value; }
-        }
-
-        public event EventHandler RemovePodcastClicked
-        {
-            add { buttonRemoveSubscription.Click += value; }
-            remove { buttonRemoveSubscription.Click -= value; }
-        }
-
-        public event EventHandler StopClicked
-        {
-            add { buttonStop.Click += value; }
-            remove { buttonStop.Click -= value; }
-        }
-
-        public event EventHandler PlayClicked
-        {
-            add { buttonPlay.Click += value; }
-            remove { buttonPlay.Click -= value; }
-        }
-
-        public event EventHandler PauseClicked
-        {
-            add { buttonPause.Click += value; }
-            remove { buttonPause.Click -= value; }
-        }
-
-        public event EventHandler FavouriteChanged
-        {
-            add { buttonFavourite.CheckStateChanged += value; }
-            remove { buttonFavourite.CheckStateChanged -= value; }
-        }
-
-        public bool EpisodeIsFavourite
-        {
-            get { return buttonFavourite.Checked; }
-            set { buttonFavourite.Checked = value; }
-        }
-
-        public Image FavouriteImage
-        {
-            set { buttonFavourite.Image = value; }
         }
     }
 
