@@ -62,6 +62,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogic\EpisodeSelectedMessage.cs" />
     <Compile Include="BusinessLogic\EventAggregator.cs" />
     <Compile Include="BusinessLogic\Utils.cs" />
     <Compile Include="Commands\AddSubscriptionCommand.cs" />

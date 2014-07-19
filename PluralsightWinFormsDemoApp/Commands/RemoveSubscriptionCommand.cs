@@ -12,7 +12,7 @@ namespace PluralsightWinFormsDemoApp
         {
             this.subscriptionView = subscriptionView;
             this.subscriptionManager = subscriptionManager;
-            Icon = IconResources.play_icon_32;
+            Icon = IconResources.remove_icon_32;
             ToolTip = "Play";
         }
 

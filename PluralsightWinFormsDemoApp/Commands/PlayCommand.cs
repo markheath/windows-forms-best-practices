@@ -15,6 +15,9 @@ namespace PluralsightWinFormsDemoApp
             Icon = IconResources.play_icon_32;
             ToolTip = "Play";
             ShortcutKey = Keys.Space | Keys.Control;
+            IsEnabled = false;
+            EventAggregator.Instance.Subscribe<EpisodeSelectedMessage>(e => IsEnabled = true);
+            EventAggregator.Instance.Subscribe<PodcastSelectedMessage>(e => IsEnabled = false);
         }
 
         public override void Execute()
