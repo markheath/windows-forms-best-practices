@@ -23,6 +23,7 @@ namespace PluralsightWinFormsDemoApp
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            
             var mainForm = new MainForm();
             var podcastPlayer = new PodcastPlayer();
             var podcastLoader = new PodcastLoader();
@@ -31,6 +32,19 @@ namespace PluralsightWinFormsDemoApp
             var settingsService = new SettingsService();
             var systemInformationService = new SystemInformationService();
             var newSubscriptionService = new NewSubscriptionService();
+
+            var commands = new IToolbarCommand[]
+            {
+                new AddSubscriptionCommand(mainForm.SubscriptionView,
+                    messageBoxDisplayService, newSubscriptionService, podcastLoader, subscriptionManger),
+                new RemoveSubscriptionCommand(mainForm.SubscriptionView, subscriptionManger),
+                new PlayCommand(podcastPlayer),
+                new PauseCommand(podcastPlayer),
+                new StopCommand(podcastPlayer),
+                new FavouriteCommand(mainForm.SubscriptionView),
+                new SettingsCommand(),
+            };
+            
             var presenter = new MainFormPresenter(mainForm,
                 podcastLoader,
                 subscriptionManger,
@@ -38,7 +52,7 @@ namespace PluralsightWinFormsDemoApp
                 messageBoxDisplayService,
                 settingsService,
                 systemInformationService,
-                newSubscriptionService);
+                commands);
             Application.Run(mainForm);
         }
 

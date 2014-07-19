@@ -49,7 +49,6 @@
             // 
             this.toolBarView.AutoSize = true;
             this.toolBarView.Dock = System.Windows.Forms.DockStyle.Top;
-            this.toolBarView.EpisodeIsFavourite = false;
             this.toolBarView.Location = new System.Drawing.Point(0, 0);
             this.toolBarView.Name = "toolBarView";
             this.toolBarView.Size = new System.Drawing.Size(764, 39);

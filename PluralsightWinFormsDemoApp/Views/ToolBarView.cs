@@ -17,65 +17,32 @@ namespace PluralsightWinFormsDemoApp
             InitializeComponent();
         }
 
-        public event EventHandler AddPodcastClicked
+        public void SetCommands(IToolbarCommand[] commands)
         {
-            add { buttonAddSubscription.Click += value; }
-            remove { buttonAddSubscription.Click -= value; }
-        }
-
-        public event EventHandler RemovePodcastClicked
-        {
-            add { buttonRemoveSubscription.Click += value; }
-            remove { buttonRemoveSubscription.Click -= value; }
-        }
-
-        public event EventHandler StopClicked
-        {
-            add { buttonStop.Click += value; }
-            remove { buttonStop.Click -= value; }
-        }
-
-        public event EventHandler PlayClicked
-        {
-            add { buttonPlay.Click += value; }
-            remove { buttonPlay.Click -= value; }
-        }
-
-        public event EventHandler PauseClicked
-        {
-            add { buttonPause.Click += value; }
-            remove { buttonPause.Click -= value; }
-        }
-
-        public event EventHandler FavouriteChanged
-        {
-            add { buttonFavourite.CheckStateChanged += value; }
-            remove { buttonFavourite.CheckStateChanged -= value; }
-        }
-
-        public bool EpisodeIsFavourite
-        {
-            get { return buttonFavourite.Checked; }
-            set { buttonFavourite.Checked = value; }
-        }
-
-        public Image FavouriteImage
-        {
-            set { buttonFavourite.Image = value; }
+            toolStrip1.Items.Clear();
+            foreach (var command in commands)
+            {
+                var button = new ToolStripButton();
+                button.Text = command.ToolTip;
+                button.Image = command.Icon;
+                button.Enabled = command.IsEnabled;
+                button.ImageScaling = ToolStripItemImageScaling.None;
+                button.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                var c = command; // create a closure around the command
+                command.PropertyChanged += (o, s) => {
+                    button.Text = c.ToolTip;
+                    button.Image = c.Icon;
+                    button.Enabled = c.IsEnabled;
+                };
+                button.Click += (o, s) => c.Execute();
+                toolStrip1.Items.Add(button);
+            }
         }
     }
 
 
     public interface IToolbarView
     {
-        event EventHandler StopClicked;
-        event EventHandler PlayClicked;
-        event EventHandler PauseClicked;
-        event EventHandler AddPodcastClicked;
-        event EventHandler RemovePodcastClicked;
-        event EventHandler FavouriteChanged;
-        Image FavouriteImage { set; }
-
-        bool EpisodeIsFavourite { get; set; }
+        void SetCommands(IToolbarCommand[] commands);
     }
 }

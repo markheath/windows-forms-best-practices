@@ -62,8 +62,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogic\Utils.cs" />
+    <Compile Include="Commands\AddSubscriptionCommand.cs" />
+    <Compile Include="Commands\FavouriteCommand.cs" />
+    <Compile Include="Commands\IToolbarCommand.cs" />
+    <Compile Include="Commands\PauseCommand.cs" />
+    <Compile Include="Commands\PlayCommand.cs" />
+    <Compile Include="Commands\CommandBase.cs" />
     <Compile Include="BusinessLogic\PodcastLoader.cs" />
     <Compile Include="BusinessLogic\PodcastPlayer.cs" />
+    <Compile Include="Commands\RemoveSubscriptionCommand.cs" />
+    <Compile Include="Commands\SettingsCommand.cs" />
+    <Compile Include="Commands\StopCommand.cs" />
     <Compile Include="Model\Episode.cs" />
     <Compile Include="Views\EpisodeView.cs">
       <SubType>UserControl</SubType>

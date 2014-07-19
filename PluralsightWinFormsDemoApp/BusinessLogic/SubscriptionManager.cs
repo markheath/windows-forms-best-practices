@@ -10,22 +10,26 @@ namespace PluralsightWinFormsDemoApp
 {
     internal interface ISubscriptionManager
     {
-        List<Podcast> LoadPodcasts();
-        void Save(List<Podcast> podcasts);
+        void Save();
+
+        void AddSubscription(Podcast podcast);
+        void RemoveSubscription(Podcast podcast);
+        IEnumerable<Podcast> Subscriptions { get; }
     }
 
     class SubscriptionManager : ISubscriptionManager
     {
         private readonly string file;
-
+        private List<Podcast> podcasts;
+            
         public SubscriptionManager(string file)
         {
             this.file = file;
+            LoadPodcasts();
         }
 
-        public List<Podcast> LoadPodcasts()
+        private void LoadPodcasts()
         {
-            List<Podcast> podcasts;
             if (File.Exists(file))
             {
                 var serializer = new XmlSerializer(typeof(List<Podcast>));
@@ -46,10 +50,9 @@ namespace PluralsightWinFormsDemoApp
                 };
                 podcasts = defaultFeeds.Select(f => new Podcast() { SubscriptionUrl = f, Id = Guid.NewGuid() }).ToList();
             }
-            return podcasts;
         }
 
-        public void Save(List<Podcast> podcasts)
+        public void Save()
         {
             var serializer = new XmlSerializer(typeof(List<Podcast>));
             using (var s = File.Create(file))
@@ -57,5 +60,18 @@ namespace PluralsightWinFormsDemoApp
                 serializer.Serialize(s, podcasts);
             }
         }
+
+
+        public void AddSubscription(Podcast podcast)
+        {
+            podcasts.Add(podcast);
+        }
+
+        public void RemoveSubscription(Podcast podcast)
+        {
+            podcasts.Remove(podcast);
+        }
+
+        public IEnumerable<Podcast> Subscriptions { get { return podcasts; } }
     }
 }
