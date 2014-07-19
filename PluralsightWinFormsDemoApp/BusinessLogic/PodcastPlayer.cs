@@ -5,7 +5,16 @@ using NAudio.Wave;
 
 namespace PluralsightWinFormsDemoApp.BusinessLogic
 {
-    class PodcastPlayer : IDisposable
+    internal interface IPodcastPlayer : IDisposable
+    {
+        void UnloadEpisode();
+        void Play();
+        void Pause();
+        void Stop();
+        void LoadEpisode(Episode selectedEpisode);
+    }
+
+    class PodcastPlayer : IPodcastPlayer
     {
         private WaveOutEvent player;
         private Episode currentEpisode;

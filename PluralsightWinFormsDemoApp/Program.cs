@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PluralsightWinFormsDemoApp.BusinessLogic;
 
 namespace PluralsightWinFormsDemoApp
 {
@@ -23,7 +24,21 @@ namespace PluralsightWinFormsDemoApp
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             var mainForm = new MainForm();
-            var presenter = new MainFormPresenter(mainForm);
+            var podcastPlayer = new PodcastPlayer();
+            var podcastLoader = new PodcastLoader();
+            var subscriptionManger = new SubscriptionManager("subscriptions.xml");
+            var messageBoxDisplayService = new MessageBoxDisplayService();
+            var settingsService = new SettingsService();
+            var systemInformationService = new SystemInformationService();
+            var newSubscriptionService = new NewSubscriptionService();
+            var presenter = new MainFormPresenter(mainForm,
+                podcastLoader,
+                subscriptionManger,
+                podcastPlayer,
+                messageBoxDisplayService,
+                settingsService,
+                systemInformationService,
+                newSubscriptionService);
             Application.Run(mainForm);
         }
 

@@ -7,7 +7,12 @@ using System.Xml;
 
 namespace PluralsightWinFormsDemoApp.BusinessLogic
 {
-    class PodcastLoader
+    interface IPodcastLoader
+    {
+        Task UpdatePodcast(Podcast podcast);
+    }
+
+    class PodcastLoader : IPodcastLoader
     {
         public async Task UpdatePodcast(Podcast podcast)
         {

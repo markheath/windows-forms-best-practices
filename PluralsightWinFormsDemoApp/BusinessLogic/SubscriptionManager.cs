@@ -8,7 +8,13 @@ using System.Xml.Serialization;
 
 namespace PluralsightWinFormsDemoApp
 {
-    class SubscriptionManager
+    internal interface ISubscriptionManager
+    {
+        List<Podcast> LoadPodcasts();
+        void Save(List<Podcast> podcasts);
+    }
+
+    class SubscriptionManager : ISubscriptionManager
     {
         private readonly string file;
 
