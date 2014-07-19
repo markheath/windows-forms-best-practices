@@ -64,4 +64,18 @@ namespace PluralsightWinFormsDemoApp
             set { buttonFavourite.Image = value; }
         }
     }
+
+
+    public interface IToolbarView
+    {
+        event EventHandler StopClicked;
+        event EventHandler PlayClicked;
+        event EventHandler PauseClicked;
+        event EventHandler AddPodcastClicked;
+        event EventHandler RemovePodcastClicked;
+        event EventHandler FavouriteChanged;
+        Image FavouriteImage { set; }
+
+        bool EpisodeIsFavourite { get; set; }
+    }
 }
