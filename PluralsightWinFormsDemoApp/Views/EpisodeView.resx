@@ -168,6 +168,9 @@
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
     <value>5, 61</value>
   </data>
@@ -195,6 +198,9 @@
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
+  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
     <value>5, 31</value>
   </data>
@@ -221,6 +227,9 @@
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="label1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
     <value>5, 2</value>
@@ -330,6 +339,9 @@
   <data name="labelEpisodeTitle.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 15.75pt</value>
   </data>
+  <data name="labelEpisodeTitle.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="labelEpisodeTitle.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 0</value>
   </data>
@@ -360,6 +372,9 @@
   <data name="labelPublicationDate.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 8.25pt, style=Italic</value>
   </data>
+  <data name="labelPublicationDate.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="labelPublicationDate.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 25</value>
   </data>
@@ -386,6 +401,9 @@
   </data>
   <data name="labelDescription.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
+  </data>
+  <data name="labelDescription.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
   </data>
   <data name="labelDescription.Location" type="System.Drawing.Point, System.Drawing">
     <value>3, 38</value>

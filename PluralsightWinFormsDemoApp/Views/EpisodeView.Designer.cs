@@ -125,6 +125,7 @@
             this.waveFormViewer1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
             this.waveFormViewer1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.waveFormViewer1.Name = "waveFormViewer1";
+            this.waveFormViewer1.PositionMilliseconds = 0;
             // 
             // EpisodeView
             // 

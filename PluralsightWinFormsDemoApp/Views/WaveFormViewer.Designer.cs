@@ -28,12 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.hScrollBar1 = new System.Windows.Forms.HScrollBar();
             this.SuspendLayout();
+            // 
+            // hScrollBar1
+            // 
+            this.hScrollBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.hScrollBar1.Location = new System.Drawing.Point(0, 114);
+            this.hScrollBar1.Name = "hScrollBar1";
+            this.hScrollBar1.Size = new System.Drawing.Size(470, 17);
+            this.hScrollBar1.TabIndex = 0;
             // 
             // WaveFormViewer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.hScrollBar1);
             this.Name = "WaveFormViewer";
             this.Size = new System.Drawing.Size(470, 131);
             this.ResumeLayout(false);
@@ -41,5 +51,7 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.HScrollBar hScrollBar1;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Security.AccessControl;
 using System.Windows.Forms;
 
 namespace PluralsightWinFormsDemoApp.Views
@@ -15,12 +16,36 @@ namespace PluralsightWinFormsDemoApp.Views
         {
             InitializeComponent();
             DoubleBuffered = true;
+            hScrollBar1.Scroll += HScrollBar1OnScroll;
+        }
+
+        private void HScrollBar1OnScroll(object sender, ScrollEventArgs scrollEventArgs)
+        {
+            this.Invalidate();
         }
 
         public void SetPeaks(float[] newPeaks)
         {
             peaks = newPeaks;
+            CalculateScrollBar();
             Invalidate();
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
+            
+            base.OnResize(e);
+            CalculateScrollBar();
+        }
+
+        private void CalculateScrollBar()
+        {
+            if (peaks != null)
+            {
+                hScrollBar1.Maximum = peaks.Length;
+                hScrollBar1.LargeChange = Width;
+                hScrollBar1.SmallChange = Width/10;
+            }
         }
 
         public int PositionMilliseconds
@@ -31,6 +56,15 @@ namespace PluralsightWinFormsDemoApp.Views
                 if (positionMilliseconds != value)
                 {
                     positionMilliseconds = value;
+                    var xPosition = positionMilliseconds/10;
+                    if (xPosition < hScrollBar1.Value)
+                    {
+                        hScrollBar1.Value = xPosition;
+                    }
+                    else if (xPosition > hScrollBar1.Value + Width)
+                    {
+                        hScrollBar1.Value = xPosition;
+                    }
                     Invalidate();
                 }
 
@@ -44,19 +78,21 @@ namespace PluralsightWinFormsDemoApp.Views
             {
                 backBrush = backBrush ?? new SolidBrush(BackColor);
                 waveformPen = waveformPen ?? new Pen(ForeColor);
+
+                var startPeak = hScrollBar1.Value;
                 
+
                 e.Graphics.FillRectangle(backBrush, ClientRectangle);
-                for (int x = 0; x < peaks.Length; x++)
+                for (int x = 0; x < Width && (startPeak + x < peaks.Length) ; x++)
                 {
-                    var height = peaks[x]*Height;
-                    var top = (Height - height)/2;
+                    var availableHeight = Height - hScrollBar1.Height;
+                    var height = peaks[startPeak + x] * availableHeight;
+                    var top = (availableHeight - height)/2;
                     e.Graphics.DrawLine(waveformPen, x, top, x, top + height);
                 }
-
-
             }
 
-            var positionX = positionMilliseconds / 10;
+            var positionX = (positionMilliseconds / 10) - hScrollBar1.Value;
             e.Graphics.DrawLine(Pens.LightGray, positionX, 0, positionX, Height);
             e.Graphics.DrawLine(Pens.DarkGray, positionX + 1, 0, positionX + 1, Height);
 
