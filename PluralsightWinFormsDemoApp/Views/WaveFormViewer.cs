@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace PluralsightWinFormsDemoApp.Views
@@ -8,6 +9,7 @@ namespace PluralsightWinFormsDemoApp.Views
         private float[] peaks;
         private Brush backBrush;
         private Pen waveformPen;
+        private int positionMilliseconds;
 
         public WaveFormViewer()
         {
@@ -19,6 +21,20 @@ namespace PluralsightWinFormsDemoApp.Views
         {
             peaks = newPeaks;
             Invalidate();
+        }
+
+        public int PositionMilliseconds
+        {
+            get { return positionMilliseconds; }
+            set
+            {
+                if (positionMilliseconds != value)
+                {
+                    positionMilliseconds = value;
+                    Invalidate();
+                }
+
+            }
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -36,7 +52,20 @@ namespace PluralsightWinFormsDemoApp.Views
                     var top = (Height - height)/2;
                     e.Graphics.DrawLine(waveformPen, x, top, x, top + height);
                 }
+
+
             }
+
+            var positionX = positionMilliseconds / 10;
+            e.Graphics.DrawLine(Pens.LightGray, positionX, 0, positionX, Height);
+            e.Graphics.DrawLine(Pens.DarkGray, positionX + 1, 0, positionX + 1, Height);
+
+            var thumbRect = new Rectangle(positionX, 0, 60, 15);
+
+            e.Graphics.FillRectangle(Brushes.LightGray, thumbRect);
+            e.Graphics.DrawRectangle(Pens.DarkGray, thumbRect);
+            thumbRect.Inflate(-2,-2);
+            e.Graphics.DrawString(TimeSpan.FromMilliseconds(PositionMilliseconds).ToString(), Font, Brushes.Black, thumbRect);
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using System.Xml.Linq;
 using NAudio.Wave;
 
 namespace PluralsightWinFormsDemoApp.BusinessLogic
@@ -18,17 +19,21 @@ namespace PluralsightWinFormsDemoApp.BusinessLogic
         void Stop();
         void LoadEpisode(Episode selectedEpisode);
         Task<float[]> LoadPeaksAsync();
+        int PositionMilliseconds { get; set; }
     }
 
     class PodcastPlayer : IPodcastPlayer
     {
         private WaveOutEvent player;
         private Episode currentEpisode;
+        private MediaFoundationReader currentReader;
 
         public void UnloadEpisode()
         {
             if (player != null) player.Dispose();
+            if (currentReader != null) currentReader.Dispose();
             player = null;
+            currentReader = null;
         }
 
         public void Dispose()
@@ -52,7 +57,8 @@ namespace PluralsightWinFormsDemoApp.BusinessLogic
                 try
                 {
                     player = new WaveOutEvent();
-                    player.Init(new MediaFoundationReader(currentEpisode.AudioFile));
+                    currentReader = new MediaFoundationReader(currentEpisode.AudioFile);
+                    player.Init(currentReader);
 
                 }
                 catch (Exception ex)
@@ -105,6 +111,20 @@ namespace PluralsightWinFormsDemoApp.BusinessLogic
                     return peaks.ToArray();
                 }
             });
+        }
+
+        public int PositionMilliseconds
+        {
+            get
+            {
+                if (currentReader != null)
+                    return (int)currentReader.CurrentTime.TotalMilliseconds;
+                return 0;
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }            
         }
     }
 }

@@ -15,7 +15,7 @@ namespace PluralsightWinFormsDemoApp
 
         public override void Execute()
         {
-            player.Play();
+            player.Pause();
         }
     }
 }

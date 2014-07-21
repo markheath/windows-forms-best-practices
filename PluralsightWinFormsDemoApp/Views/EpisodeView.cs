@@ -15,12 +15,12 @@ namespace PluralsightWinFormsDemoApp
         public EpisodeView()
         {
             InitializeComponent();
-            toolTip1.SetToolTip(textBoxTags, 
+            toolTip1.SetToolTip(textBoxTags,
                 "Enter tags for this podcast, comma separated");
             textBoxTags.HelpRequested += textBoxTags_HelpRequested;
         }
 
-        void textBoxTags_HelpRequested(object sender, HelpEventArgs hlpevent)
+        private void textBoxTags_HelpRequested(object sender, HelpEventArgs hlpevent)
         {
             MessageBox.Show(TextResources.TagsHelp);
         }
@@ -45,7 +45,7 @@ namespace PluralsightWinFormsDemoApp
 
         public int Rating
         {
-            get { return (int)numericUpDownRating.Value; } 
+            get { return (int) numericUpDownRating.Value; }
             set { numericUpDownRating.Value = value; }
         }
 
@@ -55,16 +55,24 @@ namespace PluralsightWinFormsDemoApp
             set { textBoxNotes.Text = value; }
         }
 
-        public string Tags { 
+        public string Tags
+        {
             get { return textBoxTags.Text; }
-            set { textBoxTags.Text = value; } 
+            set { textBoxTags.Text = value; }
         }
 
         public void SetPeaks(float[] peaks)
         {
             waveFormViewer1.SetPeaks(peaks);
         }
+
+        public int PositionMilliseconds
+        {
+            get { return waveFormViewer1.PositionMilliseconds; }
+            set { waveFormViewer1.PositionMilliseconds = value; }
+        }
     }
+
 
     public interface IEpisodeView
     {
@@ -75,5 +83,6 @@ namespace PluralsightWinFormsDemoApp
         string Notes { get; set; }
         string Tags { get; set; }
         void SetPeaks(float[] peaks);
+        int PositionMilliseconds { get; set; }
     }
 }
