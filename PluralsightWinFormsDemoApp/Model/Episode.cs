@@ -13,5 +13,6 @@ namespace PluralsightWinFormsDemoApp
         public string[] Tags { get; set; }
         public string Notes { get; set; }
         public int Rating { get; set; }
+        public float[] Peaks { get; set; }
     }
 }

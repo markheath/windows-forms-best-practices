@@ -123,7 +123,8 @@ namespace PluralsightWinFormsDemoApp.BusinessLogic
             }
             set
             {
-                throw new NotImplementedException();
+                if (currentReader != null)
+                    currentReader.CurrentTime = TimeSpan.FromMilliseconds(value);
             }            
         }
     }

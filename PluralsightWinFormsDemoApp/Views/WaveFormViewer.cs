@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Security.AccessControl;
+using System.Security.Cryptography;
 using System.Windows.Forms;
 
 namespace PluralsightWinFormsDemoApp.Views
@@ -17,6 +18,29 @@ namespace PluralsightWinFormsDemoApp.Views
             InitializeComponent();
             DoubleBuffered = true;
             hScrollBar1.Scroll += HScrollBar1OnScroll;
+            hScrollBar1.Enabled = false;
+            MouseDown += OnMouseDown;
+        }
+
+        public event EventHandler PositionChanged;
+
+        protected virtual void OnPositionChanged()
+        {
+            EventHandler handler = PositionChanged;
+            if (handler != null) handler(this, EventArgs.Empty);
+        }
+
+        private void OnMouseDown(object sender, MouseEventArgs mouseEventArgs)
+        {
+            if (mouseEventArgs.Button == MouseButtons.Left)
+            {
+                var desiredPosition = hScrollBar1.Value + mouseEventArgs.X;
+                if (desiredPosition < peaks.Length)
+                {
+                    PositionMilliseconds = desiredPosition * 10;
+                    OnPositionChanged();
+                }
+            }
         }
 
         private void HScrollBar1OnScroll(object sender, ScrollEventArgs scrollEventArgs)
@@ -26,8 +50,9 @@ namespace PluralsightWinFormsDemoApp.Views
 
         public void SetPeaks(float[] newPeaks)
         {
-            peaks = newPeaks;
+            peaks = newPeaks;            
             CalculateScrollBar();
+            hScrollBar1.Enabled = peaks!= null;
             Invalidate();
         }
 

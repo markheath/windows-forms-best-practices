@@ -52,6 +52,7 @@ namespace PluralsightWinFormsDemoApp
             episodeView.Description = "";
             episodeView.Title = "";
             episodeView.PublicationDate = "";
+            episodeView.PositionChanged += EpisodeViewOnPositionChanged;
             subscriptionView.SelectionChanged += OnSelectedEpisodeChanged;
             this.subscriptionManager = subscriptionManager;
             this.podcastLoader = podcastLoader;
@@ -64,6 +65,11 @@ namespace PluralsightWinFormsDemoApp
             {
                 mainFormView.BackColor = Color.White;
             }
+        }
+
+        private void EpisodeViewOnPositionChanged(object sender, EventArgs eventArgs)
+        {
+            podcastPlayer.PositionMilliseconds = episodeView.PositionMilliseconds;
         }
 
         private void TimerOnTick(object sender, EventArgs eventArgs)
@@ -126,7 +132,14 @@ namespace PluralsightWinFormsDemoApp
                 episodeView.Tags = String.Join(",", currentEpisode.Tags ?? new string[0]);
                 episodeView.Notes = currentEpisode.Notes ?? "";
                 podcastPlayer.LoadEpisode(currentEpisode);
-                episodeView.SetPeaks(await podcastPlayer.LoadPeaksAsync());
+                if (currentEpisode.Peaks == null || currentEpisode.Peaks.Length == 0)
+                {
+                    episodeView.SetPeaks(null);    
+                    currentEpisode.Peaks = await podcastPlayer.LoadPeaksAsync();
+                }
+                episodeView.SetPeaks(currentEpisode.Peaks); 
+                
+                
                 
             }
             var selectedPodcast = subscriptionView.SelectedNode.Tag as Podcast;
