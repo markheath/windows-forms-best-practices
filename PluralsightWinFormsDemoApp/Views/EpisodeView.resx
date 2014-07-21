@@ -117,14 +117,39 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="waveFormViewer1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
+    <value>Bottom, Left, Right</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="waveFormViewer1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>8, 201</value>
+  </data>
+  <data name="waveFormViewer1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>406, 74</value>
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="waveFormViewer1.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="&gt;&gt;waveFormViewer1.Name" xml:space="preserve">
+    <value>waveFormViewer1</value>
+  </data>
+  <data name="&gt;&gt;waveFormViewer1.Type" xml:space="preserve">
+    <value>PluralsightWinFormsDemoApp.Views.WaveFormViewer, PluralsightWinFormsDemoApp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;waveFormViewer1.Parent" xml:space="preserve">
+    <value>panel1</value>
+  </data>
+  <data name="&gt;&gt;waveFormViewer1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
   <data name="numericUpDownRating.Location" type="System.Drawing.Point, System.Drawing">
     <value>112, 29</value>
   </data>
   <data name="numericUpDownRating.Size" type="System.Drawing.Size, System.Drawing">
     <value>79, 20</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="numericUpDownRating.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
@@ -138,7 +163,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;numericUpDownRating.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -165,7 +190,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -192,7 +217,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -219,9 +244,8 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="textBoxNotes.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
@@ -232,7 +256,7 @@
     <value>True</value>
   </data>
   <data name="textBoxNotes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>408, 171</value>
+    <value>408, 117</value>
   </data>
   <data name="textBoxNotes.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -247,7 +271,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;textBoxNotes.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="textBoxTags.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -271,7 +295,7 @@
     <value>panel1</value>
   </data>
   <data name="&gt;&gt;textBoxTags.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="panel1.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>

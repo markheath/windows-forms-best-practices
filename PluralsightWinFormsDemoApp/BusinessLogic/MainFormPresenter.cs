@@ -95,7 +95,7 @@ namespace PluralsightWinFormsDemoApp
             messageBoxDisplayService.Show("Help");
         }
 
-        private void OnSelectedEpisodeChanged(object sender, EventArgs e)
+        private async void OnSelectedEpisodeChanged(object sender, EventArgs e)
         {
             podcastPlayer.UnloadEpisode();
             if (subscriptionView.SelectedNode == null) return;
@@ -116,6 +116,8 @@ namespace PluralsightWinFormsDemoApp
                 episodeView.Tags = String.Join(",", currentEpisode.Tags ?? new string[0]);
                 episodeView.Notes = currentEpisode.Notes ?? "";
                 podcastPlayer.LoadEpisode(currentEpisode);
+                episodeView.SetPeaks(await podcastPlayer.LoadPeaksAsync());
+                
             }
             var selectedPodcast = subscriptionView.SelectedNode.Tag as Podcast;
             if (selectedPodcast != null)

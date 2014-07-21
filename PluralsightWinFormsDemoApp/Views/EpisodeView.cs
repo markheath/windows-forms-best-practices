@@ -59,6 +59,11 @@ namespace PluralsightWinFormsDemoApp
             get { return textBoxTags.Text; }
             set { textBoxTags.Text = value; } 
         }
+
+        public void SetPeaks(float[] peaks)
+        {
+            waveFormViewer1.SetPeaks(peaks);
+        }
     }
 
     public interface IEpisodeView
@@ -69,5 +74,6 @@ namespace PluralsightWinFormsDemoApp
         int Rating { get; set; }
         string Notes { get; set; }
         string Tags { get; set; }
+        void SetPeaks(float[] peaks);
     }
 }
