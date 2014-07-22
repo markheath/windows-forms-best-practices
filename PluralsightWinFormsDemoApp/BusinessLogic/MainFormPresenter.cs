@@ -53,6 +53,7 @@ namespace PluralsightWinFormsDemoApp
             episodeView.Title = "";
             episodeView.PublicationDate = "";
             episodeView.PositionChanged += EpisodeViewOnPositionChanged;
+            episodeView.NoteCreated += EpisodeViewOnNoteCreated;
             subscriptionView.SelectionChanged += OnSelectedEpisodeChanged;
             this.subscriptionManager = subscriptionManager;
             this.podcastLoader = podcastLoader;
@@ -65,6 +66,13 @@ namespace PluralsightWinFormsDemoApp
             {
                 mainFormView.BackColor = Color.White;
             }
+        }
+
+        private void EpisodeViewOnNoteCreated(object sender, NoteArgs noteArgs)
+        {
+
+            currentEpisode.Notes = String.Format(episodeView.Notes + "{0:hh\\:mm\\:ss}: {1}\r\n", noteArgs.Position, noteArgs.Note);
+            episodeView.Notes = currentEpisode.Notes;
         }
 
         private void EpisodeViewOnPositionChanged(object sender, EventArgs eventArgs)
@@ -138,7 +146,7 @@ namespace PluralsightWinFormsDemoApp
                     currentEpisode.Peaks = await podcastPlayer.LoadPeaksAsync();
                 }
                 episodeView.SetPeaks(currentEpisode.Peaks); 
-                
+          
                 
                 
             }
