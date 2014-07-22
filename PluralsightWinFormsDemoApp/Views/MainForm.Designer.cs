@@ -41,11 +41,11 @@
             this.splitContainer1.Location = new System.Drawing.Point(0, 39);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Panel1MinSize = 180;
-            this.splitContainer1.Size = new System.Drawing.Size(764, 342);
+            this.splitContainer1.Size = new System.Drawing.Size(764, 460);
             this.splitContainer1.SplitterDistance = 254;
             this.splitContainer1.TabIndex = 0;
             // 
-            // toolBarView1
+            // toolBarView
             // 
             this.toolBarView.AutoSize = true;
             this.toolBarView.Dock = System.Windows.Forms.DockStyle.Top;
@@ -58,7 +58,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(764, 381);
+            this.ClientSize = new System.Drawing.Size(764, 499);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolBarView);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

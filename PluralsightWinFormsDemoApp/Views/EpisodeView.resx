@@ -123,10 +123,10 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="waveFormViewer1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>8, 201</value>
+    <value>8, 253</value>
   </data>
   <data name="waveFormViewer1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>406, 74</value>
+    <value>406, 107</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="waveFormViewer1.TabIndex" type="System.Int32, mscorlib">
@@ -268,7 +268,7 @@
     <value>Vertical</value>
   </data>
   <data name="textBoxNotes.Size" type="System.Drawing.Size, System.Drawing">
-    <value>408, 117</value>
+    <value>408, 170</value>
   </data>
   <data name="textBoxNotes.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -316,7 +316,7 @@
     <value>0, 51</value>
   </data>
   <data name="panel1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>421, 283</value>
+    <value>421, 368</value>
   </data>
   <data name="panel1.TabIndex" type="System.Int32, mscorlib">
     <value>24</value>
@@ -475,7 +475,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>421, 334</value>
+    <value>421, 419</value>
   </data>
   <data name="&gt;&gt;toolTip1.Name" xml:space="preserve">
     <value>toolTip1</value>

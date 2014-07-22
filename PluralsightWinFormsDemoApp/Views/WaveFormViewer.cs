@@ -114,7 +114,7 @@ namespace PluralsightWinFormsDemoApp.Views
                     PositionMilliseconds = PixelToMillisecond(desiredPosition);
                     OnPositionChanged();
                     var f = new NoteForm();
-                    f.Location = PointToScreen(mouseEventArgs.Location);
+                    f.Location = PointToScreen(new Point(mouseEventArgs.X, hScrollBar1.Top));
                     f.Show(this);
                     f.FormClosed += OnNoteFormClosed;
                 }
@@ -196,7 +196,8 @@ namespace PluralsightWinFormsDemoApp.Views
             Invalidate();
         }
 
-        private static readonly Pen positionPen = new Pen(new SolidBrush(Color.FromArgb(40,40,40)), 2);
+        private static readonly Pen positionPen = new Pen(Color.FromArgb(80,80,80), 2);
+        private static readonly Brush positionBrush = new SolidBrush(Color.FromArgb(229, 215, 200));
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -227,7 +228,7 @@ namespace PluralsightWinFormsDemoApp.Views
 
             this.thumbRect = new Rectangle(positionX, 1, (int)timeWidth.Width + 6, 15);
 
-            e.Graphics.FillRectangle(Brushes.LemonChiffon, thumbRect);
+            e.Graphics.FillRectangle(positionBrush, thumbRect);
             e.Graphics.DrawRectangle(positionPen, thumbRect);
             var timeRect = thumbRect;
             timeRect.Inflate(-2,-2);

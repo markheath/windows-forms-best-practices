@@ -32,7 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // textBox1
+            // textBoxNote
             // 
             this.textBoxNote.Location = new System.Drawing.Point(1, 23);
             this.textBoxNote.Name = "textBoxNote";
@@ -52,6 +52,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.ClientSize = new System.Drawing.Size(183, 43);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBoxNote);
