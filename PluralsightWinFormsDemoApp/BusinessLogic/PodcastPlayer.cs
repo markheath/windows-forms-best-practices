@@ -113,16 +113,21 @@ namespace PluralsightWinFormsDemoApp.BusinessLogic
             });
         }
 
+        private int position;
+
         public int PositionMilliseconds
         {
             get
             {
                 if (currentReader != null)
-                    return (int)currentReader.CurrentTime.TotalMilliseconds;
-                return 0;
+                {
+                    position = (int)currentReader.CurrentTime.TotalMilliseconds;
+                }                    
+                return position;
             }
             set
             {
+                position = value;
                 if (currentReader != null)
                     currentReader.CurrentTime = TimeSpan.FromMilliseconds(value);
             }            

@@ -3,6 +3,7 @@ using System.Drawing;
 using System.Security.AccessControl;
 using System.Security.Cryptography;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace PluralsightWinFormsDemoApp.Views
 {
@@ -12,6 +13,8 @@ namespace PluralsightWinFormsDemoApp.Views
         private Brush backBrush;
         private Pen waveformPen;
         private int positionMilliseconds;
+        private Rectangle thumbRect;
+        private bool isDragging;
 
         public WaveFormViewer()
         {
@@ -30,15 +33,77 @@ namespace PluralsightWinFormsDemoApp.Views
             if (handler != null) handler(this, EventArgs.Empty);
         }
 
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            base.OnMouseMove(e);
+
+            if (isDragging)
+            {
+                InternalSetPosition(PixelToMillisecond(hScrollBar1.Value + e.X));
+            }
+            else
+            {
+                Cursor = IsDraggable(new Point(e.X, e.Y)) ? Cursors.SizeWE : Cursors.Default;
+            }
+        }
+
+        private int PixelToMillisecond(int pixel)
+        {
+            if (peaks == null || pixel < 0) return 0;
+            pixel = Math.Min(pixel, peaks.Length);
+            return pixel*10;
+        }
+
+        private bool IsDraggable(Point pos)
+        {
+            if (thumbRect.Contains(pos))
+            {
+                return true;
+            }
+            else if (pos.Y > thumbRect.Bottom)
+            {
+                var pX = GetPositionX();
+                if (pos.X >= pX - 5 && pos.X <= pX + 5)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        protected override void OnMouseUp(MouseEventArgs e)
+        {
+            base.OnMouseUp(e);
+            if (e.Button == MouseButtons.Left)
+            {
+                if (isDragging)
+                {
+                    isDragging = false;
+                    Cursor = Cursors.Default;
+                    OnPositionChanged();
+                }
+            }
+        }
+
         private void OnMouseDown(object sender, MouseEventArgs mouseEventArgs)
         {
             if (mouseEventArgs.Button == MouseButtons.Left)
             {
-                var desiredPosition = hScrollBar1.Value + mouseEventArgs.X;
-                if (desiredPosition < peaks.Length)
+                if (IsDraggable(new Point(mouseEventArgs.X, mouseEventArgs.Y)))
                 {
-                    PositionMilliseconds = desiredPosition * 10;
-                    OnPositionChanged();
+                    // start dragging
+                    isDragging = true;
+                    Cursor = Cursors.SizeWE;
+                }
+                else
+                {
+                    // reposition
+                    var desiredPosition = hScrollBar1.Value + mouseEventArgs.X;
+                    if (desiredPosition < peaks.Length)
+                    {
+                        PositionMilliseconds = PixelToMillisecond(desiredPosition);
+                        OnPositionChanged();
+                    }
                 }
             }
         }
@@ -78,23 +143,30 @@ namespace PluralsightWinFormsDemoApp.Views
             get { return positionMilliseconds; }
             set
             {
-                if (positionMilliseconds != value)
-                {
-                    positionMilliseconds = value;
-                    var xPosition = positionMilliseconds/10;
-                    if (xPosition < hScrollBar1.Value)
-                    {
-                        hScrollBar1.Value = xPosition;
-                    }
-                    else if (xPosition > hScrollBar1.Value + Width)
-                    {
-                        hScrollBar1.Value = xPosition;
-                    }
-                    Invalidate();
+                if (positionMilliseconds != value && !isDragging)
+                {                    
+                    InternalSetPosition(value);
                 }
 
             }
         }
+
+        private void InternalSetPosition(int value)
+        {
+            positionMilliseconds = value;
+            var xPosition = positionMilliseconds/10;
+            if (xPosition < hScrollBar1.Value)
+            {
+                hScrollBar1.Value = xPosition;
+            }
+            else if (xPosition > hScrollBar1.Value + Width)
+            {
+                hScrollBar1.Value = xPosition;
+            }
+            Invalidate();
+        }
+
+        private static readonly Pen positionPen = new Pen(new SolidBrush(Color.FromArgb(40,40,40)), 2);
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -117,16 +189,24 @@ namespace PluralsightWinFormsDemoApp.Views
                 }
             }
 
-            var positionX = (positionMilliseconds / 10) - hScrollBar1.Value;
-            e.Graphics.DrawLine(Pens.LightGray, positionX, 0, positionX, Height);
-            e.Graphics.DrawLine(Pens.DarkGray, positionX + 1, 0, positionX + 1, Height);
+            var timeString = TimeSpan.FromMilliseconds(PositionMilliseconds).ToString(@"hh\:mm\:ss");
+            var timeWidth = e.Graphics.MeasureString(timeString, Font);
 
-            var thumbRect = new Rectangle(positionX, 0, 60, 15);
+            var positionX =  GetPositionX();
+            e.Graphics.DrawLine(positionPen, positionX, 0, positionX, Height);
 
-            e.Graphics.FillRectangle(Brushes.LightGray, thumbRect);
-            e.Graphics.DrawRectangle(Pens.DarkGray, thumbRect);
-            thumbRect.Inflate(-2,-2);
-            e.Graphics.DrawString(TimeSpan.FromMilliseconds(PositionMilliseconds).ToString(), Font, Brushes.Black, thumbRect);
+            this.thumbRect = new Rectangle(positionX, 1, (int)timeWidth.Width + 6, 15);
+
+            e.Graphics.FillRectangle(Brushes.LemonChiffon, thumbRect);
+            e.Graphics.DrawRectangle(positionPen, thumbRect);
+            var timeRect = thumbRect;
+            timeRect.Inflate(-2,-2);
+            e.Graphics.DrawString(timeString, Font, Brushes.Black, timeRect);
+        }
+
+        private int GetPositionX()
+        {
+            return (positionMilliseconds / 10) - hScrollBar1.Value;
         }
     }
 }
