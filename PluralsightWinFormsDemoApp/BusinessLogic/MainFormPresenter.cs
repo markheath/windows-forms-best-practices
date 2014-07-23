@@ -22,6 +22,7 @@ namespace PluralsightWinFormsDemoApp
         private readonly IMessageBoxDisplayService messageBoxDisplayService;
         private readonly ISettingsService settingsService;
         private readonly IToolbarCommand[] commands;
+        private readonly Timer timer;
 
         public MainFormPresenter(IMainFormView mainFormView,
             IPodcastLoader podcastLoader,
@@ -37,6 +38,11 @@ namespace PluralsightWinFormsDemoApp
             podcastView = mainFormView.PodcastView;
             toolbarView = mainFormView.ToolbarView;
             toolbarView.SetCommands(commands);
+
+            timer = new Timer();
+            timer.Interval = 100;
+            timer.Tick += TimerOnTick;
+            timer.Start();
 
             this.mainFormView = mainFormView;
             mainFormView.Load += MainFormViewOnLoad;
@@ -59,6 +65,11 @@ namespace PluralsightWinFormsDemoApp
             {
                 mainFormView.BackColor = Color.White;
             }
+        }
+
+        private void TimerOnTick(object sender, EventArgs eventArgs)
+        {
+            episodeView.PositionInSeconds = podcastPlayer.PositionInSeconds;
         }
 
         private void MainFormViewOnKeyUp(object sender, KeyEventArgs keyEventArgs)

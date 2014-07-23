@@ -18,25 +18,26 @@ namespace PluralsightWinFormsDemoApp.BusinessLogic
         void Stop();
         void LoadEpisode(Episode selectedEpisode);
         Task<float[]> LoadPeaksAsync();
+        int PositionInSeconds { get; set; }
     }
 
     class PodcastPlayer : IPodcastPlayer
     {
         private WaveOutEvent player;
         private Episode currentEpisode;
+        private MediaFoundationReader currentReader;
 
         public void UnloadEpisode()
         {
             if (player != null) player.Dispose();
+            if (currentReader != null) currentReader.Dispose();
             player = null;
+            currentReader = null;
         }
 
         public void Dispose()
         {
-            if (player != null)
-            {
-                player.Dispose();
-            }
+            UnloadEpisode();
         }
 
         public void Play()
@@ -52,8 +53,8 @@ namespace PluralsightWinFormsDemoApp.BusinessLogic
                 try
                 {
                     player = new WaveOutEvent();
-                    player.Init(new MediaFoundationReader(currentEpisode.AudioFile));
-
+                    currentReader = new MediaFoundationReader(currentEpisode.AudioFile);
+                    player.Init(currentReader);
                 }
                 catch (Exception ex)
                 {
@@ -105,6 +106,26 @@ namespace PluralsightWinFormsDemoApp.BusinessLogic
                     return peaks.ToArray();
                 }
             });
+        }
+
+        private int positionInSeconds;
+
+        public int PositionInSeconds
+        {
+            get
+            {
+                if (currentReader != null)
+                {
+                    positionInSeconds = (int)currentReader.CurrentTime.TotalSeconds;
+                }
+                return positionInSeconds;
+            }
+            set
+            {
+                positionInSeconds = value;
+                if (currentReader != null)
+                    currentReader.CurrentTime = TimeSpan.FromSeconds(value);
+            }
         }
     }
 }
