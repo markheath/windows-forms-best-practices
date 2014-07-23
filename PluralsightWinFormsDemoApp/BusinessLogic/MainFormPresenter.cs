@@ -63,7 +63,7 @@ namespace PluralsightWinFormsDemoApp
 
         private void MainFormViewOnKeyUp(object sender, KeyEventArgs keyEventArgs)
         {
-            var command = commands.FirstOrDefault(c => c.ShortcutKey == keyEventArgs.KeyCode);            
+            var command = commands.FirstOrDefault(c => c.ShortcutKey == keyEventArgs.KeyCode);
             if (command != null)
             {
                 command.Execute();
@@ -95,7 +95,7 @@ namespace PluralsightWinFormsDemoApp
             messageBoxDisplayService.Show("Help");
         }
 
-        private void OnSelectedEpisodeChanged(object sender, EventArgs e)
+        private async void OnSelectedEpisodeChanged(object sender, EventArgs e)
         {
             podcastPlayer.UnloadEpisode();
             if (subscriptionView.SelectedNode == null) return;
@@ -116,6 +116,12 @@ namespace PluralsightWinFormsDemoApp
                 episodeView.Tags = String.Join(",", currentEpisode.Tags ?? new string[0]);
                 episodeView.Notes = currentEpisode.Notes ?? "";
                 podcastPlayer.LoadEpisode(currentEpisode);
+                if (currentEpisode.Peaks == null || currentEpisode.Peaks.Length == 0)
+                {
+                    episodeView.SetPeaks(null);
+                    currentEpisode.Peaks = await podcastPlayer.LoadPeaksAsync();
+                }
+                episodeView.SetPeaks(currentEpisode.Peaks); 
             }
             var selectedPodcast = subscriptionView.SelectedNode.Tag as Podcast;
             if (selectedPodcast != null)
