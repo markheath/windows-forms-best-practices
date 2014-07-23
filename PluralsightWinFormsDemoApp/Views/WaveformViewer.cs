@@ -20,12 +20,35 @@ namespace PluralsightWinFormsDemoApp.Views
         {
             InitializeComponent();
             DoubleBuffered = true;
+            hScrollBar1.Scroll += hScrollBar1_Scroll;
+        }
+
+        void hScrollBar1_Scroll(object sender, ScrollEventArgs e)
+        {
+            Invalidate();
         }
 
         public void SetPeaks(float[] newPeaks)
         {
             peaks = newPeaks;
+            CalculateScrollBar();
             Invalidate();
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
+            base.OnResize(e);
+            CalculateScrollBar();
+        }
+
+        private void CalculateScrollBar()
+        {
+            if (peaks != null)
+            {
+                hScrollBar1.Maximum = peaks.Length;
+                hScrollBar1.LargeChange = Width;
+                hScrollBar1.SmallChange = Width / 10;
+            }
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -36,11 +59,14 @@ namespace PluralsightWinFormsDemoApp.Views
                 backBrush = backBrush ?? new SolidBrush(BackColor);
                 waveformPen = waveformPen ?? new Pen(ForeColor);
 
+                var startPeak = hScrollBar1.Value;
+
                 e.Graphics.FillRectangle(backBrush, ClientRectangle);
-                for (int x = 0; x < peaks.Length && x < Width; x++)
+                for (int x = 0; (startPeak + x < peaks.Length) && x < Width; x++)
                 {
-                    var height = peaks[x]*Height;
-                    var top = (Height - height)/2;
+                    var availableHeight = Height - hScrollBar1.Height;
+                    var height = peaks[startPeak + x]*availableHeight;
+                    var top = (availableHeight - height)/2;
                     e.Graphics.DrawLine(waveformPen, x, top, x, top + height);
                 }
             }
