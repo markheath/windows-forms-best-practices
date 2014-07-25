@@ -21,10 +21,72 @@ namespace PluralsightWinFormsDemoApp.Views
         {
             InitializeComponent();
             DoubleBuffered = true;
-            hScrollBar1.Scroll += hScrollBar1_Scroll;
+            hScrollBar1.Scroll += OnHScrollBar1Scroll;
+            this.MouseClick += OnMouseClick;
+            this.MouseMove += OnMouseMove;
+            this.MouseDown += OnMouseDown;
+            this.MouseUp += OnMouseUp;
         }
 
-        void hScrollBar1_Scroll(object sender, ScrollEventArgs e)
+        private void OnMouseUp(object sender, MouseEventArgs mouseEventArgs)
+        {
+            if (mouseEventArgs.Button == MouseButtons.Left && isDragging)
+            {
+                isDragging = false;
+                Cursor = Cursors.Default;
+                OnPositionChanged();
+            }
+        }
+
+        private bool isDragging;
+
+        private void OnMouseDown(object sender, MouseEventArgs mouseEventArgs)
+        {
+            if (mouseEventArgs.Button == MouseButtons.Left && Cursor == Cursors.SizeWE)
+            {
+                isDragging = true;
+            }
+        }
+
+        private void OnMouseMove(object sender, MouseEventArgs mouseEventArgs)
+        {
+            var hoverPosition = mouseEventArgs.X + hScrollBar1.Value;
+            if (!isDragging)
+            {
+                if (Math.Abs(positionInSeconds - hoverPosition) < 5)
+                {
+                    Cursor = Cursors.SizeWE;
+                }
+                else
+                {
+                    Cursor = Cursors.Default;
+                }
+            }
+            else
+            {
+                PositionInSeconds = hoverPosition;
+            }
+        }
+
+        private void OnMouseClick(object sender, MouseEventArgs mouseEventArgs)
+        {
+            if (mouseEventArgs.Button == MouseButtons.Left)
+            {
+                var desiredPosition = mouseEventArgs.X + hScrollBar1.Value;
+                PositionInSeconds = desiredPosition;
+                OnPositionChanged();
+            }
+        }
+
+        public event EventHandler PositionChanged;
+
+        protected virtual void OnPositionChanged()
+        {
+            EventHandler handler = PositionChanged;
+            if (handler != null) handler(this, EventArgs.Empty);
+        }
+
+        void OnHScrollBar1Scroll(object sender, ScrollEventArgs e)
         {
             Invalidate();
         }

@@ -65,10 +65,16 @@ namespace PluralsightWinFormsDemoApp
             waveformViewer1.SetPeaks(peaks);
         }
 
-        public int PositionInSeconds 
-        { 
-            get { return waveformViewer1.PositionInSeconds; } 
-            set { waveformViewer1.PositionInSeconds = value; } 
+        public int PositionInSeconds
+        {
+            get { return waveformViewer1.PositionInSeconds; }
+            set { waveformViewer1.PositionInSeconds = value; }
+        }
+
+        public event EventHandler PositionChanged
+        {
+            add { waveformViewer1.PositionChanged += value; }
+            remove { waveformViewer1.PositionChanged -= value; }
         }
     }
 
@@ -82,5 +88,6 @@ namespace PluralsightWinFormsDemoApp
         string Tags { get; set; }
         void SetPeaks(float[] peaks);
         int PositionInSeconds { get; set; }
+        event EventHandler PositionChanged;
     }
 }

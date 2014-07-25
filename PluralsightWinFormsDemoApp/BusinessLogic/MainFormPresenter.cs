@@ -65,6 +65,8 @@ namespace PluralsightWinFormsDemoApp
             {
                 mainFormView.BackColor = Color.White;
             }
+
+            episodeView.PositionChanged += (s, a) => podcastPlayer.PositionInSeconds = episodeView.PositionInSeconds;
         }
 
         private void TimerOnTick(object sender, EventArgs eventArgs)
