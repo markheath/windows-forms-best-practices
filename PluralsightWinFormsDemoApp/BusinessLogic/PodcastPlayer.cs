@@ -19,6 +19,7 @@ namespace PluralsightWinFormsDemoApp.BusinessLogic
         void LoadEpisode(Episode selectedEpisode);
         Task<float[]> LoadPeaksAsync();
         int PositionInSeconds { get; set; }
+        bool IsPlaying { get; }
     }
 
     class PodcastPlayer : IPodcastPlayer
@@ -127,5 +128,7 @@ namespace PluralsightWinFormsDemoApp.BusinessLogic
                     currentReader.CurrentTime = TimeSpan.FromSeconds(value);
             }
         }
+
+        public bool IsPlaying { get { return player != null && player.PlaybackState == PlaybackState.Playing; } }
     }
 }

@@ -69,7 +69,10 @@ namespace PluralsightWinFormsDemoApp
 
         private void TimerOnTick(object sender, EventArgs eventArgs)
         {
-            episodeView.PositionInSeconds = podcastPlayer.PositionInSeconds;
+            if (podcastPlayer.IsPlaying)
+            {
+                episodeView.PositionInSeconds = podcastPlayer.PositionInSeconds;
+            }
         }
 
         private void MainFormViewOnKeyUp(object sender, KeyEventArgs keyEventArgs)
