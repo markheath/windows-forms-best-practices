@@ -76,6 +76,12 @@ namespace PluralsightWinFormsDemoApp
             add { waveformViewer1.PositionChanged += value; }
             remove { waveformViewer1.PositionChanged -= value; }
         }
+
+        public event EventHandler<NoteArgs> NoteCreated
+        {
+            add { waveformViewer1.NoteCreated += value; }
+            remove { waveformViewer1.NoteCreated -= value; }
+        }
     }
 
     public interface IEpisodeView
@@ -89,5 +95,18 @@ namespace PluralsightWinFormsDemoApp
         void SetPeaks(float[] peaks);
         int PositionInSeconds { get; set; }
         event EventHandler PositionChanged;
+        event EventHandler<NoteArgs> NoteCreated;
+    }
+
+    public class NoteArgs : EventArgs
+    {
+        public NoteArgs(string note, TimeSpan position)
+        {
+            Position = position;
+            Note = note;
+        }
+
+        public string Note { get; private set; }
+        public TimeSpan Position { get; private set; }
     }
 }

@@ -76,6 +76,33 @@ namespace PluralsightWinFormsDemoApp.Views
                 PositionInSeconds = desiredPosition;
                 OnPositionChanged();
             }
+            else if (mouseEventArgs.Button == MouseButtons.Right)
+            {
+                var desiredPosition = hScrollBar1.Value + mouseEventArgs.X;
+                PositionInSeconds = desiredPosition;
+                OnPositionChanged();
+                var f = new NoteForm();
+                f.Location = PointToScreen(mouseEventArgs.Location);
+                f.Show(this);
+                f.FormClosed += OnNoteFormClosed;
+            }  
+        }
+
+        private void OnNoteFormClosed(object sender, FormClosedEventArgs formClosedEventArgs)
+        {
+            var nf = (NoteForm)sender;
+            nf.FormClosed -= OnNoteFormClosed;
+            if (!String.IsNullOrEmpty(nf.Note))
+                OnNoteCreated(new NoteArgs(nf.Note, TimeSpan.FromSeconds(PositionInSeconds)));
+
+        }
+
+        public event EventHandler<NoteArgs> NoteCreated;
+
+        protected virtual void OnNoteCreated(NoteArgs e)
+        {
+            EventHandler<NoteArgs> handler = NoteCreated;
+            if (handler != null) handler(this, e);
         }
 
         public event EventHandler PositionChanged;

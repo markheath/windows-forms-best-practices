@@ -60,6 +60,7 @@ namespace PluralsightWinFormsDemoApp
             this.messageBoxDisplayService = messageBoxDisplayService;
             this.settingsService = settingsService;
             this.commands = commands;
+            this.episodeView.NoteCreated += EpisodeViewOnNoteCreated;
 
             if (!systemInformationService.IsHighContrastColourScheme)
             {
@@ -67,6 +68,13 @@ namespace PluralsightWinFormsDemoApp
             }
 
             episodeView.PositionChanged += (s, a) => podcastPlayer.PositionInSeconds = episodeView.PositionInSeconds;
+        }
+
+        private void EpisodeViewOnNoteCreated(object sender, NoteArgs noteArgs)
+        {
+            currentEpisode.Notes = String.Format(episodeView.Notes + "{0:hh\\:mm\\:ss}: {1}\r\n", 
+                noteArgs.Position, noteArgs.Note);
+            episodeView.Notes = currentEpisode.Notes;
         }
 
         private void TimerOnTick(object sender, EventArgs eventArgs)

@@ -104,6 +104,12 @@
     </Compile>
     <Compile Include="BusinessLogic\NewSubscriptionService.cs" />
     <Compile Include="Model\Podcast.cs" />
+    <Compile Include="Views\NoteForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\NoteForm.Designer.cs">
+      <DependentUpon>NoteForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\PodcastView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -161,6 +167,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\NewPodcastForm.resx">
       <DependentUpon>NewPodcastForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\NoteForm.resx">
+      <DependentUpon>NoteForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PodcastView.resx">
       <DependentUpon>PodcastView.cs</DependentUpon>
