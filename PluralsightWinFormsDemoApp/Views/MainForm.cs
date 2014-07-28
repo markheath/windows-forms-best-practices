@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Windows.Forms;
+using PluralsightWinFormsDemoApp.Views;
 
 namespace PluralsightWinFormsDemoApp
 {
@@ -13,7 +14,7 @@ namespace PluralsightWinFormsDemoApp
         public MainForm()
         {
             InitializeComponent();
-            episodeView = new EpisodeView() {Dock = DockStyle.Fill};
+            episodeView = new EpisodeView() { Dock = DockStyle.Fill };
             podcastView = new PodcastView() {Dock = DockStyle.Fill};
             subscriptionView = new SubscriptionView() {Dock = DockStyle.Fill};
             splitContainer1.Panel1.Controls.Add(subscriptionView);

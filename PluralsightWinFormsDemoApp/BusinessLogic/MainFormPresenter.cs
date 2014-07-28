@@ -50,7 +50,6 @@ namespace PluralsightWinFormsDemoApp
             mainFormView.HelpRequested += OnHelpRequested;
             mainFormView.KeyUp += MainFormViewOnKeyUp;
 
-            episodeView.Description = "";
             episodeView.Title = "";
             episodeView.PublicationDate = "";
             subscriptionView.SelectionChanged += OnSelectedEpisodeChanged;
@@ -79,7 +78,7 @@ namespace PluralsightWinFormsDemoApp
 
         private void TimerOnTick(object sender, EventArgs eventArgs)
         {
-            if (podcastPlayer.IsPlaying)
+            if (podcastPlayer != null && podcastPlayer.IsPlaying)
             {
                 episodeView.PositionInSeconds = podcastPlayer.PositionInSeconds;
             }
