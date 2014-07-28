@@ -15,6 +15,17 @@ namespace PluralsightWinFormsDemoApp
         public PodcastView()
         {
             InitializeComponent();
+            webBrowser1.DocumentCompleted += WebBrowser1OnDocumentCompleted;
+        }
+
+        private void WebBrowser1OnDocumentCompleted(object sender, 
+            WebBrowserDocumentCompletedEventArgs webBrowserDocumentCompletedEventArgs)
+        {
+            foreach (var link in webBrowser1.Document.All.Cast<HtmlElement>().Where(e => e.TagName == "A"))
+            {
+                link.InnerText = "Pluralsight";
+                link.SetAttribute("href", "http://pluralsight.com");
+            }
         }
 
         public void SetPodcastTitle(string podcastTitle)
