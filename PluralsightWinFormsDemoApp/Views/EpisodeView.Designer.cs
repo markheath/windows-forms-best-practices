@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EpisodeView));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.waveformViewer1 = new PluralsightWinFormsDemoApp.Views.WaveformViewer();
+            this.webBrowserDescription = new System.Windows.Forms.WebBrowser();
             this.numericUpDownRating = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -41,8 +41,8 @@
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.labelEpisodeTitle = new System.Windows.Forms.Label();
             this.labelPublicationDate = new System.Windows.Forms.Label();
-            this.labelDescription = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.waveformViewer1 = new PluralsightWinFormsDemoApp.Views.WaveformViewer();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRating)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
@@ -50,6 +50,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.webBrowserDescription);
             this.panel1.Controls.Add(this.waveformViewer1);
             this.panel1.Controls.Add(this.numericUpDownRating);
             this.panel1.Controls.Add(this.label2);
@@ -60,12 +61,11 @@
             resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
-            // waveformViewer1
+            // webBrowserDescription
             // 
-            resources.ApplyResources(this.waveformViewer1, "waveformViewer1");
-            this.waveformViewer1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.waveformViewer1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.waveformViewer1.Name = "waveformViewer1";
+            resources.ApplyResources(this.webBrowserDescription, "webBrowserDescription");
+            this.webBrowserDescription.Name = "webBrowserDescription";
+            this.webBrowserDescription.ScriptErrorsSuppressed = true;
             // 
             // numericUpDownRating
             // 
@@ -107,7 +107,6 @@
             resources.ApplyResources(this.flowLayoutPanel1, "flowLayoutPanel1");
             this.flowLayoutPanel1.Controls.Add(this.labelEpisodeTitle);
             this.flowLayoutPanel1.Controls.Add(this.labelPublicationDate);
-            this.flowLayoutPanel1.Controls.Add(this.labelDescription);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             // 
             // labelEpisodeTitle
@@ -121,10 +120,13 @@
             resources.ApplyResources(this.labelPublicationDate, "labelPublicationDate");
             this.labelPublicationDate.Name = "labelPublicationDate";
             // 
-            // labelDescription
+            // waveformViewer1
             // 
-            resources.ApplyResources(this.labelDescription, "labelDescription");
-            this.labelDescription.Name = "labelDescription";
+            resources.ApplyResources(this.waveformViewer1, "waveformViewer1");
+            this.waveformViewer1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.waveformViewer1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.waveformViewer1.Name = "waveformViewer1";
+            this.waveformViewer1.PositionInSeconds = 0;
             // 
             // EpisodeView
             // 
@@ -155,9 +157,9 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Label labelEpisodeTitle;
         private System.Windows.Forms.Label labelPublicationDate;
-        private System.Windows.Forms.Label labelDescription;
         private System.Windows.Forms.ToolTip toolTip1;
         private Views.WaveformViewer waveformViewer1;
+        private System.Windows.Forms.WebBrowser webBrowserDescription;
 
     }
 }

@@ -27,8 +27,8 @@ namespace PluralsightWinFormsDemoApp
 
         public string Description
         {
-            get { return labelDescription.Text; }
-            set { labelDescription.Text = value; }
+            get { return webBrowserDescription.DocumentText; }
+            set { webBrowserDescription.DocumentText = value; }
         }
 
         public string Title
