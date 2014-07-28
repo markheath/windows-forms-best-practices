@@ -30,6 +30,7 @@
         {
             this.labelTitle = new System.Windows.Forms.Label();
             this.labelEpisodeCount = new System.Windows.Forms.Label();
+            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.SuspendLayout();
             // 
             // labelTitle
@@ -52,14 +53,27 @@
             this.labelEpisodeCount.TabIndex = 1;
             this.labelEpisodeCount.Text = "{{Episode Count}}";
             // 
+            // webBrowser1
+            // 
+            this.webBrowser1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.webBrowser1.Location = new System.Drawing.Point(9, 72);
+            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser1.Name = "webBrowser1";
+            this.webBrowser1.ScriptErrorsSuppressed = true;
+            this.webBrowser1.Size = new System.Drawing.Size(301, 194);
+            this.webBrowser1.TabIndex = 2;
+            // 
             // PodcastView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.labelEpisodeCount);
             this.Controls.Add(this.labelTitle);
             this.Name = "PodcastView";
-            this.Size = new System.Drawing.Size(203, 191);
+            this.Size = new System.Drawing.Size(326, 277);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -69,5 +83,6 @@
 
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Label labelEpisodeCount;
+        private System.Windows.Forms.WebBrowser webBrowser1;
     }
 }
