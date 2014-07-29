@@ -28,12 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.elementHost1 = new System.Windows.Forms.Integration.ElementHost();
+            this.wpfEpisodeView1 = new PluralsightWinFormsDemoApp.Views.WpfEpisodeView();
             this.SuspendLayout();
+            // 
+            // elementHost1
+            // 
+            this.elementHost1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.elementHost1.Location = new System.Drawing.Point(0, 0);
+            this.elementHost1.Name = "elementHost1";
+            this.elementHost1.Size = new System.Drawing.Size(339, 409);
+            this.elementHost1.TabIndex = 0;
+            this.elementHost1.Text = "elementHost1";
+            this.elementHost1.Child = this.wpfEpisodeView1;
             // 
             // WpfEpisodeViewHost
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.elementHost1);
             this.Name = "WpfEpisodeViewHost";
             this.Size = new System.Drawing.Size(339, 409);
             this.ResumeLayout(false);
@@ -41,6 +54,9 @@
         }
 
         #endregion
+
+        private System.Windows.Forms.Integration.ElementHost elementHost1;
+        private WpfEpisodeView wpfEpisodeView1;
 
     }
 }

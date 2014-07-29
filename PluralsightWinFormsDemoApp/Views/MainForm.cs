@@ -7,14 +7,14 @@ namespace PluralsightWinFormsDemoApp
 {
     public partial class MainForm : Form, IMainFormView
     {
-        private readonly EpisodeView episodeView;
+        private readonly WpfEpisodeViewHost episodeView;
         private readonly PodcastView podcastView;
         private readonly SubscriptionView subscriptionView;
 
         public MainForm()
         {
             InitializeComponent();
-            episodeView = new EpisodeView() { Dock = DockStyle.Fill };
+            episodeView = new WpfEpisodeViewHost() { Dock = DockStyle.Fill };
             podcastView = new PodcastView() {Dock = DockStyle.Fill};
             subscriptionView = new SubscriptionView() {Dock = DockStyle.Fill};
             splitContainer1.Panel1.Controls.Add(subscriptionView);
