@@ -120,6 +120,7 @@ namespace PluralsightWinFormsDemoApp.Views
 
         public void SetPeaks(float[] peaks)
         {
+            if (peaks == null) peaks = new float[0];
             peaksCanvas.Width = peaks.Length;
             linesCanvas.Children.Clear();
             var peaksHeight = 60;
