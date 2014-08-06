@@ -1,5 +1,4 @@
 using System;
-using PluralsightWinFormsDemoApp.BusinessLogic;
 
 namespace PluralsightWinFormsDemoApp.Events
 {

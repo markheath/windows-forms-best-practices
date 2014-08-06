@@ -1,7 +1,6 @@
-using PluralsightWinFormsDemoApp.Events;
 using PluralsightWinFormsDemoApp.Model;
 
-namespace PluralsightWinFormsDemoApp.Presenters
+namespace PluralsightWinFormsDemoApp.Events
 {
     class PodcastLoadCompleteMessage : IApplicationEvent
     {

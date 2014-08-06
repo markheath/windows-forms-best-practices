@@ -5,7 +5,6 @@ using System.Windows.Forms;
 using PluralsightWinFormsDemoApp.BusinessLogic;
 using PluralsightWinFormsDemoApp.Commands;
 using PluralsightWinFormsDemoApp.Events;
-using PluralsightWinFormsDemoApp.Model;
 using PluralsightWinFormsDemoApp.Views;
 
 namespace PluralsightWinFormsDemoApp.Presenters
@@ -94,15 +93,5 @@ namespace PluralsightWinFormsDemoApp.Presenters
             podcastPlayer.Dispose();
         }
 
-    }
-
-    class PodcastLoadedMessage : IApplicationEvent
-    {
-        public Podcast Podcast { get; private set; }
-
-        public PodcastLoadedMessage(Podcast podcast)
-        {
-            Podcast = podcast;
-        }
     }
 }

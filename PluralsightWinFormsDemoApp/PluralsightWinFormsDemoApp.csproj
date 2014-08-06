@@ -68,6 +68,8 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogic\IPodcastPlayer.cs" />
+    <Compile Include="Events\PeaksAvailableMessage.cs" />
     <Compile Include="Events\IApplicationEvent.cs" />
     <Compile Include="Events\IEventAggregator.cs" />
     <Compile Include="Events\ApplicationClosingMessage.cs" />
@@ -88,6 +90,7 @@
     <Compile Include="Commands\StopCommand.cs" />
     <Compile Include="Model\Episode.cs" />
     <Compile Include="Events\PodcastLoadCompleteMessage.cs" />
+    <Compile Include="Events\PodcastLoadedMessage.cs" />
     <Compile Include="Presenters\PodcastPresenter.cs" />
     <Compile Include="Presenters\SubscriptionPresenter.cs" />
     <Compile Include="Presenters\ToolbarPresenter.cs" />

@@ -1,28 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 using NAudio.Wave;
+using PluralsightWinFormsDemoApp.Events;
 using PluralsightWinFormsDemoApp.Model;
 
 namespace PluralsightWinFormsDemoApp.BusinessLogic
 {
-    internal interface IPodcastPlayer : IDisposable
-    {
-        void UnloadEpisode();
-        void Play();
-        void Pause();
-        void Stop();
-        void LoadEpisode(Episode selectedEpisode);
-        Task<float[]> LoadPeaksAsync();
-        int PositionInSeconds { get; set; }
-        bool IsPlaying { get; }
-    }
-
     class PodcastPlayer : IPodcastPlayer
     {
         private WaveOutEvent player;
@@ -86,12 +73,13 @@ namespace PluralsightWinFormsDemoApp.BusinessLogic
             currentEpisode = selectedEpisode;
         }
 
-        public Task<float[]> LoadPeaksAsync()
+        public async Task LoadPeaksAsync()
         {
-            return Task.Run(() =>
+            var episode = currentEpisode;
+            await Task.Run(() =>
             {
                 var peaks = new List<float>();
-                using (var reader = new MediaFoundationReader(currentEpisode.AudioFile))
+                using (var reader = new MediaFoundationReader(episode.AudioFile))
                 {
                     var sampleProvider = reader.ToSampleProvider();
                     var sampleBuffer = new float[reader.WaveFormat.SampleRate * reader.WaveFormat.Channels];
@@ -105,9 +93,10 @@ namespace PluralsightWinFormsDemoApp.BusinessLogic
                             peaks.Add(max);
                         }
                     } while (read > 0);
-                    return peaks.ToArray();
+                    episode.Peaks = peaks.ToArray();
                 }
             });
+            EventAggregator.Instance.Publish(new PeaksAvailableMessage(episode));
         }
 
         private int positionInSeconds;

@@ -29,6 +29,15 @@ namespace PluralsightWinFormsDemoApp.Presenters
             EventAggregator.Instance.Subscribe<EpisodeSelectedMessage>(OnEpisodeSelected);
             EventAggregator.Instance.Subscribe<PodcastSelectedMessage>(OnPodcastSelected);
             EventAggregator.Instance.Subscribe<ApplicationClosingMessage>(m => SaveEpisode());
+            EventAggregator.Instance.Subscribe<PeaksAvailableMessage>(OnPeaksAvailable);
+        }
+
+        private void OnPeaksAvailable(PeaksAvailableMessage obj)
+        {
+            if (obj.Episode == currentEpisode)
+            {
+                episodeView.SetPeaks(obj.Episode.Peaks);
+            }
         }
 
         private void OnPodcastSelected(PodcastSelectedMessage obj)
@@ -57,13 +66,17 @@ namespace PluralsightWinFormsDemoApp.Presenters
             episodeView.Rating = currentEpisode.Rating;
             episodeView.Tags = String.Join(",", currentEpisode.Tags ?? new string[0]);
             episodeView.Notes = currentEpisode.Notes ?? "";
+            episodeView.PositionInSeconds = 0;
             podcastPlayer.LoadEpisode(currentEpisode);
             if (currentEpisode.Peaks == null || currentEpisode.Peaks.Length == 0)
             {
                 episodeView.SetPeaks(null);
-                currentEpisode.Peaks = await podcastPlayer.LoadPeaksAsync();
+                await podcastPlayer.LoadPeaksAsync();
             }
-            episodeView.SetPeaks(currentEpisode.Peaks); 
+            else
+            {
+                episodeView.SetPeaks(currentEpisode.Peaks); 
+            }
         }
 
         private void SaveEpisode()
