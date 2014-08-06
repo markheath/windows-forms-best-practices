@@ -1,6 +1,10 @@
 using System.Net;
 using System.Xml;
 using PluralsightWinFormsDemoApp.BusinessLogic;
+using PluralsightWinFormsDemoApp.Commands;
+using PluralsightWinFormsDemoApp.Events;
+using PluralsightWinFormsDemoApp.Model;
+using PluralsightWinFormsDemoApp.Presenters;
 
 namespace PluralsightWinFormsDemoApp
 {
@@ -38,7 +42,7 @@ namespace PluralsightWinFormsDemoApp
                 {
                     await podcastLoader.UpdatePodcast(pod);
                     subscriptionManager.AddSubscription(pod);
-                    Utils.AddPodcastToTreeView(pod, subscriptionView);
+                    EventAggregator.Instance.Publish(new PodcastLoadedMessage(pod));
                 }
                 catch (WebException)
                 {

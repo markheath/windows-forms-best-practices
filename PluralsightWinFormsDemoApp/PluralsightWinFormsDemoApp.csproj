@@ -68,10 +68,13 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Events\IApplicationEvent.cs" />
+    <Compile Include="Events\IEventAggregator.cs" />
+    <Compile Include="Events\ApplicationClosingMessage.cs" />
+    <Compile Include="Events\PodcastSelectedMessage.cs" />
     <Compile Include="Presenters\EpisodePresenter.cs" />
-    <Compile Include="BusinessLogic\EpisodeSelectedMessage.cs" />
-    <Compile Include="BusinessLogic\EventAggregator.cs" />
-    <Compile Include="BusinessLogic\Utils.cs" />
+    <Compile Include="Events\EpisodeSelectedMessage.cs" />
+    <Compile Include="Events\EventAggregator.cs" />
     <Compile Include="Commands\AddSubscriptionCommand.cs" />
     <Compile Include="Commands\FavouriteCommand.cs" />
     <Compile Include="Commands\IToolbarCommand.cs" />
@@ -84,6 +87,9 @@
     <Compile Include="Commands\SettingsCommand.cs" />
     <Compile Include="Commands\StopCommand.cs" />
     <Compile Include="Model\Episode.cs" />
+    <Compile Include="Events\PodcastLoadCompleteMessage.cs" />
+    <Compile Include="Presenters\PodcastPresenter.cs" />
+    <Compile Include="Presenters\SubscriptionPresenter.cs" />
     <Compile Include="Views\EpisodeView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -293,6 +299,7 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

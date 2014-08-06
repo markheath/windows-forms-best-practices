@@ -1,4 +1,4 @@
-namespace PluralsightWinFormsDemoApp
+namespace PluralsightWinFormsDemoApp.Model
 {
     public class Episode
     {

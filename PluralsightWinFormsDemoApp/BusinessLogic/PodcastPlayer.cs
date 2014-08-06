@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 using NAudio.Wave;
+using PluralsightWinFormsDemoApp.Model;
 
 namespace PluralsightWinFormsDemoApp.BusinessLogic
 {

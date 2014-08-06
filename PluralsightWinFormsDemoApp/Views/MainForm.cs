@@ -1,27 +1,27 @@
 ﻿using System.Windows.Forms;
+using PluralsightWinFormsDemoApp.Commands;
 using PluralsightWinFormsDemoApp.Views;
 
 namespace PluralsightWinFormsDemoApp
 {
     public partial class MainForm : Form, IMainFormView
     {
-        private readonly EpisodeView episodeView;
-        private readonly PodcastView podcastView;
-        private readonly SubscriptionView subscriptionView;
+        private readonly Control episodeView;
+        private readonly Control podcastView;
 
-        public MainForm()
+        public MainForm(Control episodeView, Control subscriptionControl, Control podcastView, IToolbarCommand[] commands)
         {
             InitializeComponent();
-            episodeView = new EpisodeView() { Dock = DockStyle.Fill };
-            podcastView = new PodcastView() {Dock = DockStyle.Fill};
-            subscriptionView = new SubscriptionView() {Dock = DockStyle.Fill};
-            splitContainer1.Panel1.Controls.Add(subscriptionView);
-        }
+            this.episodeView = episodeView;
+            this.podcastView = podcastView;
+            episodeView.Dock = DockStyle.Fill;
+            podcastView.Dock = DockStyle.Fill;
+            subscriptionControl.Dock = DockStyle.Fill;
 
-        public IEpisodeView EpisodeView { get { return episodeView; } }
-        public IPodcastView PodcastView { get { return podcastView; } }
-        public ISubscriptionView SubscriptionView { get { return subscriptionView; } }
-        public IToolbarView ToolbarView { get { return toolBarView; } }
+            splitContainer1.Panel1.Controls.Add(subscriptionControl);
+            // TODO: inject the toolbar view
+            toolBarView.SetCommands(commands);
+        }
 
         public void ShowEpisodeView()
         {

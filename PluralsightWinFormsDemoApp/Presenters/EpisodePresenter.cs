@@ -1,8 +1,9 @@
 using System;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using PluralsightWinFormsDemoApp.BusinessLogic;
+using PluralsightWinFormsDemoApp.Events;
+using PluralsightWinFormsDemoApp.Model;
 
 namespace PluralsightWinFormsDemoApp.Presenters
 {
@@ -10,12 +11,10 @@ namespace PluralsightWinFormsDemoApp.Presenters
     {
         private readonly IEpisodeView episodeView;
         private readonly IPodcastPlayer podcastPlayer;
-        private readonly Timer timer;
         private Episode currentEpisode;
 
         public EpisodePresenter(IEpisodeView episodeView, IPodcastPlayer podcastPlayer)
         {
-
             this.episodeView = episodeView;
             this.podcastPlayer = podcastPlayer;
             episodeView.Title = "";
@@ -23,10 +22,19 @@ namespace PluralsightWinFormsDemoApp.Presenters
             this.episodeView.NoteCreated += EpisodeViewOnNoteCreated;
             episodeView.PositionChanged += (s, a) => podcastPlayer.PositionInSeconds = episodeView.PositionInSeconds;
 
-            timer = new Timer();
-            timer.Interval = 100;
+            var timer = new Timer {Interval = 100};
             timer.Tick += TimerOnTick;
             timer.Start();
+
+            EventAggregator.Instance.Subscribe<EpisodeSelectedMessage>(OnEpisodeSelected);
+            EventAggregator.Instance.Subscribe<PodcastSelectedMessage>(OnPodcastSelected);
+            EventAggregator.Instance.Subscribe<ApplicationClosingMessage>(m => SaveEpisode());
+        }
+
+        private void OnPodcastSelected(PodcastSelectedMessage obj)
+        {
+            SaveEpisode();
+            currentEpisode = null;
         }
 
         private void EpisodeViewOnNoteCreated(object sender, NoteArgs noteArgs)
@@ -36,9 +44,10 @@ namespace PluralsightWinFormsDemoApp.Presenters
             episodeView.Notes = currentEpisode.Notes;
         }
 
-        public async Task OnEpisodeSelected(Episode selectedEpisode)
+        private async void OnEpisodeSelected(EpisodeSelectedMessage episodeSelected)
         {
-            this.currentEpisode = selectedEpisode;
+            SaveEpisode();
+            currentEpisode = episodeSelected.Episode;
 
             episodeView.Title = currentEpisode.Title;
             episodeView.PublicationDate = currentEpisode.PubDate;
@@ -57,7 +66,7 @@ namespace PluralsightWinFormsDemoApp.Presenters
             episodeView.SetPeaks(currentEpisode.Peaks); 
         }
 
-        public void SaveEpisode()
+        private void SaveEpisode()
         {
             if (currentEpisode == null) return;
 

@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PluralsightWinFormsDemoApp.BusinessLogic;
+using PluralsightWinFormsDemoApp.Commands;
 using PluralsightWinFormsDemoApp.Presenters;
 
 namespace PluralsightWinFormsDemoApp
@@ -24,32 +25,39 @@ namespace PluralsightWinFormsDemoApp
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            
-            var mainForm = new MainForm();
+
+            var episodeView = new EpisodeView();
+            var subscriptionView = new SubscriptionView();
+            var podcastView = new PodcastView();
+
             var podcastPlayer = new PodcastPlayer();
             var podcastLoader = new PodcastLoader();
-            var subscriptionManger = new SubscriptionManager("subscriptions.xml");
-            var messageBoxDisplayService = new MessageBoxDisplayService();
             var settingsService = new SettingsService();
+            var subscriptionManager = new SubscriptionManager("subscriptions.xml");
+            var messageBoxDisplayService = new MessageBoxDisplayService();
             var systemInformationService = new SystemInformationService();
             var newSubscriptionService = new NewSubscriptionService();
 
             var commands = new IToolbarCommand[]
             {
-                new AddSubscriptionCommand(mainForm.SubscriptionView,
-                    messageBoxDisplayService, newSubscriptionService, podcastLoader, subscriptionManger),
-                new RemoveSubscriptionCommand(mainForm.SubscriptionView, subscriptionManger),
+                new AddSubscriptionCommand(subscriptionView,
+                    messageBoxDisplayService, newSubscriptionService, podcastLoader, subscriptionManager),
+                new RemoveSubscriptionCommand(subscriptionView, subscriptionManager),
                 new PlayCommand(podcastPlayer),
                 new PauseCommand(podcastPlayer),
                 new StopCommand(podcastPlayer),
-                new FavouriteCommand(mainForm.SubscriptionView),
+                new FavouriteCommand(subscriptionView),
                 new SettingsCommand(),
             };
-            
+            var mainForm = new MainForm(episodeView, subscriptionView, podcastView, commands);
+
+            var ep = new EpisodePresenter(episodeView, podcastPlayer);
+            var sp = new SubscriptionPresenter(subscriptionView, podcastPlayer);
+            var pp = new PodcastPresenter(podcastView);
+
             var presenter = new MainFormPresenter(mainForm,
-                new EpisodePresenter(mainForm.EpisodeView, podcastPlayer), 
                 podcastLoader,
-                subscriptionManger,
+                subscriptionManager,
                 podcastPlayer,
                 messageBoxDisplayService,
                 settingsService,

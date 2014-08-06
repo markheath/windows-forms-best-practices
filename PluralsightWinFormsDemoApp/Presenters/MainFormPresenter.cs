@@ -3,27 +3,24 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using PluralsightWinFormsDemoApp.BusinessLogic;
+using PluralsightWinFormsDemoApp.Commands;
+using PluralsightWinFormsDemoApp.Events;
+using PluralsightWinFormsDemoApp.Model;
+using PluralsightWinFormsDemoApp.Views;
 
 namespace PluralsightWinFormsDemoApp.Presenters
 {
     class MainFormPresenter
     {
-        private readonly IMainFormView mainFormView;
-        private Episode currentEpisode;
         private readonly IPodcastPlayer podcastPlayer;
         private readonly ISubscriptionManager subscriptionManager;
         private readonly IPodcastLoader podcastLoader;
 
-        private readonly ISubscriptionView subscriptionView;
-        private readonly IToolbarView toolbarView;
-        private readonly IPodcastView podcastView;
         private readonly IMessageBoxDisplayService messageBoxDisplayService;
         private readonly ISettingsService settingsService;
         private readonly IToolbarCommand[] commands;
-        private readonly EpisodePresenter episodePresenter;
 
         public MainFormPresenter(IMainFormView mainFormView,
-            EpisodePresenter episodePresenter,
             IPodcastLoader podcastLoader,
             ISubscriptionManager subscriptionManager,
             IPodcastPlayer podcastPlayer,
@@ -32,19 +29,12 @@ namespace PluralsightWinFormsDemoApp.Presenters
             ISystemInformationService systemInformationService,
             IToolbarCommand[] commands)
         {
-            subscriptionView = mainFormView.SubscriptionView;
-            this.episodePresenter = episodePresenter;
-            podcastView = mainFormView.PodcastView;
-            toolbarView = mainFormView.ToolbarView;
-            toolbarView.SetCommands(commands);
 
-            this.mainFormView = mainFormView;
             mainFormView.Load += MainFormViewOnLoad;
             mainFormView.FormClosed += MainFormViewOnFormClosed;
             mainFormView.HelpRequested += OnHelpRequested;
             mainFormView.KeyUp += MainFormViewOnKeyUp;
 
-            subscriptionView.SelectionChanged += OnSelectedEpisodeChanged;
             this.subscriptionManager = subscriptionManager;
             this.podcastLoader = podcastLoader;
             this.podcastPlayer = podcastPlayer;
@@ -52,11 +42,13 @@ namespace PluralsightWinFormsDemoApp.Presenters
             this.settingsService = settingsService;
             this.commands = commands;
 
-
             if (!systemInformationService.IsHighContrastColourScheme)
             {
                 mainFormView.BackColor = Color.White;
             }
+
+            EventAggregator.Instance.Subscribe<EpisodeSelectedMessage>(m => mainFormView.ShowEpisodeView());
+            EventAggregator.Instance.Subscribe<PodcastSelectedMessage>(m => mainFormView.ShowPodcastView());
         }
 
         private void MainFormViewOnKeyUp(object sender, KeyEventArgs keyEventArgs)
@@ -75,10 +67,10 @@ namespace PluralsightWinFormsDemoApp.Presenters
             {
                 var podcast = pod;
                 await podcastLoader.UpdatePodcast(podcast);
-                Utils.AddPodcastToTreeView(pod, subscriptionView);
+                EventAggregator.Instance.Publish(new PodcastLoadedMessage(podcast));
             }
 
-            Utils.SelectFirstEpisode(subscriptionView, subscriptionManager);
+            EventAggregator.Instance.Publish(new PodcastLoadCompleteMessage(subscriptionManager.Subscriptions.ToArray()));
 
             if (settingsService.FirstRun)
             {
@@ -93,37 +85,24 @@ namespace PluralsightWinFormsDemoApp.Presenters
             messageBoxDisplayService.Show("Help");
         }
 
-        private async void OnSelectedEpisodeChanged(object sender, EventArgs e)
-        {
-            podcastPlayer.UnloadEpisode();
-            if (subscriptionView.SelectedNode == null) return;
-            
-            episodePresenter.SaveEpisode();
-            var selectedEpisode = subscriptionView.SelectedNode.Tag as Episode;
-            if (selectedEpisode != null)
-            {
-                EventAggregator.Instance.Publish(new EpisodeSelectedMessage(selectedEpisode));
-                mainFormView.ShowEpisodeView();
-                currentEpisode = selectedEpisode;
-                await episodePresenter.OnEpisodeSelected(currentEpisode);
-            }
-            var selectedPodcast = subscriptionView.SelectedNode.Tag as Podcast;
-            if (selectedPodcast != null)
-            {
-                EventAggregator.Instance.Publish(new PodcastSelectedMessage(selectedPodcast));
-                mainFormView.ShowPodcastView();
-                podcastView.SetPodcastTitle(selectedPodcast.Title);
-                podcastView.SetEpisodeCount(String.Format("{0} episodes", selectedPodcast.Episodes.Count));
-                podcastView.SetPodcastUrl(selectedPodcast.Link);
-            }
-        }
 
         private void MainFormViewOnFormClosed(object sender, FormClosedEventArgs formClosedEventArgs)
         {
-            episodePresenter.SaveEpisode();
+            EventAggregator.Instance.Publish(new ApplicationClosingMessage());
+            // TODO: wait for all views to publish 
             subscriptionManager.Save();
             podcastPlayer.Dispose();
         }
 
+    }
+
+    class PodcastLoadedMessage : IApplicationEvent
+    {
+        public Podcast Podcast { get; private set; }
+
+        public PodcastLoadedMessage(Podcast podcast)
+        {
+            Podcast = podcast;
+        }
     }
 }

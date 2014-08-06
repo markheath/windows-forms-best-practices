@@ -1,12 +1,15 @@
+using System.Linq;
 using PluralsightWinFormsDemoApp.BusinessLogic;
+using PluralsightWinFormsDemoApp.Events;
+using PluralsightWinFormsDemoApp.Model;
+using PluralsightWinFormsDemoApp.Presenters;
 
-namespace PluralsightWinFormsDemoApp
+namespace PluralsightWinFormsDemoApp.Commands
 {
     class RemoveSubscriptionCommand : CommandBase
     {
         private readonly ISubscriptionView subscriptionView;
         private readonly ISubscriptionManager subscriptionManager;
-        private readonly IPodcastPlayer player;
 
         public RemoveSubscriptionCommand(ISubscriptionView subscriptionView, ISubscriptionManager subscriptionManager)
         {
@@ -23,7 +26,7 @@ namespace PluralsightWinFormsDemoApp
             {
                 subscriptionManager.RemoveSubscription(pod);
                 subscriptionView.RemoveNode(pod.Id.ToString());
-                Utils.SelectFirstEpisode(subscriptionView, subscriptionManager);
+                EventAggregator.Instance.Publish(new PodcastLoadCompleteMessage(subscriptionManager.Subscriptions.ToArray()));
             }
         }
     }

@@ -1,6 +1,7 @@
 using System;
+using PluralsightWinFormsDemoApp.Model;
 
-namespace PluralsightWinFormsDemoApp
+namespace PluralsightWinFormsDemoApp.Commands
 {
     class FavouriteCommand : CommandBase
     {
