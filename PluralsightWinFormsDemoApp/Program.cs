@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using PluralsightWinFormsDemoApp.BusinessLogic;
 using PluralsightWinFormsDemoApp.Commands;
@@ -52,12 +47,13 @@ namespace PluralsightWinFormsDemoApp
             };
             var mainForm = new MainForm(episodeView, subscriptionView, podcastView, toolbarView);
 
-            var ep = new EpisodePresenter(episodeView, podcastPlayer);
-            var sp = new SubscriptionPresenter(subscriptionView, podcastPlayer);
-            var pp = new PodcastPresenter(podcastView);
-            var tp = new ToolbarPresenter(toolbarView, commands);
+            // for now, keep presenters alive with Tags
+            episodeView.Tag = new EpisodePresenter(episodeView, podcastPlayer);
+            subscriptionView.Tag = new SubscriptionPresenter(subscriptionView, podcastPlayer);
+            podcastView.Tag = new PodcastPresenter(podcastView);
+            toolbarView.Tag = new ToolbarPresenter(toolbarView, commands);
 
-            var presenter = new MainFormPresenter(mainForm,
+            mainForm.Tag = new MainFormPresenter(mainForm,
                 podcastLoader,
                 subscriptionManager,
                 podcastPlayer,
