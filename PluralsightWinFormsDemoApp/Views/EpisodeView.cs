@@ -1,14 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PluralsightWinFormsDemoApp
+namespace PluralsightWinFormsDemoApp.Views
 {
     public partial class EpisodeView : UserControl, IEpisodeView
     {
@@ -82,17 +75,5 @@ namespace PluralsightWinFormsDemoApp
             add { waveformViewer1.NoteCreated += value; }
             remove { waveformViewer1.NoteCreated -= value; }
         }
-    }
-
-    public class NoteArgs : EventArgs
-    {
-        public NoteArgs(string note, TimeSpan position)
-        {
-            Position = position;
-            Note = note;
-        }
-
-        public string Note { get; private set; }
-        public TimeSpan Position { get; private set; }
     }
 }

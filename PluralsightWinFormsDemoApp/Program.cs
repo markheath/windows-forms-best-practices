@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using PluralsightWinFormsDemoApp.BusinessLogic;
 using PluralsightWinFormsDemoApp.Commands;
 using PluralsightWinFormsDemoApp.Presenters;
+using PluralsightWinFormsDemoApp.Views;
 
 namespace PluralsightWinFormsDemoApp
 {
@@ -36,14 +37,13 @@ namespace PluralsightWinFormsDemoApp
 
             var commands = new IToolbarCommand[]
             {
-                new AddSubscriptionCommand(subscriptionView,
-                    messageBoxDisplayService, newSubscriptionService, podcastLoader, subscriptionManager),
+                new AddSubscriptionCommand(messageBoxDisplayService, newSubscriptionService, podcastLoader, subscriptionManager),
                 new RemoveSubscriptionCommand(subscriptionView, subscriptionManager),
                 new PlayCommand(podcastPlayer),
                 new PauseCommand(podcastPlayer),
                 new StopCommand(podcastPlayer),
                 new FavouriteCommand(subscriptionView),
-                new SettingsCommand(),
+                new SettingsCommand()
             };
             var mainForm = new MainForm(episodeView, subscriptionView, podcastView, toolbarView);
 

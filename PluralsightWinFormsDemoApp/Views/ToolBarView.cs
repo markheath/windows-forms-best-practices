@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using PluralsightWinFormsDemoApp.Commands;
 
-namespace PluralsightWinFormsDemoApp
+namespace PluralsightWinFormsDemoApp.Views
 {
     public partial class ToolBarView : UserControl, IToolbarView
     {
@@ -39,11 +31,5 @@ namespace PluralsightWinFormsDemoApp
                 toolStrip1.Items.Add(button);
             }
         }
-    }
-
-
-    public interface IToolbarView
-    {
-        void SetCommands(IToolbarCommand[] commands);
     }
 }

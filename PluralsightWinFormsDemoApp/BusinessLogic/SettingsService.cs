@@ -1,6 +1,6 @@
 ﻿using PluralsightWinFormsDemoApp.Properties;
 
-namespace PluralsightWinFormsDemoApp
+namespace PluralsightWinFormsDemoApp.BusinessLogic
 {
     internal class SettingsService : ISettingsService
     {
@@ -15,11 +15,4 @@ namespace PluralsightWinFormsDemoApp
             Settings.Default.Save();
         }
     }
-
-    internal interface ISettingsService
-    {
-        bool FirstRun { get; set; }
-        void Save();
-    }
-
 }

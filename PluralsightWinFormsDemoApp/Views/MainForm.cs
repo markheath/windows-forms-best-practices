@@ -1,8 +1,6 @@
 ﻿using System.Windows.Forms;
-using PluralsightWinFormsDemoApp.Commands;
-using PluralsightWinFormsDemoApp.Views;
 
-namespace PluralsightWinFormsDemoApp
+namespace PluralsightWinFormsDemoApp.Views
 {
     public partial class MainForm : Form, IMainFormView
     {
@@ -13,7 +11,7 @@ namespace PluralsightWinFormsDemoApp
         {
             InitializeComponent();
             toolbarView.Dock = DockStyle.Top;
-            this.Controls.Add(toolbarView);
+            Controls.Add(toolbarView);
             this.episodeView = episodeView;
             this.podcastView = podcastView;
             episodeView.Dock = DockStyle.Fill;

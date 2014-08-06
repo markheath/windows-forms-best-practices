@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PluralsightWinFormsDemoApp.Views
@@ -22,10 +16,10 @@ namespace PluralsightWinFormsDemoApp.Views
             InitializeComponent();
             DoubleBuffered = true;
             hScrollBar1.Scroll += OnHScrollBar1Scroll;
-            this.MouseClick += OnMouseClick;
-            this.MouseMove += OnMouseMove;
-            this.MouseDown += OnMouseDown;
-            this.MouseUp += OnMouseUp;
+            MouseClick += OnMouseClick;
+            MouseMove += OnMouseMove;
+            MouseDown += OnMouseDown;
+            MouseUp += OnMouseUp;
         }
 
         private void OnMouseUp(object sender, MouseEventArgs mouseEventArgs)
@@ -53,14 +47,7 @@ namespace PluralsightWinFormsDemoApp.Views
             var hoverPosition = mouseEventArgs.X + hScrollBar1.Value;
             if (!isDragging)
             {
-                if (Math.Abs(positionInSeconds - hoverPosition) < 5)
-                {
-                    Cursor = Cursors.SizeWE;
-                }
-                else
-                {
-                    Cursor = Cursors.Default;
-                }
+                Cursor = Math.Abs(positionInSeconds - hoverPosition) < 5 ? Cursors.SizeWE : Cursors.Default;
             }
             else
             {

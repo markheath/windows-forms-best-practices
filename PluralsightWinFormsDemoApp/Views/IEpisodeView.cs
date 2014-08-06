@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PluralsightWinFormsDemoApp
+namespace PluralsightWinFormsDemoApp.Views
 {
     public interface IEpisodeView
     {

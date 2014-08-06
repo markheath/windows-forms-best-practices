@@ -2,7 +2,7 @@ using System.Linq;
 using PluralsightWinFormsDemoApp.BusinessLogic;
 using PluralsightWinFormsDemoApp.Events;
 using PluralsightWinFormsDemoApp.Model;
-using PluralsightWinFormsDemoApp.Presenters;
+using PluralsightWinFormsDemoApp.Views;
 
 namespace PluralsightWinFormsDemoApp.Commands
 {

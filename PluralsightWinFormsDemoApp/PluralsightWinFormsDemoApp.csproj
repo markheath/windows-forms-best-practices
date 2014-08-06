@@ -68,7 +68,12 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLogic\IMessageBoxDisplayService.cs" />
+    <Compile Include="BusinessLogic\INewSubscriptionService.cs" />
     <Compile Include="BusinessLogic\IPodcastPlayer.cs" />
+    <Compile Include="BusinessLogic\ISettingsService.cs" />
+    <Compile Include="BusinessLogic\ISubscriptionManager.cs" />
+    <Compile Include="BusinessLogic\ISystemInformationService.cs" />
     <Compile Include="Events\PeaksAvailableMessage.cs" />
     <Compile Include="Events\IApplicationEvent.cs" />
     <Compile Include="Events\IEventAggregator.cs" />
@@ -108,6 +113,8 @@
     <Compile Include="Views\IEpisodeView.cs" />
     <Compile Include="Views\IMainFormView.cs" />
     <Compile Include="Views\IPodcastView.cs" />
+    <Compile Include="Views\ISubscriptionView.cs" />
+    <Compile Include="Views\IToolbarView.cs" />
     <Compile Include="Views\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -124,6 +131,7 @@
     </Compile>
     <Compile Include="BusinessLogic\NewSubscriptionService.cs" />
     <Compile Include="Model\Podcast.cs" />
+    <Compile Include="Views\NoteArgs.cs" />
     <Compile Include="Views\NoteForm.cs">
       <SubType>Form</SubType>
     </Compile>

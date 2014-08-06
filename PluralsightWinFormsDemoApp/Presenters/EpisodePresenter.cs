@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using PluralsightWinFormsDemoApp.BusinessLogic;
 using PluralsightWinFormsDemoApp.Events;
 using PluralsightWinFormsDemoApp.Model;
+using PluralsightWinFormsDemoApp.Views;
 
 namespace PluralsightWinFormsDemoApp.Presenters
 {

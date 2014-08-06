@@ -1,5 +1,6 @@
 using System;
 using PluralsightWinFormsDemoApp.Model;
+using PluralsightWinFormsDemoApp.Views;
 
 namespace PluralsightWinFormsDemoApp.Commands
 {

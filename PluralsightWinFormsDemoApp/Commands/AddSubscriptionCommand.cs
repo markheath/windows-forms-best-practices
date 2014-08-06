@@ -1,29 +1,24 @@
 using System.Net;
 using System.Xml;
 using PluralsightWinFormsDemoApp.BusinessLogic;
-using PluralsightWinFormsDemoApp.Commands;
 using PluralsightWinFormsDemoApp.Events;
 using PluralsightWinFormsDemoApp.Model;
-using PluralsightWinFormsDemoApp.Presenters;
 
-namespace PluralsightWinFormsDemoApp
+namespace PluralsightWinFormsDemoApp.Commands
 {
     class AddSubscriptionCommand : CommandBase
     {
-        private readonly ISubscriptionView subscriptionView;
         private readonly IMessageBoxDisplayService messageBoxDisplayService;
         private readonly INewSubscriptionService newSubscriptionService;
         private readonly IPodcastLoader podcastLoader;
         private readonly ISubscriptionManager subscriptionManager;
 
         public AddSubscriptionCommand(
-            ISubscriptionView subscriptionView,
             IMessageBoxDisplayService messageBoxDisplayService,
             INewSubscriptionService newSubscriptionService,
             IPodcastLoader podcastLoader,
             ISubscriptionManager subscriptionManager)
         {
-            this.subscriptionView = subscriptionView;
             this.messageBoxDisplayService = messageBoxDisplayService;
             this.newSubscriptionService = newSubscriptionService;
             this.podcastLoader = podcastLoader;
@@ -37,7 +32,7 @@ namespace PluralsightWinFormsDemoApp
             var newPodcastUrl = newSubscriptionService.GetSubscriptionUrl();
             if (newPodcastUrl != null)
             {
-                var pod = new Podcast() { SubscriptionUrl = newPodcastUrl };
+                var pod = new Podcast { SubscriptionUrl = newPodcastUrl };
                 try
                 {
                     await podcastLoader.UpdatePodcast(pod);

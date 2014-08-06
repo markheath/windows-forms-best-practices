@@ -1,4 +1,4 @@
-﻿namespace PluralsightWinFormsDemoApp
+﻿namespace PluralsightWinFormsDemoApp.Views
 {
     public interface IPodcastView
     {

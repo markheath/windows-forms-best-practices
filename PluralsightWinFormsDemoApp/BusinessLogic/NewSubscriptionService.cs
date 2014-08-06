@@ -1,6 +1,7 @@
 using System.Windows.Forms;
+using PluralsightWinFormsDemoApp.Views;
 
-namespace PluralsightWinFormsDemoApp
+namespace PluralsightWinFormsDemoApp.BusinessLogic
 {
     internal class NewSubscriptionService : INewSubscriptionService
     {
@@ -9,10 +10,5 @@ namespace PluralsightWinFormsDemoApp
             var form = new NewPodcastForm();
             return form.ShowDialog() == DialogResult.OK ? form.PodcastUrl : null;
         }
-    }
-
-    internal interface INewSubscriptionService
-    {
-        string GetSubscriptionUrl();
     }
 }
