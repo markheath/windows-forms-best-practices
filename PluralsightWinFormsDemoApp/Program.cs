@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using PluralsightWinFormsDemoApp.BusinessLogic;
+using PluralsightWinFormsDemoApp.Presenters;
 
 namespace PluralsightWinFormsDemoApp
 {
@@ -46,6 +47,7 @@ namespace PluralsightWinFormsDemoApp
             };
             
             var presenter = new MainFormPresenter(mainForm,
+                new EpisodePresenter(mainForm.EpisodeView, podcastPlayer), 
                 podcastLoader,
                 subscriptionManger,
                 podcastPlayer,

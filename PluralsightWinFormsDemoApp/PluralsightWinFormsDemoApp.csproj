@@ -68,6 +68,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Presenters\EpisodePresenter.cs" />
     <Compile Include="BusinessLogic\EpisodeSelectedMessage.cs" />
     <Compile Include="BusinessLogic\EventAggregator.cs" />
     <Compile Include="BusinessLogic\Utils.cs" />
@@ -94,13 +95,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>IconResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\IEpisodeView.cs" />
+    <Compile Include="Views\IMainFormView.cs" />
+    <Compile Include="Views\IPodcastView.cs" />
     <Compile Include="Views\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="BusinessLogic\MainFormPresenter.cs" />
+    <Compile Include="Presenters\MainFormPresenter.cs" />
     <Compile Include="BusinessLogic\MessageBoxDisplayService.cs" />
     <Compile Include="Views\NewPodcastForm.cs">
       <SubType>Form</SubType>
