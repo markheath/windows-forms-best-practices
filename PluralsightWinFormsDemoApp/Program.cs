@@ -29,6 +29,7 @@ namespace PluralsightWinFormsDemoApp
             var episodeView = new EpisodeView();
             var subscriptionView = new SubscriptionView();
             var podcastView = new PodcastView();
+            var toolbarView = new ToolBarView();
 
             var podcastPlayer = new PodcastPlayer();
             var podcastLoader = new PodcastLoader();
@@ -49,11 +50,12 @@ namespace PluralsightWinFormsDemoApp
                 new FavouriteCommand(subscriptionView),
                 new SettingsCommand(),
             };
-            var mainForm = new MainForm(episodeView, subscriptionView, podcastView, commands);
+            var mainForm = new MainForm(episodeView, subscriptionView, podcastView, toolbarView);
 
             var ep = new EpisodePresenter(episodeView, podcastPlayer);
             var sp = new SubscriptionPresenter(subscriptionView, podcastPlayer);
             var pp = new PodcastPresenter(podcastView);
+            var tp = new ToolbarPresenter(toolbarView, commands);
 
             var presenter = new MainFormPresenter(mainForm,
                 podcastLoader,
