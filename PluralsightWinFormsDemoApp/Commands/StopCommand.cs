@@ -1,6 +1,6 @@
 using PluralsightWinFormsDemoApp.BusinessLogic;
 
-namespace PluralsightWinFormsDemoApp
+namespace PluralsightWinFormsDemoApp.Commands
 {
     class StopCommand : CommandBase
     {

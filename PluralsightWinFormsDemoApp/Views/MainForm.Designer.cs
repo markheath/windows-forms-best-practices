@@ -1,4 +1,4 @@
-﻿namespace PluralsightWinFormsDemoApp
+﻿namespace PluralsightWinFormsDemoApp.Views
 {
     partial class MainForm
     {
@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.toolBarView = new PluralsightWinFormsDemoApp.ToolBarView();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
@@ -38,21 +37,12 @@
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 39);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Panel1MinSize = 180;
-            this.splitContainer1.Size = new System.Drawing.Size(764, 441);
+            this.splitContainer1.Size = new System.Drawing.Size(764, 480);
             this.splitContainer1.SplitterDistance = 254;
             this.splitContainer1.TabIndex = 0;
-            // 
-            // toolBarView
-            // 
-            this.toolBarView.AutoSize = true;
-            this.toolBarView.Dock = System.Windows.Forms.DockStyle.Top;
-            this.toolBarView.Location = new System.Drawing.Point(0, 0);
-            this.toolBarView.Name = "toolBarView";
-            this.toolBarView.Size = new System.Drawing.Size(764, 39);
-            this.toolBarView.TabIndex = 1;
             // 
             // MainForm
             // 
@@ -60,7 +50,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(764, 480);
             this.Controls.Add(this.splitContainer1);
-            this.Controls.Add(this.toolBarView);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(400, 300);
             this.Name = "MainForm";
@@ -68,14 +57,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private ToolBarView toolBarView;
 
     }
 }

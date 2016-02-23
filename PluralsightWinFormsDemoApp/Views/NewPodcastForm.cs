@@ -1,15 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Security.Policy;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PluralsightWinFormsDemoApp
+namespace PluralsightWinFormsDemoApp.Views
 {
     public partial class NewPodcastForm : Form
     {
@@ -28,7 +20,7 @@ namespace PluralsightWinFormsDemoApp
             }
             else
             {
-                this.DialogResult = DialogResult.OK;
+                DialogResult = DialogResult.OK;
             }
         }
     }

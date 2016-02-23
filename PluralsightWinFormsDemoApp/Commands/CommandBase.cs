@@ -1,9 +1,8 @@
-using System;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace PluralsightWinFormsDemoApp
+namespace PluralsightWinFormsDemoApp.Commands
 {
     abstract class CommandBase : IToolbarCommand
     {

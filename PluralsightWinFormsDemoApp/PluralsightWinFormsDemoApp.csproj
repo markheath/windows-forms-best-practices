@@ -68,9 +68,20 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BusinessLogic\EpisodeSelectedMessage.cs" />
-    <Compile Include="BusinessLogic\EventAggregator.cs" />
-    <Compile Include="BusinessLogic\Utils.cs" />
+    <Compile Include="BusinessLogic\IMessageBoxDisplayService.cs" />
+    <Compile Include="BusinessLogic\INewSubscriptionService.cs" />
+    <Compile Include="BusinessLogic\IPodcastPlayer.cs" />
+    <Compile Include="BusinessLogic\ISettingsService.cs" />
+    <Compile Include="BusinessLogic\ISubscriptionManager.cs" />
+    <Compile Include="BusinessLogic\ISystemInformationService.cs" />
+    <Compile Include="Events\PeaksAvailableMessage.cs" />
+    <Compile Include="Events\IApplicationEvent.cs" />
+    <Compile Include="Events\IEventAggregator.cs" />
+    <Compile Include="Events\ApplicationClosingMessage.cs" />
+    <Compile Include="Events\PodcastSelectedMessage.cs" />
+    <Compile Include="Presenters\EpisodePresenter.cs" />
+    <Compile Include="Events\EpisodeSelectedMessage.cs" />
+    <Compile Include="Events\EventAggregator.cs" />
     <Compile Include="Commands\AddSubscriptionCommand.cs" />
     <Compile Include="Commands\FavouriteCommand.cs" />
     <Compile Include="Commands\IToolbarCommand.cs" />
@@ -83,6 +94,11 @@
     <Compile Include="Commands\SettingsCommand.cs" />
     <Compile Include="Commands\StopCommand.cs" />
     <Compile Include="Model\Episode.cs" />
+    <Compile Include="Events\PodcastLoadCompleteMessage.cs" />
+    <Compile Include="Events\PodcastLoadedMessage.cs" />
+    <Compile Include="Presenters\PodcastPresenter.cs" />
+    <Compile Include="Presenters\SubscriptionPresenter.cs" />
+    <Compile Include="Presenters\ToolbarPresenter.cs" />
     <Compile Include="Views\EpisodeView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -94,13 +110,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>IconResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\IEpisodeView.cs" />
+    <Compile Include="Views\IMainFormView.cs" />
+    <Compile Include="Views\IPodcastView.cs" />
+    <Compile Include="Views\ISubscriptionView.cs" />
+    <Compile Include="Views\IToolbarView.cs" />
     <Compile Include="Views\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="BusinessLogic\MainFormPresenter.cs" />
+    <Compile Include="Presenters\MainFormPresenter.cs" />
     <Compile Include="BusinessLogic\MessageBoxDisplayService.cs" />
     <Compile Include="Views\NewPodcastForm.cs">
       <SubType>Form</SubType>
@@ -110,6 +131,7 @@
     </Compile>
     <Compile Include="BusinessLogic\NewSubscriptionService.cs" />
     <Compile Include="Model\Podcast.cs" />
+    <Compile Include="Views\NoteArgs.cs" />
     <Compile Include="Views\NoteForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -289,6 +311,7 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

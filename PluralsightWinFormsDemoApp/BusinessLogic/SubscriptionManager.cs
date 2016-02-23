@@ -2,21 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
+using PluralsightWinFormsDemoApp.Model;
 
-namespace PluralsightWinFormsDemoApp
+namespace PluralsightWinFormsDemoApp.BusinessLogic
 {
-    internal interface ISubscriptionManager
-    {
-        void Save();
-
-        void AddSubscription(Podcast podcast);
-        void RemoveSubscription(Podcast podcast);
-        IEnumerable<Podcast> Subscriptions { get; }
-    }
-
     class SubscriptionManager : ISubscriptionManager
     {
         private readonly string file;
@@ -48,7 +38,7 @@ namespace PluralsightWinFormsDemoApp
                     "http://feeds.feedburner.com/JesseLibertyYapcast",
                     "http://feeds.feedburner.com/HanselminutesCompleteMP3"
                 };
-                podcasts = defaultFeeds.Select(f => new Podcast() { SubscriptionUrl = f, Id = Guid.NewGuid() }).ToList();
+                podcasts = defaultFeeds.Select(f => new Podcast { SubscriptionUrl = f, Id = Guid.NewGuid() }).ToList();
             }
         }
 

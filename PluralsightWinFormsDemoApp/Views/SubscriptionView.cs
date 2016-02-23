@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace PluralsightWinFormsDemoApp
+namespace PluralsightWinFormsDemoApp.Views
 {
     public partial class SubscriptionView : UserControl, ISubscriptionView
     {
@@ -27,7 +27,7 @@ namespace PluralsightWinFormsDemoApp
         public void RemoveNode(string key)
         {
             var node = treeViewPodcasts.Nodes[key];
-            treeViewPodcasts.Nodes.Remove(node);                
+            treeViewPodcasts.Nodes.Remove(node);
         }
 
         public void SelectNode(string key)
@@ -42,16 +42,5 @@ namespace PluralsightWinFormsDemoApp
             var handler = SelectionChanged;
             if (handler != null) handler(this, EventArgs.Empty);
         }
-    }
-
-    public interface ISubscriptionView
-    {
-        TreeNode SelectedNode { get; }
-
-        void AddNode(TreeNode treeNode);
-        void RemoveNode(string key);
-        void SelectNode(string key);
-
-        event EventHandler SelectionChanged;
     }
 }

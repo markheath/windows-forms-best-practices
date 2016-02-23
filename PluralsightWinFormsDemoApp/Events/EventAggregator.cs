@@ -2,19 +2,8 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
-namespace PluralsightWinFormsDemoApp.BusinessLogic
+namespace PluralsightWinFormsDemoApp.Events
 {
-    public interface IEventAggregator
-    {
-        void Publish<T>(T message) where T : IApplicationEvent;
-        void Subscribe<T>(Action<T> action) where T : IApplicationEvent;
-        void Unsubscribe<T>(Action<T> action) where T : IApplicationEvent;
-    }
-
-    public interface IApplicationEvent
-    {
-    }
-    
     class EventAggregator : IEventAggregator
     {
         private static readonly IEventAggregator instance = new EventAggregator();

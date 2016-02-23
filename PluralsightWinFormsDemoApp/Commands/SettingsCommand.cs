@@ -1,4 +1,4 @@
-namespace PluralsightWinFormsDemoApp
+namespace PluralsightWinFormsDemoApp.Commands
 {
     class SettingsCommand : CommandBase
     {

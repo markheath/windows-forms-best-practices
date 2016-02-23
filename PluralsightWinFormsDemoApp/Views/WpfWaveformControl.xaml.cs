@@ -57,12 +57,12 @@ namespace PluralsightWinFormsDemoApp.Views
 
         private void NowBarCanvasOnMouseLeave(object sender, MouseEventArgs mouseEventArgs)
         {
-            this.Cursor = Cursors.Arrow;
+            Cursor = Cursors.Arrow;
         }
 
         private void NowBarCanvasOnMouseEnter(object sender, MouseEventArgs mouseEventArgs)
         {
-            this.Cursor = Cursors.SizeWE;
+            Cursor = Cursors.SizeWE;
         }
 
         private void NotePopupOnClosed(object sender, EventArgs routedEventArgs)
@@ -91,7 +91,7 @@ namespace PluralsightWinFormsDemoApp.Views
         {
             if (mouseButtonEventArgs.ChangedButton == MouseButton.Left && !NotePopup.IsOpen)
             {
-                if (this.Cursor == Cursors.SizeWE)
+                if (Cursor == Cursors.SizeWE)
                 {
                     isScrolling = true;
                 }
@@ -123,7 +123,7 @@ namespace PluralsightWinFormsDemoApp.Views
             if (peaks == null) peaks = new float[0];
             peaksCanvas.Width = peaks.Length;
             linesCanvas.Children.Clear();
-            var peaksHeight = 60;
+            const int peaksHeight = 60;
             var lines = peaks.Select((peak, n) =>
                                      {
 

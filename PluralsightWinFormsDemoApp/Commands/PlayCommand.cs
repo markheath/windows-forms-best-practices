@@ -1,9 +1,8 @@
-using System.ComponentModel;
-using System.Drawing;
 using System.Windows.Forms;
 using PluralsightWinFormsDemoApp.BusinessLogic;
+using PluralsightWinFormsDemoApp.Events;
 
-namespace PluralsightWinFormsDemoApp
+namespace PluralsightWinFormsDemoApp.Commands
 {
     class PlayCommand : CommandBase
     {

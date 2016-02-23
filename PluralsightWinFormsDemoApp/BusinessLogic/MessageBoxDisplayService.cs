@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace PluralsightWinFormsDemoApp
+namespace PluralsightWinFormsDemoApp.BusinessLogic
 {
     internal class MessageBoxDisplayService : IMessageBoxDisplayService
     {
@@ -8,10 +8,5 @@ namespace PluralsightWinFormsDemoApp
         {
             MessageBox.Show(message);
         }
-    }
-
-    internal interface IMessageBoxDisplayService
-    {
-        void Show(string message);
     }
 }
