@@ -20,6 +20,7 @@ namespace PluralsightWinFormsDemoApp
             Application.ThreadException += ApplicationOnThreadException;
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             Application.EnableVisualStyles();
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.SetCompatibleTextRenderingDefault(false);
 
             var episodeView = new EpisodeView();

@@ -1,16 +1,7 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{11CFC7EA-E1A6-4A63-9BE6-B774FA8B07A3}</ProjectGuid>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <OutputType>WinExe</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>PluralsightWinFormsDemoApp</RootNamespace>
-    <AssemblyName>PluralsightWinFormsDemoApp</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -26,237 +17,11 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
+    <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="NAudio">
-      <HintPath>..\packages\NAudio.1.7.1\lib\net35\NAudio.dll</HintPath>
-    </Reference>
-    <Reference Include="PresentationCore" />
-    <Reference Include="PresentationFramework" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Deployment" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="UIAutomationProvider" />
-    <Reference Include="WindowsBase" />
-    <Reference Include="WindowsFormsIntegration" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="BusinessLogic\IMessageBoxDisplayService.cs" />
-    <Compile Include="BusinessLogic\INewSubscriptionService.cs" />
-    <Compile Include="BusinessLogic\IPodcastPlayer.cs" />
-    <Compile Include="BusinessLogic\ISettingsService.cs" />
-    <Compile Include="BusinessLogic\ISubscriptionManager.cs" />
-    <Compile Include="BusinessLogic\ISystemInformationService.cs" />
-    <Compile Include="Events\PeaksAvailableMessage.cs" />
-    <Compile Include="Events\IApplicationEvent.cs" />
-    <Compile Include="Events\IEventAggregator.cs" />
-    <Compile Include="Events\ApplicationClosingMessage.cs" />
-    <Compile Include="Events\PodcastSelectedMessage.cs" />
-    <Compile Include="Presenters\EpisodePresenter.cs" />
-    <Compile Include="Events\EpisodeSelectedMessage.cs" />
-    <Compile Include="Events\EventAggregator.cs" />
-    <Compile Include="Commands\AddSubscriptionCommand.cs" />
-    <Compile Include="Commands\FavouriteCommand.cs" />
-    <Compile Include="Commands\IToolbarCommand.cs" />
-    <Compile Include="Commands\PauseCommand.cs" />
-    <Compile Include="Commands\PlayCommand.cs" />
-    <Compile Include="Commands\CommandBase.cs" />
-    <Compile Include="BusinessLogic\PodcastLoader.cs" />
-    <Compile Include="BusinessLogic\PodcastPlayer.cs" />
-    <Compile Include="Commands\RemoveSubscriptionCommand.cs" />
-    <Compile Include="Commands\SettingsCommand.cs" />
-    <Compile Include="Commands\StopCommand.cs" />
-    <Compile Include="Model\Episode.cs" />
-    <Compile Include="Events\PodcastLoadCompleteMessage.cs" />
-    <Compile Include="Events\PodcastLoadedMessage.cs" />
-    <Compile Include="Presenters\PodcastPresenter.cs" />
-    <Compile Include="Presenters\SubscriptionPresenter.cs" />
-    <Compile Include="Presenters\ToolbarPresenter.cs" />
-    <Compile Include="Views\EpisodeView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\EpisodeView.Designer.cs">
-      <DependentUpon>EpisodeView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="IconResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>IconResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\IEpisodeView.cs" />
-    <Compile Include="Views\IMainFormView.cs" />
-    <Compile Include="Views\IPodcastView.cs" />
-    <Compile Include="Views\ISubscriptionView.cs" />
-    <Compile Include="Views\IToolbarView.cs" />
-    <Compile Include="Views\MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Presenters\MainFormPresenter.cs" />
-    <Compile Include="BusinessLogic\MessageBoxDisplayService.cs" />
-    <Compile Include="Views\NewPodcastForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\NewPodcastForm.Designer.cs">
-      <DependentUpon>NewPodcastForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BusinessLogic\NewSubscriptionService.cs" />
-    <Compile Include="Model\Podcast.cs" />
-    <Compile Include="Views\NoteArgs.cs" />
-    <Compile Include="Views\NoteForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Views\NoteForm.Designer.cs">
-      <DependentUpon>NoteForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\PodcastView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\PodcastView.Designer.cs">
-      <DependentUpon>PodcastView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Program.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BusinessLogic\SubscriptionManager.cs" />
-    <Compile Include="BusinessLogic\SettingsService.cs" />
-    <Compile Include="Views\SubscriptionView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\SubscriptionView.Designer.cs">
-      <DependentUpon>SubscriptionView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BusinessLogic\SystemInformationService.cs" />
-    <Compile Include="TextResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TextResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="TextResources.fr.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>TextResources.fr.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ToolBarView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\ToolBarView.Designer.cs">
-      <DependentUpon>ToolBarView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\WaveformViewer.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\WaveformViewer.Designer.cs">
-      <DependentUpon>WaveformViewer.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\WpfEpisodeView.xaml.cs">
-      <DependentUpon>WpfEpisodeView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\WpfEpisodeViewHost.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\WpfEpisodeViewHost.Designer.cs">
-      <DependentUpon>WpfEpisodeViewHost.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\WpfWaveformControl.xaml.cs">
-      <DependentUpon>WpfWaveformControl.xaml</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="Views\EpisodeView.en-GB.resx">
-      <DependentUpon>EpisodeView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\EpisodeView.fr.resx">
-      <DependentUpon>EpisodeView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\EpisodeView.resx">
-      <DependentUpon>EpisodeView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="IconResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>IconResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\NewPodcastForm.resx">
-      <DependentUpon>NewPodcastForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\NoteForm.resx">
-      <DependentUpon>NoteForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\PodcastView.resx">
-      <DependentUpon>PodcastView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="Views\SubscriptionView.resx">
-      <DependentUpon>SubscriptionView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TextResources.fr.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>TextResources.fr.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TextResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>TextResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\ToolBarView.resx">
-      <DependentUpon>ToolBarView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\WaveformViewer.resx">
-      <DependentUpon>WaveformViewer.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Views\WpfEpisodeViewHost.resx">
-      <DependentUpon>WpfEpisodeViewHost.cs</DependentUpon>
-    </EmbeddedResource>
-    <None Include="packages.config" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
       <Visible>False</Visible>
@@ -275,49 +40,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\add-icon-32.png" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.5.0" />
+    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.3.310801">
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="NAudio" Version="1.10.0" />
+    <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\microphone-icon-32.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\pause-icon-32.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\play-icon-32.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\remove-icon-32.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\settings-icon-32.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\star-icon-32.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\stop-icon-32.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\star-icon-fill-32.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Views\WpfEpisodeView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\WpfWaveformControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
